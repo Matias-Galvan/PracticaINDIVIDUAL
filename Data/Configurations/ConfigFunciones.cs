@@ -9,6 +9,7 @@ namespace Data.Configurations
         public ConfigFunciones(EntityTypeBuilder<Funcion> entityTypeBuilder)
         {
             entityTypeBuilder.HasOne(f => f.Pelicula).WithMany(p => p.Funciones).HasForeignKey(f => f.PeliculaId);
+            entityTypeBuilder.Property(g => g.FuncionId).HasDefaultValue
             
         }
     }

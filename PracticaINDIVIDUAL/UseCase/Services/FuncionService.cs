@@ -2,12 +2,7 @@
 using Aplication.Interfaces;
 using Data;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Aplication.UseCase.Services
 {
@@ -21,6 +16,17 @@ namespace Aplication.UseCase.Services
 
         public void crearFuncion(Funcion funcion)
         {
+            // Get the table
+            var table = _context.Set<Funcion>();
+            
+
+            // Get the next ID
+            var nextId = table.Local.Count + 1;
+
+            // Set the ID of the new entity
+            funcion.FuncionId = nextId;
+
+
             _context.Funciones.Add(funcion);
             _context.SaveChanges();            
         }

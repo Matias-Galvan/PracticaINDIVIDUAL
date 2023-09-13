@@ -27,6 +27,7 @@ namespace Data.Migrations
                     b.Property<int>("FuncionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionId"));
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
