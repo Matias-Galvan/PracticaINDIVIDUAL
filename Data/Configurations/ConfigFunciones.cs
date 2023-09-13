@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Configurations
@@ -8,6 +9,7 @@ namespace Data.Configurations
         public ConfigFunciones(EntityTypeBuilder<Funcion> entityTypeBuilder)
         {
             entityTypeBuilder.HasOne(f => f.Pelicula).WithMany(p => p.Funciones).HasForeignKey(f => f.PeliculaId);
+            
         }
     }
 }

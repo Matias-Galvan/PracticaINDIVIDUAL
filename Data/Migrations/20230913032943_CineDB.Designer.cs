@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CineDBContext))]
-    [Migration("20230913024520_CineDB")]
+    [Migration("20230913032943_CineDB")]
     partial class CineDB
     {
         /// <inheritdoc />
@@ -28,7 +28,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Domain.Entities.Funcion", b =>
                 {
                     b.Property<int>("FuncionId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
