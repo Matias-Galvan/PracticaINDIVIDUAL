@@ -17,6 +17,7 @@ namespace Aplication.UseCase.Controller
     {
         public void crearModelo(CineDBContext context)
         {
+            Console.Clear();
             var serviceFuncion = new FuncionService(context);
             var peliculaFuncion = new PeliculaService(context).getAllPelicula();
             var salaFuncion = new SalaService(context).getAll();
@@ -167,6 +168,10 @@ namespace Aplication.UseCase.Controller
             }
 
             return hora;
+        }
+        public void buscarFuncionDia()
+        {
+
         }
     }
 }

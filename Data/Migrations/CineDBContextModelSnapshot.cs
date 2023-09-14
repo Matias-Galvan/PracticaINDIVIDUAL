@@ -27,7 +27,6 @@ namespace Data.Migrations
                     b.Property<int>("FuncionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionId"));
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -45,7 +44,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PeliculaId");
 
-                    b.ToTable("Funciones");
+                    b.ToTable("Funciones", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Genero", b =>

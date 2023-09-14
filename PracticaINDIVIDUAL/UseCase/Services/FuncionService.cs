@@ -2,7 +2,7 @@
 using Aplication.Interfaces;
 using Data;
 using Domain.Entities;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplication.UseCase.Services
 {
@@ -16,17 +16,18 @@ namespace Aplication.UseCase.Services
 
         public void crearFuncion(Funcion funcion)
         {
-            // Get the table
-            var table = _context.Set<Funcion>();
-            
-
-            // Get the next ID
-            var nextId = table.Local.Count + 1;
-
-            // Set the ID of the new entity
+            var totalFunciones = _context.Funciones.ToList().Count;
+            int nextId;
+            if (totalFunciones != 0)
+            {
+                nextId = totalFunciones + 1;
+            }
+            else
+            {
+                nextId = 1;
+            }
             funcion.FuncionId = nextId;
-
-
+            
             _context.Funciones.Add(funcion);
             _context.SaveChanges();            
         }

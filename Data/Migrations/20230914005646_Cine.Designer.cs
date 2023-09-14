@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CineDBContext))]
-    [Migration("20230913032943_CineDB")]
-    partial class CineDB
+    [Migration("20230914005646_Cine")]
+    partial class Cine
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Domain.Entities.Funcion", b =>
                 {
                     b.Property<int>("FuncionId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
@@ -46,7 +47,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PeliculaId");
 
-                    b.ToTable("Funciones");
+                    b.ToTable("Funciones", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Genero", b =>
