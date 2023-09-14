@@ -2,12 +2,8 @@
 using Aplication.Interfaces;
 using Data;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace Aplication.UseCase.Services
 {
@@ -21,6 +17,18 @@ namespace Aplication.UseCase.Services
 
         public void crearFuncion(Funcion funcion)
         {
+            var totalFunciones = _context.Funciones.ToList().Count;
+            int nextId;
+            if (totalFunciones != 0)
+            {
+                nextId = totalFunciones + 1;
+            }
+            else
+            {
+                nextId = 1;
+            }
+            funcion.FuncionId = nextId;
+            
             _context.Funciones.Add(funcion);
             _context.SaveChanges();            
         }
@@ -34,11 +42,11 @@ namespace Aplication.UseCase.Services
             return _context.Funciones.ToList();
         }
 
-        public List<Funcion> GetFuncionPelicula(string peliculaNombre)
+        public List<Funcion> GetFuncionPelicula(int peliculaNombre)
         {
             var listaFuncionesPelicula = new List<Funcion>();
             var listaFunciones = GetAllFunciones();
-            listaFuncionesPelicula = listaFunciones.Where(funcion => funcion.Pelicula.Titulo.Contains(peliculaNombre, StringComparison.OrdinalIgnoreCase)).ToList();
+            listaFuncionesPelicula = listaFunciones.Where(funcion => funcion.Pelicula.PeliculaId==(peliculaNombre)).ToList();
             if (!listaFuncionesPelicula.Any())
             {
                 throw new ElementNotFoundException("No hay funciones para la película seleccionada");
@@ -50,14 +58,23 @@ namespace Aplication.UseCase.Services
             var listaFuncionesPelicula = new List<Funcion>();
             var listaFunciones = GetAllFunciones();
             listaFuncionesPelicula = listaFunciones.Where(funcion => funcion.Fecha.Date == dia.Date).ToList();
+            if (!listaFuncionesPelicula.Any())
+            {
+                throw new ElementNotFoundException("No hay funciones para la fecha seleccionada");
+            }
             return listaFuncionesPelicula;
         }
-        public List<Funcion> GetFuncionPeliculaYDia(string peliculaNombre, DateTime fecha)
+        public List<Funcion> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha)
         {
             var listaFuncionesPelicula = new List<Funcion>();
             var listaFunciones = GetAllFunciones();
-            listaFuncionesPelicula = listaFunciones.Where(funcion => funcion.Pelicula.Titulo.Contains(peliculaNombre, StringComparison.OrdinalIgnoreCase)).ToList();
+            listaFuncionesPelicula = listaFunciones.Where(funcion => funcion.Pelicula.PeliculaId == (peliculaNombre) && funcion.Fecha.Date == fecha.Date).ToList();
+            if (!listaFuncionesPelicula.Any())
+            {
+                throw new ElementNotFoundException("No hay funciones para la película y fecha seleccionada");
+            }
             return listaFuncionesPelicula;
         }
+
     }
 }

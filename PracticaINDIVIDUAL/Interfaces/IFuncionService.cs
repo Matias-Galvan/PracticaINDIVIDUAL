@@ -11,8 +11,8 @@ namespace Aplication.Interfaces
     {
         void crearFuncion(Funcion funcion);
         List<Funcion>GetAllFunciones();
-        List<Funcion> GetFuncionPelicula(string peliculaNombre);
+        List<Funcion> GetFuncionPelicula(int peliculaNombre);
         List<Funcion> GetFuncionDia(DateTime dia);
-        List<Funcion> GetFuncionPeliculaYDia(string peliculaNombre, DateTime fecha);
+        List<Funcion> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
     }
 }

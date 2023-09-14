@@ -19,7 +19,7 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=CineDB;Trusted_Connection=True;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=Cine;Trusted_Connection=True;TrustServerCertificate=true;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -252,6 +252,11 @@ namespace Data
                 entity.HasData(new Genero { GeneroId = 8, Nombre = "Musical" });
                 entity.HasData(new Genero { GeneroId = 9, Nombre = "Suspenso" });
                 entity.HasData(new Genero { GeneroId = 10, Nombre = "Terror" });
+            });
+            modelBuilder.Entity<Funcion>(entity =>
+            {
+                entity.ToTable("Funciones");
+
             });
         }
     }

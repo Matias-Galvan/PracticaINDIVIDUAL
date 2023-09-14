@@ -11,7 +11,6 @@ namespace Domain.Entities
     public class Ticket
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TicketId { get; set; }
         public int FuncionId { get; set; }
         [StringLength(50)]

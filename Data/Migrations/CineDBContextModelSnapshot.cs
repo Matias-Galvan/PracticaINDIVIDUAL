@@ -44,7 +44,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PeliculaId");
 
-                    b.ToTable("Funciones");
+                    b.ToTable("Funciones", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Genero", b =>

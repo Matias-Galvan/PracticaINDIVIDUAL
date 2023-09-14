@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,7 @@ namespace Domain.Entities
 {
     public class Funcion
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FuncionId { get; set; }   
+ 
         public DateTime Fecha { get; set; }
         public DateTime Horario { get; set; }
         public int SalaId { get; set; }
@@ -18,5 +18,8 @@ namespace Domain.Entities
         public int PeliculaId { get; set; }
         public virtual Pelicula Pelicula { get; set; }
         public virtual Sala Sala { get; set; }
+
+        
+        public int FuncionId { get; set; }
     }
 }
