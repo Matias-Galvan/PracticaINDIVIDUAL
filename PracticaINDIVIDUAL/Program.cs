@@ -43,12 +43,15 @@ using (CineDBContext context = new CineDBContext())
                                 {
                                     case 1:
                                         //Busqueda funcion por dia
+                                        userConsole.buscarFuncionPelicula(_context);
                                         break;
                                     case 2:
                                         //Busqueda funcion por pelicula
+                                        userConsole.buscarFuncionDia(_context);
                                         break;
                                     case 3:
                                         //Busqueda funcion por peli y dia
+                                        userConsole.buscarFuncionDiaPelicula(context);
                                         break;
                                     case 4:
                                         //Salir
@@ -95,7 +98,7 @@ using (CineDBContext context = new CineDBContext())
         }
         catch (Exception ex)
         {
-
+            Console.WriteLine(ex.Message);
         }
 
 

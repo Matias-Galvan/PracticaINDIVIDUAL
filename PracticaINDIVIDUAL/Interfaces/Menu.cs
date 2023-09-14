@@ -37,8 +37,8 @@ namespace Aplication.Interfaces
             Console.WriteLine("                                                 ");
             Console.WriteLine("        Seleccione el método de búsqueda         ");
             Console.WriteLine("                                                 ");
-            Console.WriteLine("1-Buscar funciones disponibles por día");
-            Console.WriteLine("2-Buscar funciones disponibles por título de película");
+            Console.WriteLine("1-Buscar funciones disponibles por título de película");
+            Console.WriteLine("2-Buscar funciones disponibles por día");
             Console.WriteLine("3-Buscar funciones disponibles por título y día");
             Console.WriteLine("4-Volver al menú principal");
             Console.Write("Opcion: ");

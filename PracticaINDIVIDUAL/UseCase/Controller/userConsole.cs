@@ -2,14 +2,7 @@
 using Aplication.UseCase.Services;
 using Data;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace Aplication.UseCase.Controller
 {
@@ -69,6 +62,8 @@ namespace Aplication.UseCase.Controller
                         {
                             Console.WriteLine("Película seleccionada correctamente");
                             funcion.PeliculaId = peliculaId;
+                            Console.WriteLine("Presione una tecla para continuar...");
+                            Console.ReadKey();
                             return (funcion);
                         }
                         else
@@ -108,6 +103,8 @@ namespace Aplication.UseCase.Controller
                         {
                             Console.WriteLine("Sala seleccionada correctamente");
                             funcion.SalaId = salaId;
+                            Console.WriteLine("Presione una tecla para continuar...");
+                            Console.ReadKey();
                             return funcion;
                         }
                         else
@@ -169,8 +166,136 @@ namespace Aplication.UseCase.Controller
 
             return hora;
         }
-        public void buscarFuncionDia()
+        public void buscarFuncionPelicula(CineDBContext context)
         {
+            var buscarFuncion = new FuncionService(context);
+            var funcion = new Funcion();
+            var listaPeliculas = new PeliculaService(context).getAllPelicula();
+            var listaSalas = new SalaService(context).getAll();
+            Console.Clear();
+            Console.WriteLine("*********************************************************");
+            Console.WriteLine("*              Películas disponibles:                   *");
+            Console.WriteLine("*********************************************************");
+            foreach (var pelicula in listaPeliculas)
+            {
+                Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
+                Console.WriteLine($"Sinopsis: {pelicula.Sinopsis}");
+            }
+                try
+                {
+                    Console.WriteLine("Seleccione el código de la película");
+                    if (int.TryParse(Console.ReadLine(), out int peliculaId))
+                    {
+                        if (listaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
+                        {
+                            Console.WriteLine("Película seleccionada correctamente");
+                            funcion.PeliculaId = peliculaId;
+                            List<Funcion> listadoFunciones = buscarFuncion.GetFuncionPelicula(funcion.PeliculaId);
+                            foreach (var func in listadoFunciones)
+                            {
+                            Console.WriteLine($"Película: {listaPeliculas[peliculaId].Titulo}");
+                            Console.WriteLine($"Código: {func.FuncionId}, Sala: {listaSalas[func.SalaId].Nombre}, Fecha: {func.Fecha:yyyy/MM/dd} , Hora: {func.Horario:HH:mm:ss}");
+                            }
+                        Console.WriteLine("Presione una tecla para continuar...");
+                            Console.ReadKey();
+                            
+                        }
+                        else
+                        {
+                            throw new ElementNotFoundException("Película no encontrada, intente nuevamente");
+                        }
+                    }
+
+                }
+                catch
+                {
+                    throw new ParseFailedException("Código inválido, intente nuevamente");
+                }
+
+                        
+        }
+        public void buscarFuncionDia(CineDBContext context)
+        {
+            var buscarFuncion = new FuncionService(context);
+            var funcion = new Funcion();
+            var listadoPeliculas = new PeliculaService(context).getAllPelicula();
+            var listadoSalas = new SalaService(context).getAll();
+            Console.WriteLine("Ingrese la fecha a buscar en formato (YYYY/MM/DD)");
+            string fechaBuscar = Console.ReadLine();
+            DateTime fechaFiltro;
+            if (!string.IsNullOrEmpty(fechaBuscar) && DateTime.TryParse(fechaBuscar, out DateTime fechaSeleccionada))
+            {
+                fechaFiltro = fechaSeleccionada;
+                List<Funcion> listadoFunciones = buscarFuncion.GetFuncionDia(fechaFiltro);
+                foreach (var func in listadoFunciones)
+                {
+                    Console.WriteLine($"Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
+                    Console.WriteLine($"Código: {func.FuncionId}, Sala: {listadoSalas[func.SalaId].Nombre}, Película: {listadoPeliculas[func.PeliculaId].Titulo}");
+                }
+                Console.WriteLine("Presione una tecla para continuar...");
+                Console.ReadKey();
+            }
+            else
+            {
+                throw new InvalidDateFormatException("Fecha inválida");
+            }
+        }
+        public void buscarFuncionDiaPelicula(CineDBContext context)
+        {
+            var buscarFuncion = new FuncionService(context);
+            var funcion = new Funcion();
+            var listaPeliculas = new PeliculaService(context).getAllPelicula();
+            var listaSalas = new SalaService(context).getAll();
+            Console.Clear();
+            Console.WriteLine("*********************************************************");
+            Console.WriteLine("*              Películas disponibles:                   *");
+            Console.WriteLine("*********************************************************");
+            foreach (var pelicula in listaPeliculas)
+            {
+                Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
+                Console.WriteLine($"Sinopsis: {pelicula.Sinopsis}");
+            }
+            try
+            {
+                Console.WriteLine("Seleccione el código de la película");
+                if (int.TryParse(Console.ReadLine(), out int peliculaId))
+                {
+                    if (listaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
+                    {
+                        Console.WriteLine("Película seleccionada correctamente");
+                        funcion.PeliculaId = peliculaId;
+                        Console.WriteLine("Ingrese la fecha a buscar en formato (YYYY/MM/DD)");
+                        string fechaBuscar = Console.ReadLine();
+                        DateTime fechaFiltro;
+                        if (!string.IsNullOrEmpty(fechaBuscar) && DateTime.TryParse(fechaBuscar, out DateTime fechaSeleccionada))
+                        {
+                            fechaFiltro = fechaSeleccionada;
+                            List<Funcion> listadoFunciones = buscarFuncion.GetFuncionPeliculaYDia(peliculaId,fechaFiltro);
+                            foreach (var func in listadoFunciones)
+                            {
+                                Console.WriteLine($"Película: {listaPeliculas[func.PeliculaId].Titulo}, Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
+                                Console.WriteLine($"Código: {func.FuncionId}, Sala: {listaSalas[func.SalaId].Nombre}");
+                            }
+                        }
+                        else
+                        {
+                            throw new InvalidDateFormatException("Fecha inválida");
+                        }
+                        Console.WriteLine("Presione una tecla para continuar...");
+                        Console.ReadKey();
+
+                    }
+                    else
+                    {
+                        throw new ElementNotFoundException("Película no encontrada, intente nuevamente");
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new ParseFailedException("Código inválido, intente nuevamente");
+            }
 
         }
     }
