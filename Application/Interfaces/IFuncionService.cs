@@ -9,7 +9,7 @@ namespace Aplication.Interfaces
 {
     public interface IFuncionService
     {
-        void crearFuncion(Funcion funcion);
+        Task crearFuncion(Funcion funcion);
         List<Funcion>GetAllFunciones();
         List<Funcion> GetFuncionPelicula(int peliculaNombre);
         List<Funcion> GetFuncionDia(DateTime dia);

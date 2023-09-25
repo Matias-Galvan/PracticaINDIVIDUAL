@@ -1,13 +1,15 @@
 ﻿using Data.Configurations;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 
 namespace Data
 {
     public class CineDBContext: DbContext
+
     {
-        public CineDBContext()
+        public CineDBContext(DbContextOptions<CineDBContext> options): base(options)
         {                    
            
         }
@@ -17,10 +19,10 @@ namespace Data
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=Cine;Trusted_Connection=True;TrustServerCertificate=true;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=Cine;Trusted_Connection=True;TrustServerCertificate=true;");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new ConfigFunciones(modelBuilder.Entity<Funcion>());

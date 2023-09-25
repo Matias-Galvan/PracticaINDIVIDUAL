@@ -74,5 +74,9 @@ namespace Aplication.UseCase.Services
             return listaFuncionesPelicula;
         }
 
+        Task IFuncionService.crearFuncion(Funcion funcion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
