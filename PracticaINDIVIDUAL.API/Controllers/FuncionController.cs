@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Aplication.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +9,13 @@ namespace PracticaINDIVIDUAL.API.Controllers
     [ApiController]
     public class FuncionController : ControllerBase
     {
+        private readonly IFuncionService _funcionService;
+
+        public FuncionController(IFuncionService funcionService)
+        {
+            _funcionService = funcionService;
+        }
+
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -26,6 +34,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+             
         }
 
         // PUT api/<ValuesController>/5
