@@ -2,8 +2,6 @@
 using Aplication.Interfaces;
 using Data;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace Aplication.UseCase.Services
 {
