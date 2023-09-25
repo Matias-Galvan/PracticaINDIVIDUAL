@@ -3,7 +3,6 @@ using Aplication.UseCase.Services;
 using Data;
 using Domain.Entities;
 
-
 namespace Aplication.UseCase.Controller
 {
     public class userConsole

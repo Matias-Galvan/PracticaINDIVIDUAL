@@ -1,10 +1,7 @@
-﻿
-using Aplication.Interfaces;
-using Aplication.UseCase.Controller;
+﻿using Aplication.Interfaces;
 using Aplication.UseCase.Services;
+using Aplication.UseCase.Controller;
 using Data;
-using Domain.Entities;
-using System.Diagnostics;
 
 using (CineDBContext context = new CineDBContext())
 {
