@@ -69,7 +69,7 @@ namespace Data.Migrations
                 {
                     FuncionId = table.Column<int>(type: "int", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Horario = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Horario = table.Column<TimeSpan>(type: "time", nullable: false),
                     SalaId = table.Column<int>(type: "int", nullable: false),
                     PeliculaId = table.Column<int>(type: "int", nullable: false)
                 },

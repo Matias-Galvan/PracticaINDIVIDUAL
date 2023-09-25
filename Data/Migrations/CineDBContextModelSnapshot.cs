@@ -31,8 +31,8 @@ namespace Data.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Horario")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("Horario")
+                        .HasColumnType("time");
 
                     b.Property<int>("PeliculaId")
                         .HasColumnType("int");

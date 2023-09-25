@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CineDBContext))]
-    [Migration("20230914005646_Cine")]
+    [Migration("20230925205024_Cine")]
     partial class Cine
     {
         /// <inheritdoc />
@@ -34,8 +34,8 @@ namespace Data.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Horario")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("Horario")
+                        .HasColumnType("time");
 
                     b.Property<int>("PeliculaId")
                         .HasColumnType("int");

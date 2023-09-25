@@ -9,6 +9,7 @@ namespace Data
     public class CineDBContext: DbContext
 
     {
+        public CineDBContext() { }
         public CineDBContext(DbContextOptions<CineDBContext> options): base(options)
         {                    
            

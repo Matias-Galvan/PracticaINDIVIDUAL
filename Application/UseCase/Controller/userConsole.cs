@@ -143,16 +143,16 @@ namespace Aplication.UseCase.Controller
 
             return fecha;
         }
-        public static DateTime validarHora()
+        public static TimeSpan validarHora()
         {
-            DateTime hora;
+            TimeSpan hora;
 
             while (true)
             {
                 Console.WriteLine("Ingrese la hora en formato HH-MM-SS:");
                 try
                 {
-                    if (DateTime.TryParse(Console.ReadLine(), out hora))
+                    if (TimeSpan.TryParse(Console.ReadLine(), out hora))
                         break;
                     else
                         throw new Exception("Hora no válida. Ingrese una fecha en el formato HH-MM-SS.");

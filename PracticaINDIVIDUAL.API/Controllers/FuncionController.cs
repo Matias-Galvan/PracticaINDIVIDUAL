@@ -34,8 +34,13 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-             
+            _funcionService.crearFuncion(new Domain.Entities.Funcion());
         }
+        //[HttpPost]
+        //public async Task<IActionResult> crearFuncion(FuncionRequest request)
+        //{
+
+        //}
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
