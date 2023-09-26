@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticaINDIVIDUAL", "Pract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{F46A8E38-6293-4689-B3FF-21D7FF9F482C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{BA7E8EBD-50AA-4641-87CF-3EC2D76B8A04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infraestructure", "Data\Infraestructure.csproj", "{BA7E8EBD-50AA-4641-87CF-3EC2D76B8A04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{EBD438FB-9394-47DC-B2D1-29F6E7988FDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PracticaINDIVIDUAL.API", "PracticaINDIVIDUAL.API\PracticaINDIVIDUAL.API.csproj", "{EF2935C6-AB60-4D16-9DF8-625877CDA0BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticaINDIVIDUAL.API", "PracticaINDIVIDUAL.API\PracticaINDIVIDUAL.API.csproj", "{EF2935C6-AB60-4D16-9DF8-625877CDA0BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

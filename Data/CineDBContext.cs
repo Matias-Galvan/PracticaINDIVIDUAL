@@ -1,18 +1,18 @@
-﻿using Data.Configurations;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Infraestructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 
-namespace Data
+namespace Infraestructure
 {
-    public class CineDBContext: DbContext
+    public class CineDBContext : DbContext
 
     {
         public CineDBContext() { }
-        public CineDBContext(DbContextOptions<CineDBContext> options): base(options)
-        {                    
-           
+        public CineDBContext(DbContextOptions<CineDBContext> options) : base(options)
+        {
+
         }
         public DbSet<Funcion> Funciones { get; set; }
         public DbSet<Genero> Generos { get; set; }

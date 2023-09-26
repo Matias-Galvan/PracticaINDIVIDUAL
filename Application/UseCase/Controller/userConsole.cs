@@ -1,7 +1,7 @@
 ﻿using Aplication.ErrorHandler;
 using Aplication.UseCase.Services;
-using Data;
 using Domain.Entities;
+using Infraestructure;
 
 namespace Aplication.UseCase.Controller
 {

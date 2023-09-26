@@ -1,7 +1,7 @@
 ﻿using Aplication.Interfaces;
 using Aplication.UseCase.Services;
 using Aplication.UseCase.Controller;
-using Data;
+using Infraestructure;
 
 using (CineDBContext context = new CineDBContext())
 {

@@ -1,4 +1,5 @@
 ﻿using Aplication.Interfaces;
+using Application.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,17 +31,14 @@ namespace PracticaINDIVIDUAL.API.Controllers
             return "value";
         }
 
-        // POST api/<ValuesController>
+        //POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> crearFuncion(FuncionDTO funcion)
         {
-            _funcionService.crearFuncion(new Domain.Entities.Funcion());
+            var result = await _funcionService.agregarFuncion(funcion);
+            return new JsonResult(result);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> crearFuncion(FuncionRequest request)
-        //{
 
-        //}
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]

@@ -1,6 +1,9 @@
 using Aplication.Interfaces;
 using Aplication.UseCase.Services;
-using Data;
+using Application.Interfaces.Command;
+using Application.Interfaces.Queries;
+using Infraestructure;
+using Infraestructure.Data.Commands.Funcion;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,10 +18,14 @@ builder.Services.AddSwaggerGen();
 //inyección de dependencias y CQRS
 var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddDbContext<CineDBContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddMediatR(typeof(Program).Assembly);
+builder.Services.AddScoped<IFuncionCommand, FuncionCommand>();
+//builder.Services.AddScoped<IFuncionQuery, FuncionQuery>();
 builder.Services.AddScoped<IFuncionService, FuncionService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPeliculaService, PeliculaService>();
-builder.Services.AddScoped <ISalaService, SalaService>();
+builder.Services.AddScoped<ISalaService, SalaService>();
+
 
 
 var app = builder.Build();

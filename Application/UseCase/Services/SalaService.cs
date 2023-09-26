@@ -1,7 +1,7 @@
 ﻿using Aplication.ErrorHandler;
 using Aplication.Interfaces;
-using Data;
 using Domain.Entities;
+using Infraestructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
