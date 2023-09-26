@@ -51,15 +51,15 @@ namespace Aplication.UseCase.Services
             funcion.Pelicula = pelicula;
             var sala = _context.Salas.Find(request.SalaId);
             funcion.Sala = sala;
-            funcion.Horario = request.Horario;
+            //funcion.Horario = request.Horario;
             await _funcionCommand.crearFuncion(funcion);
             return new FuncionDTO
             {
                 Fecha = funcion.Fecha,
-                Horario = funcion.Horario,
+               //Horario = funcion.Horario,
                 PeliculaId = funcion.Pelicula.PeliculaId,
                 SalaId = funcion.Sala.SalaId,
-                FuncionId = funcion.FuncionId
+                
                
             };
 
