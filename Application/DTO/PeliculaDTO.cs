@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO
 {
-    public class TicketDTOResponseIDTicket
+    public class PeliculaDTO
     {
-        public Guid ticketId { get; set; }
     }
 }

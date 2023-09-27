@@ -49,8 +49,6 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             {
                 predicate = predicate.And(x => x.Pelicula.GeneroId == filters.Genero);
             }
-            //throw new NotImplementedException();
-            //return _dbContext.Funciones.Where(predicate).ToListAsync();
             return _dbContext.Funciones.Where(predicate).Select(x => new FuncionDTOResponse
             {
                 FuncionId = x.FuncionId,
@@ -124,7 +122,7 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             return Task.FromResult(new TicketsDTOResponse
             {
 
-              Capacidad = sala.Capacidad
+              Cantidad = sala.Capacidad
                 
             });
         }

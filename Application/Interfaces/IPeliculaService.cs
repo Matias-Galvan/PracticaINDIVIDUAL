@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.DTO;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace Aplication.Interfaces
         void crearPelicula(Pelicula pelicula);
         List<Pelicula> getAllPelicula();
         Pelicula getPelicula(int id);
+        Task<List<PeliculaDTOResponse>> GetPeliculas();
+        Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId);
+        Task<PeliculaDTOResponse> actualizarPelicula(int funcionId);
 
     }
 }

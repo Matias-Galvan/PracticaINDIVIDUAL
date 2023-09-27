@@ -97,8 +97,8 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                 ticket.FuncionId = id;
                 ticket.Funcion = funcion;
                 ticket.Usuario = request.Usuario;
-                sala.Capacidad = sala.Capacidad - 1;
-                ticketsVendidos.Add(new TicketDTOResponseIDTicket { IDTicket = ticket.TicketId});
+                sala.Capacidad--;
+                ticketsVendidos.Add(new TicketDTOResponseIDTicket { ticketId = ticket.TicketId});
                 _context.Add(ticket);
             }
             await _context.SaveChangesAsync();

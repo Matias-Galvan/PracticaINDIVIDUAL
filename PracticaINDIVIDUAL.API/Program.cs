@@ -5,7 +5,9 @@ using Application.Interfaces.Queries;
 using Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using PracticaINDIVIDUAL.API.Commands.FuncionCMD;
+using PracticaINDIVIDUAL.API.Commands.Pelicula;
 using PracticaINDIVIDUAL.API.Queries.Funcion;
+using PracticaINDIVIDUAL.API.Queries.Pelicula;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +21,10 @@ builder.Services.AddSwaggerGen();
 //inyección de dependencias y CQRS
 var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddDbContext<CineDBContext>(options => options.UseSqlServer(connectionString));
-//builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.AddScoped<IFuncionCommand, FuncionCommand>();
 builder.Services.AddScoped<IFuncionQuery, FuncionQuery>();
+builder.Services.AddScoped<IPeliculaCommand, PeliculaCommand>();
+builder.Services.AddScoped<IPeliculaQuery, PeliculaQuery>();
 builder.Services.AddScoped<IFuncionService, FuncionService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPeliculaService, PeliculaService>();
