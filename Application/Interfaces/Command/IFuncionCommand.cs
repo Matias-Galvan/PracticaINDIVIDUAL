@@ -13,5 +13,6 @@ namespace Application.Interfaces.Command
         Task<FuncionDTOResponse> crearFuncion(Funcion funcion);
         Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
         Task<FuncionDTOResponse> eliminarFuncion(int funcionId);
+        Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request);
     }
 }

@@ -15,6 +15,7 @@ namespace Application.Interfaces.Queries
         Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters);
         Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId);
         Task<List<Funcion>> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
+        Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id);
 
     }
 }

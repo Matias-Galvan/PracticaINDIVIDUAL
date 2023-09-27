@@ -110,5 +110,23 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
                 }
             });
         }
+
+        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        {
+            var funcion = _dbContext.Funciones.Where(x => x.FuncionId == id).FirstOrDefault();
+            if (funcion == null)
+            {
+                throw new Exception("No existe la funcion");
+            }
+            var sala = _dbContext.Salas.Where(x => x.SalaId == funcion.SalaId).FirstOrDefault();
+            var tickets = _dbContext.Tickets.Where(x => x.FuncionId == funcion.FuncionId).ToList();
+            var ticketsDisponibles = sala.Capacidad - tickets.Count();
+            return Task.FromResult(new TicketsDTOResponse
+            {
+
+              Capacidad = sala.Capacidad
+                
+            });
+        }
     }
 }

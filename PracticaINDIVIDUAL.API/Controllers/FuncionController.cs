@@ -66,5 +66,19 @@ namespace PracticaINDIVIDUAL.API.Controllers
             var result = await _funcionService.eliminarFuncion(id);
             return new JsonResult(result);
         }
+        //GET api/<ValuesController>/5/tickets
+        [HttpGet("{id}/tickets")]
+        public async Task<IActionResult> GetTicketsByFuncion(int id)
+        {
+            var result = await _funcionService.obtenerTicketsFuncionPorId(id);
+            return new JsonResult(result);
+        }
+        //POST api/<ValuesController>/5/tickets
+        [HttpPost("{id}/tickets")]
+        public async Task<IActionResult> PostTicketsByFuncion(int id, TicketDTO request)
+        {
+            var result = await _funcionService.crearTicketFuncion(id, request);
+            return new JsonResult(result);
+        }
     }
 }

@@ -75,13 +75,11 @@ namespace Aplication.UseCase.Services
 
         public Task<FuncionDTOResponse> eliminarFuncion(int funcionId)
         {
-            return (Task<FuncionDTOResponse>)_funcionCommand.eliminarFuncion(funcionId);
+            return _funcionCommand.eliminarFuncion(funcionId);
         }
 
         public Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters)
         {
-            //List<Funcion> funciones = _funcionQuery.listarFunciones(filters).Result;
-            //return Task.FromResult(funciones);
             return _funcionQuery.listarFunciones(filters);
         }
 
@@ -89,6 +87,16 @@ namespace Aplication.UseCase.Services
         {
             FuncionDTOResponse funcion = _funcionQuery.obtenerFuncionPorId(funcionId).Result;
             return Task.FromResult(funcion);
+        }
+
+        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        {
+            return _funcionQuery.obtenerTicketsFuncionPorId(id);
+        }
+
+        public Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
+        {
+            return _funcionCommand.crearTicketFuncion(id, request);
         }
     }
 }

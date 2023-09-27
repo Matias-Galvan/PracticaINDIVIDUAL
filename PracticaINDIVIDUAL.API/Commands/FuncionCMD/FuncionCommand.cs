@@ -74,6 +74,11 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
             }
         }
 
+        public Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<FuncionDTOResponse> eliminarFuncion(int funcionId)
         {
             List<Funcion> funciones = await _context.Funciones.ToListAsync();

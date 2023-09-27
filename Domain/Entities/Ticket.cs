@@ -14,7 +14,7 @@ namespace Domain.Entities
         public Guid TicketId { get; set; }
         public int FuncionId { get; set; }
         [StringLength(50)]
-        public required string Usuario { get; set; }
-        public required Funcion Funcion { get; set; }
+        public string Usuario { get; set; }
+        public Funcion Funcion { get; set; }
     }
 }
