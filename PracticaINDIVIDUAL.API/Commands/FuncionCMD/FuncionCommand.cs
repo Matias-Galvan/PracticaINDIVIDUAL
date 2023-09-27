@@ -1,4 +1,6 @@
-﻿using Application.DTO;
+﻿using Aplication.ErrorHandler;
+using Aplication.UseCase.Services;
+using Application.DTO;
 using Application.Interfaces.Command;
 using Domain.Entities;
 using Infraestructure;
@@ -29,18 +31,29 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
 
         public async Task<FuncionDTOResponse> crearFuncion(Funcion request)
         {
+            var funciones = await _context.Funciones.ToListAsync() ?? throw new ElementNotFoundException("No hay funciones disponibles en cartelera");
             var funcion = new Funcion();
             funcion.Fecha = request.Fecha;
             var peliculaId = request.PeliculaId;
-            var pelicula = _context.Peliculas.Find(peliculaId);
+            var pelicula = _context.Peliculas.Find(peliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
             funcion.Pelicula = pelicula;
             funcion.SalaId = request.SalaId;
-            var sala = _context.Salas.Find(request.SalaId);
+            var sala = _context.Salas.Find(request.SalaId) ?? throw new ElementNotFoundException("Sala no encontrada");
             funcion.Sala = new Sala { Nombre = sala.Nombre, Capacidad = sala.Capacidad };
             funcion.Tickets = new List<Ticket>(sala.Capacidad);
             funcion.Horario = request.Horario;
-            try
-            {             
+            var horarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
+            var horarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
+            var genero = _context.Generos.Find(pelicula.GeneroId) ?? throw new ElementNotFoundException("Género no encontrado");
+ 
+                if (funciones.Any(f => f.Fecha == funcion.Fecha && f.Horario == funcion.Horario && f.SalaId == funcion.SalaId))
+                {
+                    throw new ElementAlreadyExistException("Ya existe una función para ese día y horario en esa sala");
+                }
+                if(funciones.Any(f => f.Horario <= horarioProximo && f.Horario >= horarioAnterior && f.SalaId == funcion.SalaId))
+                {
+                    throw new ElementAlreadyExistException("No se puede crear una función para ese día y horario en esa sala, hay superposición horaria. Intente nuevamente");
+                }
                 _context.Funciones.Add(funcion);
                 await _context.SaveChangesAsync();
                 return new FuncionDTOResponse
@@ -54,7 +67,7 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                         Genero = new GeneroDTOResponse
                         {
                             GeneroId = pelicula.GeneroId,
-                            Nombre = _context.Generos.Find(pelicula.GeneroId).Nombre
+                            Nombre = genero.Nombre
                         },
                     },
                     Sala = new SalaDTOResponse
@@ -67,11 +80,7 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                     Horario = funcion.Horario.ToString()
                 };
             }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
+            
         }
 
         public async Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)

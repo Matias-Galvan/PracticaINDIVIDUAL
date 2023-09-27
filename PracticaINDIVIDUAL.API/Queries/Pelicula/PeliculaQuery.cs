@@ -16,12 +16,12 @@ namespace PracticaINDIVIDUAL.API.Queries.Pelicula
 
         public Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId)
         {
-            var pelicula = _cineDBContext.Peliculas.FirstOrDefault(p => p.PeliculaId == peliculaId);
-            var genero = _cineDBContext.Generos.FirstOrDefault(g => g.GeneroId == pelicula.GeneroId);
+            var pelicula = _cineDBContext.Peliculas.FirstOrDefault(p => p.PeliculaId == peliculaId);            
             if (pelicula == null)
             {
                    throw new ElementNotFoundException("Película no encontrada");
             }
+            var genero = _cineDBContext.Generos.FirstOrDefault(g => g.GeneroId == pelicula.GeneroId);
             List<Domain.Entities.Funcion> funcions = _cineDBContext.Funciones.Where(f => f.PeliculaId == peliculaId).ToList();
             List<FuncionDTOResponseDetail> funciones = new List<FuncionDTOResponseDetail>();
             foreach (var funcion in funcions)

@@ -1,5 +1,7 @@
-﻿using Aplication.Interfaces;
+﻿using Aplication.ErrorHandler;
+using Aplication.Interfaces;
 using Application.DTO;
+using Application.ErrorHandler;
 using Application.Filters;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,10 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         //GET: api/<ValuesController> query parameters optionally
         [HttpGet]
+        [ProducesResponseType(typeof(FuncionDTO), 200)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> GetAll(string? titulo, string? fecha, int? generoId)
         {
             var filtros = new FuncionFilters
@@ -29,8 +35,26 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 Fecha = fecha,
                 Genero = generoId
             };
-            var result = await _funcionService.listarFunciones(filtros);
-            return new JsonResult(result);        
+            try
+            {
+                var result = await _funcionService.listarFunciones(filtros);
+                return new JsonResult(result);
+            }
+            catch (ElementNotFoundException e)
+            {
+                return NotFound(new ErrorMessageHttp
+                {
+                    message = e.Message,
+
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }          
                        
         }
 
@@ -44,6 +68,10 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         //POST api/<ValuesController>
         [HttpPost]
+        [ProducesResponseType(typeof(FuncionDTO), 201)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
         public async Task<IActionResult> crearFuncion(FuncionDTO request)
         {
             var funcion = new Funcion 
@@ -52,10 +80,29 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 Horario = TimeSpan.Parse(request.Horario), 
                 PeliculaId = request.PeliculaId, 
                 SalaId = request.SalaId 
-            };   
-            var result = await _funcionService.crearFuncion(funcion);
+            };
+            try
+            {
+                var result = await _funcionService.crearFuncion(funcion);
+                return new JsonResult(result);
+            }
+            catch (ElementAlreadyExistException e)
+            {
+                return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            //var result = await _funcionService.crearFuncion(funcion);
             
-            return new JsonResult(result);
+            //return new JsonResult(result);
         }
 
 

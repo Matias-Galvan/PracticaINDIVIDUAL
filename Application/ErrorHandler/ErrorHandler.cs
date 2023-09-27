@@ -40,6 +40,10 @@ namespace Aplication.ErrorHandler
     {
         public ElementAlreadyExistException(string message) : base(message) { }
     }
+    public class BadRequestException : Exception
+    {
+        public BadRequestException(string message) : base(message) { }
+    }
 
 }
 

@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using LinqKit;
 using Aplication.UseCase.Services;
 using Application.DTO;
+using Aplication.ErrorHandler;
 
 namespace PracticaINDIVIDUAL.API.Queries.Funcion
 {
@@ -37,16 +38,30 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             var predicate = PredicateBuilder.New<Domain.Entities.Funcion>(true);
             if (!string.IsNullOrEmpty(filters.Titulo))
             {   
-                var peliculas = new PeliculaService(_dbContext).getAllPelicula();
+                var peliculas = _dbContext.Peliculas.ToList();
                 var pelicula = peliculas.Where(p => p.Titulo.Contains(filters.Titulo)).FirstOrDefault();
+                if (pelicula == null)
+                {
+                    throw new ElementNotFoundException("Película no encontrada");
+                }
                 predicate = predicate.And(x => x.PeliculaId == pelicula.PeliculaId);
             }
             if (filters.Fecha != null)
             {
+                var funciones = _dbContext.Funciones.ToList();
+                if (!funciones.Any(f => f.Fecha == DateTime.Parse(filters.Fecha)))
+                {
+                    throw new ElementNotFoundException("No hay funciones para la fecha ingresada");
+                }
                 predicate = predicate.And(x => x.Fecha == DateTime.Parse(filters.Fecha));
             }
             if (filters.Genero != null)
             {
+                var generos = _dbContext.Generos.ToList();
+                if (!generos.Any(g => g.GeneroId == filters.Genero))
+                {
+                    throw new ElementNotFoundException("No hay funciones para el género ingresado");
+                }
                 predicate = predicate.And(x => x.Pelicula.GeneroId == filters.Genero);
             }
             return _dbContext.Funciones.Where(predicate).Select(x => new FuncionDTOResponse

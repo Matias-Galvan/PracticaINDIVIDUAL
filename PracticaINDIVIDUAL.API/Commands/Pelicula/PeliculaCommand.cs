@@ -4,6 +4,9 @@ using Application.DTO;
 using Application.Interfaces.Command;
 using Infraestructure;
 using Domain.Entities;
+using System.Net;
+using System.Web.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace PracticaINDIVIDUAL.API.Commands.Pelicula
 {
