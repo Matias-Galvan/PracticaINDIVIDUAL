@@ -1,18 +1,20 @@
 ﻿using Aplication.Interfaces;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Infraestructure;
+
 
 namespace Aplication.UseCase.Services
 {
     public class GeneroService : IGeneroService
     {
+        private readonly CineDBContext _context;
+        public GeneroService(CineDBContext context)
+        {
+            _context = context;
+        }
         public List<Genero> getGeneros()
         {
-            throw new NotImplementedException();
+            return _context.Generos.ToList();
         }
     }
 }

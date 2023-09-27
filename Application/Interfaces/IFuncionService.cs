@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.Filters;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,10 @@ namespace Aplication.Interfaces
 {
     public interface IFuncionService
     {
-        Task crearFuncion(Funcion funcion);
-        Task<FuncionDTO> agregarFuncion(FuncionDTO funcion);
+        Task<FuncionDTOResponse> crearFuncion(Funcion funcion);
+        Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
+        Task<FuncionDTOResponse> eliminarFuncion(int funcionId);
+        Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters);
         List<Funcion>GetAllFunciones();
         List<Funcion> GetFuncionPelicula(int peliculaNombre);
         List<Funcion> GetFuncionDia(DateTime dia);

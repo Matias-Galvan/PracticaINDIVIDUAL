@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.DTO;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Application.Interfaces.Command
 {
     public interface IFuncionCommand
     {
-        Task crearFuncion(Funcion funcion);
-        Task actualizarFuncion(int funcionId);
-        Task eliminarFuncion(int funcionId);
+        Task<FuncionDTOResponse> crearFuncion(Funcion funcion);
+        Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
+        Task<FuncionDTOResponse> eliminarFuncion(int funcionId);
     }
 }

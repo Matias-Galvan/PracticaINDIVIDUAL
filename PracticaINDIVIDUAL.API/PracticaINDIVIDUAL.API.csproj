@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Data\Infraestructure.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +27,6 @@
     <Folder Include="Commands\Pelicula\" />
     <Folder Include="Commands\Sala\" />
     <Folder Include="Commands\Ticket\" />
-    <Folder Include="Queries\Funcion\" />
     <Folder Include="Queries\Genero\" />
     <Folder Include="Queries\Pelicula\" />
     <Folder Include="Queries\Sala\" />

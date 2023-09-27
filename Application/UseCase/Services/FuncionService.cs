@@ -1,6 +1,7 @@
 ﻿using Aplication.ErrorHandler;
 using Aplication.Interfaces;
 using Application.DTO;
+using Application.Filters;
 using Application.Interfaces.Command;
 using Application.Interfaces.Queries;
 using Domain.Entities;
@@ -13,58 +14,17 @@ namespace Aplication.UseCase.Services
         private readonly CineDBContext _context;
         private readonly IFuncionCommand _funcionCommand;
         private readonly IFuncionQuery _funcionQuery;
-        public FuncionService(CineDBContext context)
-        {
-            _context = context;
-        }
 
         public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery)
         {
             _funcionCommand = funcionCommand;
             _funcionQuery = funcionQuery;
         }
-
-        public void crearFuncion(Funcion funcion)
+        public Task<FuncionDTOResponse> crearFuncion(Funcion funcion)
         {
-            //var totalFunciones = _context.Funciones.ToList().Count;
-            //int nextId;
-            //if (totalFunciones != 0)
-            //{
-            //    nextId = totalFunciones + 1;
-            //}
-            //else
-            //{
-            //    nextId = 1;
-            //}
-            //funcion.FuncionId = nextId;
-            
-            //_context.Funciones.Add(funcion);
-            //_context.SaveChanges();
-            
+            return _funcionCommand.crearFuncion(funcion);
         }
 
-        public async Task<FuncionDTO> agregarFuncion(FuncionDTO request)
-        {
-            var funcion = new Funcion();
-            funcion.Fecha = request.Fecha;
-            var pelicula = _context.Peliculas.Find(request.PeliculaId);
-            funcion.Pelicula = pelicula;
-            var sala = _context.Salas.Find(request.SalaId);
-            funcion.Sala = sala;
-            //funcion.Horario = request.Horario;
-            await _funcionCommand.crearFuncion(funcion);
-            return new FuncionDTO
-            {
-                Fecha = funcion.Fecha,
-               //Horario = funcion.Horario,
-                PeliculaId = funcion.Pelicula.PeliculaId,
-                SalaId = funcion.Sala.SalaId,
-                
-               
-            };
-
-            //await _funcionCommand.crearFuncion(new Funcion());
-        }
         public List<Funcion> GetAllFunciones()
         {
             if (_context.Funciones.ToList().Count == 0)
@@ -108,9 +68,21 @@ namespace Aplication.UseCase.Services
             return listaFuncionesPelicula;
         }
 
-        Task IFuncionService.crearFuncion(Funcion funcion)
+        public Task<FuncionDTOResponse> actualizarFuncion(int funcionId)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<FuncionDTOResponse> eliminarFuncion(int funcionId)
+        {
+            return (Task<FuncionDTOResponse>)_funcionCommand.eliminarFuncion(funcionId);
+        }
+
+        public Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters)
+        {
+            //List<Funcion> funciones = _funcionQuery.listarFunciones(filters).Result;
+            //return Task.FromResult(funciones);
+            return _funcionQuery.listarFunciones(filters);
         }
     }
 }
