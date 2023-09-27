@@ -8,7 +8,6 @@ namespace Application.DTO
 {
     public class TicketDTO
     {
-        public int TicketId { get; set; }
         public int Cantidad { get; set; }
         public string Usuario { get; set; }
     }

@@ -74,9 +74,26 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
             }
         }
 
-        public Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
+        public async Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
         {
-            throw new NotImplementedException();
+            var funcion = _context.Funciones.Find(id);
+            if (funcion == null)
+            {
+                throw new Exception("No existe la funcion");
+            }
+            if (funcion.Sala.Capacidad == 0)
+            {
+                throw new Exception("No hay capacidad en la sala");
+            }
+            var ticket = new Ticket();
+            ticket.FuncionId = id;
+            funcion.Sala.Capacidad = funcion.Sala.Capacidad - 1;
+           
+            
+            
+            
+
+        
         }
 
         public async Task<FuncionDTOResponse> eliminarFuncion(int funcionId)
