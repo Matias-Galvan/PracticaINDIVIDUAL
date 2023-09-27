@@ -75,7 +75,7 @@ namespace Aplication.UseCase.Services
             throw new NotImplementedException();
         }
 
-        public Task<FuncionDTOResponse> eliminarFuncion(int funcionId)
+        public Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId)
         {
             return _funcionCommand.eliminarFuncion(funcionId);
         }

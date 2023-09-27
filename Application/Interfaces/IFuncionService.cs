@@ -13,7 +13,7 @@ namespace Aplication.Interfaces
     {
         Task<FuncionDTOResponse> crearFuncion(Funcion funcion);
         Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
-        Task<FuncionDTOResponse> eliminarFuncion(int funcionId);
+        Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId);
         Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters);
         List<Funcion>GetAllFunciones();
         List<Funcion> GetFuncionPelicula(int peliculaNombre);

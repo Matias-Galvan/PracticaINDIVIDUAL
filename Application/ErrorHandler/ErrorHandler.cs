@@ -44,6 +44,10 @@ namespace Aplication.ErrorHandler
     {
         public BadRequestException(string message) : base(message) { }
     }
+    public class InvalidDataException : Exception
+    {
+        public InvalidDataException(string message) : base(message) { }
+    }
 
 }
 

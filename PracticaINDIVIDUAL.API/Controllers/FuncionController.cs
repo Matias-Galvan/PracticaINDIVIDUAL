@@ -72,6 +72,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> crearFuncion(FuncionDTO request)
         {
             var funcion = new Funcion 
@@ -86,16 +87,16 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 var result = await _funcionService.crearFuncion(funcion);
                 return new JsonResult(result);
             }
-            catch (ElementAlreadyExistException e)
+            catch (ElementNotFoundException e)
             {
-                return Conflict(new ErrorMessageHttp
+                return NotFound(new ErrorMessageHttp
                 {
                     message = e.Message,
                 });
             }
             catch (Exception e)
             {
-                return BadRequest(new ErrorMessageHttp
+                return Conflict(new ErrorMessageHttp
                 {
                     message = e.Message,
                 });
@@ -108,10 +109,40 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(FuncionDTO), 200)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> eliminarFuncion(int id)
         {
-            var result = await _funcionService.eliminarFuncion(id);
-            return new JsonResult(result);
+            try
+            {
+                var result = await _funcionService.eliminarFuncion(id);
+                return new JsonResult(result);
+            }
+            catch (ElementNotFoundException e)
+            {
+                return NotFound(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (InvalidOperationException e)
+            {
+                return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (Exception e)
+            {
+                return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }   
+
         }
         //GET api/<ValuesController>/5/tickets
         [HttpGet("{id}/tickets")]
@@ -122,10 +153,40 @@ namespace PracticaINDIVIDUAL.API.Controllers
         }
         //POST api/<ValuesController>/5/tickets
         [HttpPost("{id}/tickets")]
+        [ProducesResponseType(typeof(TicketDTO), 200)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> PostTicketsByFuncion(int id, TicketDTO request)
         {
-            var result = await _funcionService.crearTicketFuncion(id, request);
-            return new JsonResult(result);
+            try
+            {
+                var result = await _funcionService.crearTicketFuncion(id, request);
+                return new JsonResult(result);
+            }
+            catch (ElementNotFoundException e)
+            {
+                return NotFound(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (InvalidOperationException e)
+            {
+                return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (Exception e)
+            {
+                return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+
         }
     }
 }
