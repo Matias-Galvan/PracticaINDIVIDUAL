@@ -76,9 +76,39 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             }).ToListAsync();
         }
 
-        public Task<Domain.Entities.Funcion> obtenerFuncionPorId(int funcionId)
+        public Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId)
         {
-            throw new NotImplementedException();
+            var funcion = _dbContext.Funciones.Where(x => x.FuncionId == funcionId).FirstOrDefault();
+            if (funcion == null)
+            {
+                throw new Exception("No existe la funcion");
+            }
+            var pelicula = _dbContext.Peliculas.Where(x => x.PeliculaId == funcion.PeliculaId).FirstOrDefault();
+            var genero = _dbContext.Generos.Where(x => x.GeneroId == pelicula.GeneroId).FirstOrDefault();
+            var sala = _dbContext.Salas.Where(x => x.SalaId == funcion.SalaId).FirstOrDefault();
+            return Task.FromResult(new FuncionDTOResponse
+            {
+                FuncionId = funcion.FuncionId,
+                Fecha = funcion.Fecha,
+                Horario = funcion.Horario.ToString(),
+                Pelicula = new PeliculaDTOResponse
+                {
+                    PeliculaId = pelicula.PeliculaId,
+                    Titulo = pelicula.Titulo,
+                    Poster = pelicula.Poster,
+                    Genero = new GeneroDTOResponse
+                    {
+                        GeneroId = genero.GeneroId,
+                        Nombre = genero.Nombre
+                    }
+                },
+                Sala = new SalaDTOResponse
+                {
+                    SalaId = sala.SalaId,
+                    Nombre = sala.Nombre,
+                    Capacidad = sala.Capacidad
+                }
+            });
         }
     }
 }

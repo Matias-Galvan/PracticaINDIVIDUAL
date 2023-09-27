@@ -84,5 +84,11 @@ namespace Aplication.UseCase.Services
             //return Task.FromResult(funciones);
             return _funcionQuery.listarFunciones(filters);
         }
+
+        public Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId)
+        {
+            FuncionDTOResponse funcion = _funcionQuery.obtenerFuncionPorId(funcionId).Result;
+            return Task.FromResult(funcion);
+        }
     }
 }

@@ -19,5 +19,6 @@ namespace Aplication.Interfaces
         List<Funcion> GetFuncionPelicula(int peliculaNombre);
         List<Funcion> GetFuncionDia(DateTime dia);
         List<Funcion> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
+        Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId);
     }
 }

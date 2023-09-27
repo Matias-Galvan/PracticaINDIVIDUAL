@@ -36,9 +36,10 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetByFuncion(int id)
         {
-            return "value";
+            var result = await _funcionService.obtenerFuncionPorId(id);
+            return new JsonResult(result);
         }
 
         //POST api/<ValuesController>
@@ -57,12 +58,6 @@ namespace PracticaINDIVIDUAL.API.Controllers
             return new JsonResult(result);
         }
 
-
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]

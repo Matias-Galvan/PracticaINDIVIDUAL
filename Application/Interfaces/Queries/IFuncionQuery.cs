@@ -13,7 +13,7 @@ namespace Application.Interfaces.Queries
     public interface IFuncionQuery
     {
         Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters);
-        Task<Funcion> obtenerFuncionPorId(int funcionId);
+        Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId);
         Task<List<Funcion>> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
 
     }
