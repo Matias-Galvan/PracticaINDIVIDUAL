@@ -86,7 +86,7 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                 throw new Exception("No existe la funcion");
             }
 
-            for (int i = 0; i< sala.Capacidad; i++)
+            for (int i = 0; i< request.Cantidad; i++)
             {
                 if (sala.Capacidad == 0)
                 {
