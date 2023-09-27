@@ -21,6 +21,6 @@ namespace Aplication.Interfaces
         List<Funcion> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
         Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId);
         Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id);
-        Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request);
+        Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request);
     }
 }

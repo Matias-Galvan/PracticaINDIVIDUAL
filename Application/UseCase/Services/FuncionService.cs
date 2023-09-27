@@ -94,7 +94,7 @@ namespace Aplication.UseCase.Services
             return _funcionQuery.obtenerTicketsFuncionPorId(id);
         }
 
-        public Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
+        public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
         {
             return _funcionCommand.crearTicketFuncion(id, request);
         }

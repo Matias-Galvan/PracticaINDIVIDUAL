@@ -9,7 +9,7 @@ namespace Application.DTO
 {
     public class TicketDTOResponseTickets
     {
-        public List<Ticket> Tickets { get; set; }
+        public List<TicketDTOResponseIDTicket> Tickets { get; set; }
         public FuncionDTOResponse Funcion { get; set; }
         public string Usuario { get; set; } 
     }

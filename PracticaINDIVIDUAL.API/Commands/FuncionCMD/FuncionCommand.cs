@@ -74,20 +74,59 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
             }
         }
 
-        public async Task<TicketDTO> crearTicketFuncion(int id, TicketDTO request)
+        public async Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
         {
+            List<TicketDTOResponseIDTicket> ticketsVendidos = new List<TicketDTOResponseIDTicket>();
             var funcion = _context.Funciones.Find(id);
+            var pelicula = _context.Peliculas.Find(funcion.PeliculaId);
+            var genero = _context.Generos.Find(pelicula.GeneroId);
+            var sala = _context.Salas.Find(funcion.SalaId);
             if (funcion == null)
             {
                 throw new Exception("No existe la funcion");
             }
-            if (funcion.Sala.Capacidad == 0)
+
+            for (int i = 0; i< sala.Capacidad; i++)
             {
-                throw new Exception("No hay capacidad en la sala");
+                if (sala.Capacidad == 0)
+                {
+                    throw new Exception("No hay capacidad en la sala");
+                }
+                var ticket = new Ticket();
+                ticket.TicketId = new Guid();
+                ticket.FuncionId = id;
+                ticket.Funcion = funcion;
+                ticket.Usuario = request.Usuario;
+                sala.Capacidad = sala.Capacidad - 1;
+                ticketsVendidos.Add(new TicketDTOResponseIDTicket { IDTicket = ticket.TicketId});
+                _context.Add(ticket);
             }
-            var ticket = new Ticket();
-            ticket.FuncionId = id;
-            funcion.Sala.Capacidad = funcion.Sala.Capacidad - 1;
+            await _context.SaveChangesAsync();
+            return new TicketDTOResponseTickets
+            {
+                Tickets = ticketsVendidos,
+                Usuario = request.Usuario,
+                Funcion = new FuncionDTOResponse 
+                {
+                    Fecha = funcion.Fecha,
+                    Horario = funcion.Horario.ToString(),
+                    FuncionId = funcion.FuncionId,
+                    Pelicula = new PeliculaDTOResponse
+                    {
+                        PeliculaId = pelicula.PeliculaId,
+                        Titulo = pelicula.Titulo,
+                        Poster = pelicula.Poster,
+                        Genero = new GeneroDTOResponse
+                        {
+                            GeneroId = pelicula.GeneroId,
+                            Nombre = genero.Nombre
+                        }
+                    },
+                }
+
+            };
+            
+            
            
             
             
