@@ -14,7 +14,7 @@ namespace Application.DTO
         public string Trailer { get; set; }
         public string Sinopsis { get; set; }
         public GeneroDTOResponse genero { get; set; }
-        public List<FuncionDTOResponse> funciones { get; set; }
+        public List<FuncionDTOResponseDetail> funciones { get; set; }
 
     }
 }

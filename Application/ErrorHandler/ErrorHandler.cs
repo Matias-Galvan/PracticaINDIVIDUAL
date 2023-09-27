@@ -36,6 +36,10 @@ namespace Aplication.ErrorHandler
     {
         public ParseFailedException(string message) : base(message) { }
     }
+    public class ElementAlreadyExistException : Exception
+    {
+        public ElementAlreadyExistException(string message) : base(message) { }
+    }
 
 }
 

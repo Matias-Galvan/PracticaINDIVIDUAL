@@ -15,6 +15,13 @@ namespace Aplication.UseCase.Services
         private readonly IFuncionCommand _funcionCommand;
         private readonly IFuncionQuery _funcionQuery;
 
+        public FuncionService(CineDBContext context, IFuncionCommand funcionCommand, IFuncionQuery funcionQuery)
+        {
+            _context = context;
+            _funcionCommand = funcionCommand;
+            _funcionQuery = funcionQuery;
+        }
+
         public Task<FuncionDTOResponse> crearFuncion(Funcion funcion)
         {
             return _funcionCommand.crearFuncion(funcion);

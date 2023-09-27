@@ -9,6 +9,6 @@ namespace Application.Interfaces.Command
 {
     public interface IPeliculaCommand
     {
-        Task<PeliculaDTOResponse> actualizarPelicula(int funcionId);
+        Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request);
     }
 }

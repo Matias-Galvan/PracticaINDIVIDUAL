@@ -23,10 +23,10 @@ namespace PracticaINDIVIDUAL.API.Queries.Pelicula
                    throw new ElementNotFoundException("Película no encontrada");
             }
             List<Domain.Entities.Funcion> funcions = _cineDBContext.Funciones.Where(f => f.PeliculaId == peliculaId).ToList();
-            List<FuncionDTOResponse> funciones = new List<FuncionDTOResponse>();
+            List<FuncionDTOResponseDetail> funciones = new List<FuncionDTOResponseDetail>();
             foreach (var funcion in funcions)
             {
-                funciones.Add(new FuncionDTOResponse
+                funciones.Add(new FuncionDTOResponseDetail
                 {
                     FuncionId = funcion.FuncionId,
                     Fecha = funcion.Fecha,

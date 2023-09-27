@@ -15,7 +15,7 @@ namespace Aplication.Interfaces
         Pelicula getPelicula(int id);
         Task<List<PeliculaDTOResponse>> GetPeliculas();
         Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId);
-        Task<PeliculaDTOResponse> actualizarPelicula(int funcionId);
+        Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request);
 
     }
 }

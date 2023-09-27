@@ -67,9 +67,9 @@ namespace Aplication.UseCase.Services
             throw new NotImplementedException();
         }
 
-        public Task<PeliculaDTOResponse> actualizarPelicula(int funcionId)
+        public Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request)
         {
-            return _peliculaCommand.actualizarPelicula(funcionId);
+            return _peliculaCommand.actualizarPelicula(funcionId, request);
         }
     }
 }

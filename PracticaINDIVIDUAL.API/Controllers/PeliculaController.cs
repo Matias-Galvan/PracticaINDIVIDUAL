@@ -28,9 +28,17 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         // PUT api/<PeliculaController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePelicula(int id, [FromBody] PeliculaDTO request)
+        public async Task<IActionResult> UpdatePelicula(int id, PeliculaDTO request)
         {
-            var result = await _peliculaService.actualizarPelicula(id);
+            var peliculaEditar = new PeliculaDTO
+            {
+                Titulo = request.Titulo,
+                Poster = request.Poster,
+                Trailer = request.Trailer,
+                Sinopsis = request.Sinopsis,
+                generoId = request.generoId
+            };
+            var result = await _peliculaService.actualizarPelicula(id, peliculaEditar);
             return new JsonResult(result);
         }
 
