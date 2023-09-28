@@ -64,7 +64,7 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
                 }
                 predicate = predicate.And(x => x.Pelicula.GeneroId == filters.Genero);
             }
-            return _dbContext.Funciones.Where(predicate).Select(x => new FuncionDTOResponse
+            var listadoFunciones = _dbContext.Funciones.Where(predicate).Select(x => new FuncionDTOResponse
             {
                 FuncionId = x.FuncionId,
                 Fecha = x.Fecha,
@@ -87,6 +87,11 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
                     Capacidad = x.Sala.Capacidad
                 }
             }).ToListAsync();
+            if(listadoFunciones.Result.Count == 0)
+            {
+                throw new ElementNotFoundException("No hay funciones cargadas");
+            }
+            return listadoFunciones;
         }
 
         public Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId)
@@ -94,7 +99,7 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             var funcion = _dbContext.Funciones.Where(x => x.FuncionId == funcionId).FirstOrDefault();
             if (funcion == null)
             {
-                throw new Exception("No existe la funcion");
+                throw new ElementNotFoundException("No existe la funcion");
             }
             var pelicula = _dbContext.Peliculas.Where(x => x.PeliculaId == funcion.PeliculaId).FirstOrDefault();
             var genero = _dbContext.Generos.Where(x => x.GeneroId == pelicula.GeneroId).FirstOrDefault();
@@ -129,7 +134,7 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             var funcion = _dbContext.Funciones.Where(x => x.FuncionId == id).FirstOrDefault();
             if (funcion == null)
             {
-                throw new Exception("No existe la funcion");
+                throw new ElementNotFoundException("No existe la funcion");
             }
             var sala = _dbContext.Salas.Where(x => x.SalaId == funcion.SalaId).FirstOrDefault();
             var tickets = _dbContext.Tickets.Where(x => x.FuncionId == funcion.FuncionId).ToList();
@@ -137,8 +142,8 @@ namespace PracticaINDIVIDUAL.API.Queries.Funcion
             return Task.FromResult(new TicketsDTOResponse
             {
 
-              Cantidad = sala.Capacidad
-                
+              Cantidad = ticketsDisponibles
+
             });
         }
     }

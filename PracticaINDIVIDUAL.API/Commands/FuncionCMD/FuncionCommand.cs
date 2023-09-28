@@ -39,8 +39,8 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
             funcion.Pelicula = pelicula;
             funcion.SalaId = request.SalaId;
             var sala = _context.Salas.Find(request.SalaId) ?? throw new ElementNotFoundException("Sala no encontrada");
-            funcion.Sala = sala;
-            funcion.Tickets = new List<Ticket>(sala.Capacidad);
+            funcion.Sala = new Sala { Nombre = sala.Nombre, Capacidad = sala.Capacidad };
+            funcion.Tickets = new List<Ticket>(sala.Capacidad); 
             funcion.Horario = request.Horario;
             var horarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
             var horarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
@@ -72,9 +72,9 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                     },
                     Sala = new SalaDTOResponse
                     {
-                        SalaId = funcion.SalaId,
-                        Nombre = funcion.Sala.Nombre,
-                        Capacidad = funcion.Sala.Capacidad
+                        SalaId = sala.SalaId,
+                        Nombre = sala.Nombre,
+                        Capacidad = sala.Capacidad
                     },
                     Fecha = funcion.Fecha,
                     Horario = funcion.Horario.ToString()
@@ -88,14 +88,16 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
             var pelicula = _context.Peliculas.Find(funcion.PeliculaId) ?? throw new ElementNotFoundException("No existe la película");
             var genero = _context.Generos.Find(pelicula.GeneroId) ?? throw new ElementNotFoundException("No existe el género");
             var sala = _context.Salas.Find(funcion.SalaId) ?? throw new ElementNotFoundException("No existe la sala");
-            if (request.Cantidad > sala.Capacidad && sala.Capacidad != 0)
+            var ticketsFuncion = _context.Tickets.Where(t => t.FuncionId == id).ToList();
+            var capacidadTotal = sala.Capacidad - ticketsFuncion.Count;
+            if (request.Cantidad > capacidadTotal)
             {
                 throw new InvalidOperationException("No es posible realizar la operación, se supera la cantidad máxima de tickets disponibles. Intente nuevamente");
             }
             for (int i = 0; i < request.Cantidad; i++)
             {
 
-                if (sala.Capacidad == 0)
+                if (ticketsFuncion.Count == sala.Capacidad)
                 {
                     throw new Exception("Tickets agotados para esta función");
                 }
@@ -104,8 +106,8 @@ namespace PracticaINDIVIDUAL.API.Commands.FuncionCMD
                 ticket.FuncionId = id;
                 ticket.Funcion = funcion;
                 ticket.Usuario = request.Usuario;
-                sala.Capacidad--;
                 ticketsVendidos.Add(new TicketDTOResponseIDTicket { ticketId = ticket.TicketId });
+                ticketsFuncion.Add(ticket);
                 _context.Add(ticket);
             }
             await _context.SaveChangesAsync();

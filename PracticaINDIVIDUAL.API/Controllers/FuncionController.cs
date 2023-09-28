@@ -60,10 +60,32 @@ namespace PracticaINDIVIDUAL.API.Controllers
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(FuncionDTO), 200)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> GetByFuncion(int id)
         {
-            var result = await _funcionService.obtenerFuncionPorId(id);
-            return new JsonResult(result);
+            try
+            {
+                var result = await _funcionService.obtenerFuncionPorId(id);
+                return new JsonResult(result);
+            }
+            catch (ElementNotFoundException e)
+            {
+                return NotFound(new ErrorMessageHttp
+                {
+                    message = e.Message,
+
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
         }
 
         //POST api/<ValuesController>
@@ -146,10 +168,33 @@ namespace PracticaINDIVIDUAL.API.Controllers
         }
         //GET api/<ValuesController>/5/tickets
         [HttpGet("{id}/tickets")]
+        [ProducesResponseType(typeof(TicketDTO), 200)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
+        [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
         public async Task<IActionResult> GetTicketsByFuncion(int id)
         {
-            var result = await _funcionService.obtenerTicketsFuncionPorId(id);
-            return new JsonResult(result);
+            try
+            {
+                var result = await _funcionService.obtenerTicketsFuncionPorId(id);
+                return new JsonResult(result);
+            }
+            catch (ElementNotFoundException e)
+            {
+                return NotFound(new ErrorMessageHttp
+                {
+                    message = e.Message,
+
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+
         }
         //POST api/<ValuesController>/5/tickets
         [HttpPost("{id}/tickets")]
