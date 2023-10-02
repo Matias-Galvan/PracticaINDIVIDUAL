@@ -1,19 +1,11 @@
-﻿using Aplication.UseCase.Controller;
-using Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aplication.Interfaces
+﻿namespace Aplication.Interfaces
 {
     public class Menu
     {
         public Menu() { }
 
         /*Métodos*/
-        public void menuPrincipal()
+        public static void MenuPrincipal()
         {
             Console.Clear();
             Console.WriteLine("*************************************************");
@@ -28,7 +20,7 @@ namespace Aplication.Interfaces
             Console.Write("Opcion: ");
 
         }
-        public void menuBusquedaFuncion()
+        public static void MenuBusquedaFuncion()
         {
             Console.Clear();
             Console.WriteLine("*************************************************");
@@ -44,7 +36,7 @@ namespace Aplication.Interfaces
             Console.Write("Opcion: ");
 
         }
-        public void menuCargaFuncion()
+        public static void MenuCargaFuncion()
         {
             Console.Clear();
             Console.WriteLine("*************************************************");

@@ -3,13 +3,13 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Data
+namespace Data.Persistence
 {
-    public class CineDBContext: DbContext
+    public class CineDBContext : DbContext
     {
         public CineDBContext()
-        {                    
-           
+        {
+
         }
         public DbSet<Funcion> Funciones { get; set; }
         public DbSet<Genero> Generos { get; set; }

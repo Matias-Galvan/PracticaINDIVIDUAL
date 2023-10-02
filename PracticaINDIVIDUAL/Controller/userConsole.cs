@@ -1,31 +1,32 @@
 ﻿using Aplication.ErrorHandler;
+using Aplication.Services;
 using Aplication.UseCase.Services;
-using Data;
+using Data.Persistence;
 using Domain.Entities;
 
 
-namespace Aplication.UseCase.Controller
+namespace PracticaINDIVIDUAL.Controller
 {
-    public class userConsole
+    public class UserConsole
     {
-        public void crearModelo(CineDBContext context)
+        public static void CrearModelo(CineDBContext context)
         {
             Console.Clear();
-            var serviceFuncion = new FuncionService(context);
-            var peliculaFuncion = new PeliculaService(context).getAllPelicula();
-            var salaFuncion = new SalaService(context).getAll();
-            var diaFuncion = validarFecha();
-            var horaFuncion = validarHora();
-            var funcion = new Funcion
+            var ServiceFuncion = new FuncionService(context);
+            List<Pelicula> PeliculaFuncion = new PeliculaService(context).GetAllPelicula();
+            var SalaFuncion = new SalaService(context).GetAll();
+            var DiaFuncion = ValidarFecha();
+            var HoraFuncion = ValidarHora();
+            Funcion funcion = new()
             {
-                PeliculaId = crearSolicitudPelicula(peliculaFuncion).PeliculaId,
-                SalaId = crearSolicitudSala(salaFuncion).SalaId,
-                Fecha = diaFuncion,
-                Horario = horaFuncion
+                PeliculaId = CrearSolicitudPelicula(PeliculaFuncion).PeliculaId,
+                SalaId = CrearSolicitudSala(SalaFuncion).SalaId,
+                Fecha = DiaFuncion,
+                Horario = HoraFuncion
             };
-            try 
+            try
             {
-                serviceFuncion.crearFuncion(funcion);
+                ServiceFuncion.CrearFuncion(funcion);
                 Console.WriteLine("La función fue creada correctamente");
                 Console.WriteLine($"Resumen de función " +
                     $"Título: {new PeliculaService(context).getPelicula(funcion.PeliculaId).Titulo}" +
@@ -33,15 +34,15 @@ namespace Aplication.UseCase.Controller
                     $"Fecha: {funcion.Fecha}" +
                     $"Hora: {funcion.Horario}");
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            
-            
+
+
         }
-        public Funcion crearSolicitudPelicula(List<Pelicula> listaPeliculas)
-        {   
+        public static Funcion CrearSolicitudPelicula(List<Pelicula> listaPeliculas)
+        {
             var funcion = new Funcion();
             Console.Clear();
             Console.WriteLine("*********************************************************");
@@ -53,10 +54,10 @@ namespace Aplication.UseCase.Controller
             }
             while (true)
             {
-                try 
-                {                    
+                try
+                {
                     Console.WriteLine("Seleccione el código de la película");
-                    if(int.TryParse(Console.ReadLine(), out int peliculaId))
+                    if (int.TryParse(Console.ReadLine(), out int peliculaId))
                     {
                         if (listaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
                         {
@@ -64,7 +65,7 @@ namespace Aplication.UseCase.Controller
                             funcion.PeliculaId = peliculaId;
                             Console.WriteLine("Presione una tecla para continuar...");
                             Console.ReadKey();
-                            return (funcion);
+                            return funcion;
                         }
                         else
                         {
@@ -74,14 +75,14 @@ namespace Aplication.UseCase.Controller
 
                 }
                 catch
-                { 
+                {
                     throw new ParseFailedException("Código inválido, intente nuevamente");
                 }
-                
+
             }
-            
+
         }
-        public Funcion crearSolicitudSala(List<Sala> salas)
+        public static Funcion CrearSolicitudSala(List<Sala> salas)
         {
             var funcion = new Funcion();
             Console.Clear();
@@ -90,7 +91,7 @@ namespace Aplication.UseCase.Controller
             Console.WriteLine("*********************************************************");
             foreach (var sala in salas)
             {
-                Console.WriteLine($"Código: {sala.SalaId}, Nombre de sala: {sala.Nombre}, Capacidad: { sala.Capacidad}");
+                Console.WriteLine($"Código: {sala.SalaId}, Nombre de sala: {sala.Nombre}, Capacidad: {sala.Capacidad}");
             }
             while (true)
             {
@@ -120,9 +121,9 @@ namespace Aplication.UseCase.Controller
                 }
 
             }
-            
+
         }
-        public static DateTime validarFecha()
+        public static DateTime ValidarFecha()
         {
             DateTime fecha;
 
@@ -144,7 +145,7 @@ namespace Aplication.UseCase.Controller
 
             return fecha;
         }
-        public static DateTime validarHora()
+        public static DateTime ValidarHora()
         {
             DateTime hora;
 
@@ -166,91 +167,17 @@ namespace Aplication.UseCase.Controller
 
             return hora;
         }
-        public void buscarFuncionPelicula(CineDBContext context)
+        public static void BuscarFuncionPelicula(CineDBContext context)
         {
-            var buscarFuncion = new FuncionService(context);
+            var BuscarFuncion = new FuncionService(context);
             var funcion = new Funcion();
-            var listaPeliculas = new PeliculaService(context).getAllPelicula();
-            var listaSalas = new SalaService(context).getAll();
+            var ListaPeliculas = new PeliculaService(context).GetAllPelicula();
+            var ListaSalas = new SalaService(context).GetAll();
             Console.Clear();
             Console.WriteLine("*********************************************************");
             Console.WriteLine("*              Películas disponibles:                   *");
             Console.WriteLine("*********************************************************");
-            foreach (var pelicula in listaPeliculas)
-            {
-                Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
-                Console.WriteLine($"Sinopsis: {pelicula.Sinopsis}");
-            }
-                try
-                {
-                    Console.WriteLine("Seleccione el código de la película");
-                    if (int.TryParse(Console.ReadLine(), out int peliculaId))
-                    {
-                        if (listaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
-                        {
-                            Console.WriteLine("Película seleccionada correctamente");
-                            funcion.PeliculaId = peliculaId;
-                            List<Funcion> listadoFunciones = buscarFuncion.GetFuncionPelicula(funcion.PeliculaId);
-                            foreach (var func in listadoFunciones)
-                            {
-                            Console.WriteLine($"Película: {listaPeliculas[peliculaId].Titulo}");
-                            Console.WriteLine($"Código: {func.FuncionId}, Sala: {listaSalas[func.SalaId].Nombre}, Fecha: {func.Fecha:yyyy/MM/dd} , Hora: {func.Horario:HH:mm:ss}");
-                            }
-                        Console.WriteLine("Presione una tecla para continuar...");
-                            Console.ReadKey();
-                            
-                        }
-                        else
-                        {
-                            throw new ElementNotFoundException("Película no encontrada, intente nuevamente");
-                        }
-                    }
-
-                }
-                catch
-                {
-                    throw new ParseFailedException("Código inválido, intente nuevamente");
-                }
-
-                        
-        }
-        public void buscarFuncionDia(CineDBContext context)
-        {
-            var buscarFuncion = new FuncionService(context);
-            var funcion = new Funcion();
-            var listadoPeliculas = new PeliculaService(context).getAllPelicula();
-            var listadoSalas = new SalaService(context).getAll();
-            Console.WriteLine("Ingrese la fecha a buscar en formato (YYYY/MM/DD)");
-            string fechaBuscar = Console.ReadLine();
-            DateTime fechaFiltro;
-            if (!string.IsNullOrEmpty(fechaBuscar) && DateTime.TryParse(fechaBuscar, out DateTime fechaSeleccionada))
-            {
-                fechaFiltro = fechaSeleccionada;
-                List<Funcion> listadoFunciones = buscarFuncion.GetFuncionDia(fechaFiltro);
-                foreach (var func in listadoFunciones)
-                {
-                    Console.WriteLine($"Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
-                    Console.WriteLine($"Código: {func.FuncionId}, Sala: {listadoSalas[func.SalaId].Nombre}, Película: {listadoPeliculas[func.PeliculaId].Titulo}");
-                }
-                Console.WriteLine("Presione una tecla para continuar...");
-                Console.ReadKey();
-            }
-            else
-            {
-                throw new InvalidDateFormatException("Fecha inválida");
-            }
-        }
-        public void buscarFuncionDiaPelicula(CineDBContext context)
-        {
-            var buscarFuncion = new FuncionService(context);
-            var funcion = new Funcion();
-            var listaPeliculas = new PeliculaService(context).getAllPelicula();
-            var listaSalas = new SalaService(context).getAll();
-            Console.Clear();
-            Console.WriteLine("*********************************************************");
-            Console.WriteLine("*              Películas disponibles:                   *");
-            Console.WriteLine("*********************************************************");
-            foreach (var pelicula in listaPeliculas)
+            foreach (var pelicula in ListaPeliculas)
             {
                 Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
                 Console.WriteLine($"Sinopsis: {pelicula.Sinopsis}");
@@ -260,7 +187,80 @@ namespace Aplication.UseCase.Controller
                 Console.WriteLine("Seleccione el código de la película");
                 if (int.TryParse(Console.ReadLine(), out int peliculaId))
                 {
-                    if (listaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
+                    if (ListaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
+                    {
+                        Console.WriteLine("Película seleccionada correctamente");
+                        funcion.PeliculaId = peliculaId;
+                        List<Funcion> ListadoFunciones = BuscarFuncion.GetFuncionPelicula(funcion.PeliculaId);
+                        foreach (var func in ListadoFunciones)
+                        {
+                            Console.WriteLine($"Película: {ListaPeliculas[peliculaId].Titulo}");
+                            Console.WriteLine($"Código: {func.FuncionId}, Sala: {ListaSalas[func.SalaId].Nombre}, Fecha: {func.Fecha:yyyy/MM/dd} , Hora: {func.Horario:HH:mm:ss}");
+                        }
+                        Console.WriteLine("Presione una tecla para continuar...");
+                        Console.ReadKey();
+
+                    }
+                    else
+                    {
+                        throw new ElementNotFoundException("Película no encontrada, intente nuevamente");
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new ParseFailedException("Código inválido, intente nuevamente");
+            }
+
+
+        }
+        public static void BuscarFuncionDia(CineDBContext context)
+        {
+            var BuscarFuncion = new FuncionService(context);
+            var ListadoPeliculas = new PeliculaService(context).GetAllPelicula();
+            var ListadoSalas = new SalaService(context).GetAll();
+            Console.WriteLine("Ingrese la fecha a buscar en formato (YYYY/MM/DD)");
+            string FechaBuscar = Console.ReadLine();
+            DateTime FechaFiltro;
+            if (!string.IsNullOrEmpty(FechaBuscar) && DateTime.TryParse(FechaBuscar, out DateTime FechaSeleccionada))
+            {
+                FechaFiltro = FechaSeleccionada;
+                List<Funcion> ListadoFunciones = BuscarFuncion.GetFuncionDia(FechaFiltro);
+                foreach (var func in ListadoFunciones)
+                {
+                    Console.WriteLine($"Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
+                    Console.WriteLine($"Código: {func.FuncionId}, Sala: {ListadoSalas[func.SalaId].Nombre}, Película: {ListadoPeliculas[func.PeliculaId].Titulo}");
+                }
+                Console.WriteLine("Presione una tecla para continuar...");
+                Console.ReadKey();
+            }
+            else
+            {
+                throw new InvalidDateFormatException("Fecha inválida");
+            }
+        }
+        public static void BuscarFuncionDiaPelicula(CineDBContext context)
+        {
+            var BuscarFuncion = new FuncionService(context);
+            var funcion = new Funcion();
+            var ListaPeliculas = new PeliculaService(context).GetAllPelicula();
+            var ListaSalas = new SalaService(context).GetAll();
+            Console.Clear();
+            Console.WriteLine("*********************************************************");
+            Console.WriteLine("*              Películas disponibles:                   *");
+            Console.WriteLine("*********************************************************");
+            foreach (var pelicula in ListaPeliculas)
+            {
+                Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
+                Console.WriteLine($"Sinopsis: {pelicula.Sinopsis}");
+            }
+            try
+            {
+                Console.WriteLine("Seleccione el código de la película");
+                if (int.TryParse(Console.ReadLine(), out int peliculaId))
+                {
+                    if (ListaPeliculas.Any(peli => peli.PeliculaId == peliculaId))
                     {
                         Console.WriteLine("Película seleccionada correctamente");
                         funcion.PeliculaId = peliculaId;
@@ -270,11 +270,11 @@ namespace Aplication.UseCase.Controller
                         if (!string.IsNullOrEmpty(fechaBuscar) && DateTime.TryParse(fechaBuscar, out DateTime fechaSeleccionada))
                         {
                             fechaFiltro = fechaSeleccionada;
-                            List<Funcion> listadoFunciones = buscarFuncion.GetFuncionPeliculaYDia(peliculaId,fechaFiltro);
+                            List<Funcion> listadoFunciones = BuscarFuncion.GetFuncionPeliculaYDia(peliculaId, fechaFiltro);
                             foreach (var func in listadoFunciones)
                             {
-                                Console.WriteLine($"Película: {listaPeliculas[func.PeliculaId].Titulo}, Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
-                                Console.WriteLine($"Código: {func.FuncionId}, Sala: {listaSalas[func.SalaId].Nombre}");
+                                Console.WriteLine($"Película: {ListaPeliculas[func.PeliculaId].Titulo}, Fecha: {func.Fecha:yyyy/MM/dd}, Hora: {func.Horario:HH:mm:ss}");
+                                Console.WriteLine($"Código: {func.FuncionId}, Sala: {ListaSalas[func.SalaId].Nombre}");
                             }
                         }
                         else

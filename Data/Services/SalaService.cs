@@ -1,6 +1,6 @@
 ﻿using Aplication.ErrorHandler;
 using Aplication.Interfaces;
-using Data;
+using Data.Persistence;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Aplication.UseCase.Services
         {
             _context = context;
         }
-        public List<Sala> getAll()
+        public List<Sala> GetAll()
         {
             return _context.Salas.ToList();
         }

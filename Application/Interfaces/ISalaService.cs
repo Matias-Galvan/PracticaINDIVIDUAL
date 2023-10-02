@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace Aplication.Interfaces
 {
-    public interface IPeliculaService
+    public interface ISalaService
     {
-        void crearPelicula(Pelicula pelicula);
-        List<Pelicula> getAllPelicula();
-        Pelicula getPelicula(int id);
-
+        List<Sala> GetAll();
+        Sala getSala(int id);
     }
 }

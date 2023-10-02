@@ -1,6 +1,6 @@
 ﻿using Aplication.ErrorHandler;
 using Aplication.Interfaces;
-using Data;
+using Data.Persistence;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplication.UseCase.Services
+namespace Aplication.Services
 {
     public class PeliculaService : IPeliculaService
     {
@@ -23,7 +23,7 @@ namespace Aplication.UseCase.Services
             throw new NotImplementedException();
         }
 
-        public List<Pelicula> getAllPelicula()
+        public List<Pelicula> GetAllPelicula()
         {
             return _context.Peliculas.ToList();
         }
