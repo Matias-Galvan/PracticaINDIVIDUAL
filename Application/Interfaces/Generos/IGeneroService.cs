@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplication.Interfaces
+namespace Application.Interfaces.Generos
 {
-    public interface ISalaService
+    public interface IGeneroService
     {
-        List<Sala> GetAll();
-        Sala getSala(int id);
+        List<Genero> getGeneros();
     }
 }

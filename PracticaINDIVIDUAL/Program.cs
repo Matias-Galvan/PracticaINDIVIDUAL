@@ -1,5 +1,5 @@
-﻿using Aplication.Interfaces;
-using Aplication.UseCase.Services;
+﻿using Aplication.UseCase.Services;
+using Application.Services;
 using Data.Persistence;
 using PracticaINDIVIDUAL.Controller;
 

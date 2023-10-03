@@ -1,78 +1,45 @@
 ﻿using Aplication.ErrorHandler;
-using Aplication.Interfaces;
-using Data.Persistence;
+using Aplication.HandlerError;
+using Application.Interfaces.Funciones;
 using Domain.Entities;
 
 namespace Aplication.UseCase.Services
 {
-    public class FuncionService : IFuncionService
+    public class FuncionService 
     {
-        private readonly CineDBContext _context;
-        public FuncionService(CineDBContext context)
+        private readonly IFuncionCommand _funcionCommand;
+        private readonly IFuncionQuery _funcionQuery;
+        private readonly IErrorHandler _errorHandler;
+        
+        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler)
         {
-            _context = context;
+            _funcionCommand = funcionCommand;
+            _funcionQuery = funcionQuery;
+            _errorHandler = errorHandler;
         }
-
         public void CrearFuncion(Funcion funcion)
         {
-            var TotalFunciones = _context.Funciones.ToList().Count;
-            int nextId;
-            if (TotalFunciones != 0)
-            {
-                nextId = TotalFunciones + 1;
-            }
-            else
-            {
-                nextId = 1;
-            }
-            funcion.FuncionId = nextId;
-            
-            _context.Funciones.Add(funcion);
-            _context.SaveChanges();            
+            _funcionCommand.CrearFuncion(funcion);
         }
 
         public List<Funcion> GetAllFunciones()
         {
-            if (_context.Funciones.ToList().Count == 0)
-            {
-                throw new ListEmptyException("La lista de funciones se encuentra vacía");
-            }
-            return _context.Funciones.ToList();
+            throw new NotImplementedException();
+        }
+
+        public List<Funcion> GetFuncionDia(DateTime dia)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Funcion> GetFuncionPelicula(int PeliculaNombre)
         {
-            var ListaFuncionesPelicula = new List<Funcion>();
-            var ListaFunciones = GetAllFunciones();
-            ListaFuncionesPelicula = ListaFunciones.Where(funcion => funcion.Pelicula.PeliculaId==(PeliculaNombre)).ToList();
-            if (!ListaFuncionesPelicula.Any())
-            {
-                throw new ElementNotFoundException("No hay funciones para la película seleccionada");
-            }
-            return ListaFuncionesPelicula;
-        }
-        public List<Funcion> GetFuncionDia(DateTime Dia)
-        {
-            var ListaFuncionesPelicula = new List<Funcion>();
-            var ListaFunciones = GetAllFunciones();
-            ListaFuncionesPelicula = ListaFunciones.Where(funcion => funcion.Fecha.Date == Dia.Date).ToList();
-            if (!ListaFuncionesPelicula.Any())
-            {
-                throw new ElementNotFoundException("No hay funciones para la fecha seleccionada");
-            }
-            return ListaFuncionesPelicula;
-        }
-        public List<Funcion> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha)
-        {
-            var ListaFuncionesPelicula = new List<Funcion>();
-            var ListaFunciones = GetAllFunciones();
-            ListaFuncionesPelicula = ListaFunciones.Where(funcion => funcion.Pelicula.PeliculaId == (peliculaNombre) && funcion.Fecha.Date == fecha.Date).ToList();
-            if (!ListaFuncionesPelicula.Any())
-            {
-                throw new ElementNotFoundException("No hay funciones para la película y fecha seleccionada");
-            }
-            return ListaFuncionesPelicula;
+            throw new NotImplementedException();
         }
 
+        public List<Funcion> GetFuncionPeliculaYDia(int PeliculaNombre, DateTime fecha)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

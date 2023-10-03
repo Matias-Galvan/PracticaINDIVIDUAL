@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Interfaces\Tickets\" />
   </ItemGroup>
 
 </Project>

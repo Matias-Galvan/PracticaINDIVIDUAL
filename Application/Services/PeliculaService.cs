@@ -1,5 +1,5 @@
 ﻿using Aplication.ErrorHandler;
-using Aplication.Interfaces;
+using Application.Interfaces.Peliculas;
 using Data.Persistence;
 using Domain.Entities;
 using System;

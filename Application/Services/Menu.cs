@@ -1,4 +1,4 @@
-﻿namespace Aplication.Interfaces
+﻿namespace Application.Services
 {
     public class Menu
     {
