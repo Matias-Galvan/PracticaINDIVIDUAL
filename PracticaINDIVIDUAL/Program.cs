@@ -1,10 +1,7 @@
-﻿
-using Aplication.Interfaces;
+﻿using Aplication.Interfaces;
 using Aplication.UseCase.Services;
 using Data.Persistence;
-using Domain.Entities;
 using PracticaINDIVIDUAL.Controller;
-using System.Diagnostics;
 
 using (CineDBContext context = new CineDBContext())
 {
