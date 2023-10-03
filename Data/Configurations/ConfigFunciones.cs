@@ -8,9 +8,12 @@ namespace Infraestructure.Configurations
     {
         public ConfigFunciones(EntityTypeBuilder<Funcion> entityTypeBuilder)
         {
-            entityTypeBuilder.Property(j => j.FuncionId).ValueGeneratedOnAdd();
-            entityTypeBuilder.HasOne(f => f.Pelicula).WithMany(p => p.Funciones).HasForeignKey(f => f.PeliculaId);
-
+            entityTypeBuilder.HasKey(x => x.FuncionId);
+            entityTypeBuilder.Property(x => x.FuncionId).ValueGeneratedOnAdd();
+            entityTypeBuilder.Property(x => x.Fecha).IsRequired();
+            entityTypeBuilder.Property(x => x.Horario).IsRequired();
+            entityTypeBuilder.HasOne(x => x.Salas).WithMany(x => x.Funciones).HasForeignKey(x => x.SalaId);
+            entityTypeBuilder.HasOne(x => x.Peliculas).WithMany(x => x.Funciones).HasForeignKey(x => x.PeliculaId);
         }
     }
 }

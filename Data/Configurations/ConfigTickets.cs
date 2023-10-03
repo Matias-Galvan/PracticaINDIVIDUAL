@@ -8,7 +8,10 @@ namespace Infraestructure.Configurations
     {
         public ConfigTickets(EntityTypeBuilder<Ticket> entityTypeBuilder)
         {
-            entityTypeBuilder.HasOne(t => t.Funcion).WithMany(f => f.Tickets).HasForeignKey(t => t.FuncionId);
+            entityTypeBuilder.HasKey(x => new {x.TicketId, x.FuncionId});
+            entityTypeBuilder.Property(x => x.Usuario).IsRequired().HasMaxLength(50);
+            entityTypeBuilder.Property(x => x.TicketId).ValueGeneratedOnAdd();
+            entityTypeBuilder.HasOne(x => x.Funciones).WithMany(x => x.Tickets).HasForeignKey(x => x.FuncionId);
         }
     }
 }
