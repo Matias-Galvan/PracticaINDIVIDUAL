@@ -22,7 +22,7 @@ using (CineDBContext context = new CineDBContext())
         try
         {
             Menu.MenuPrincipal();
-            if (Int32.TryParse(Console.ReadLine(), out opcionBusqueda))
+            if (int.TryParse(Console.ReadLine(), out opcionBusqueda))
             {
                 switch(opcionBusqueda) 
                 {                  
