@@ -1,39 +1,7 @@
-﻿using Aplication.ErrorHandler;
-using Application.Interfaces.Salas;
-using Data.Persistence;
-using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aplication.UseCase.Services
+﻿namespace Application.Services
 {
-    public class SalaService : ISalaService
+    public class SalaService
     {
-        private readonly CineDBContext _context;
-        public SalaService(CineDBContext context) 
-        {
-            _context = context;
-        }
-        public List<Sala> GetAll()
-        {
-            return _context.Salas.ToList();
-        }
 
-        public Sala getSala(int id)
-        {
-            var sala = _context.Salas.FirstOrDefault(p => p.SalaId == id);
-
-            if (sala != null)
-            {
-                return sala;
-            }
-            else
-            {
-                throw new ElementNotFoundException("Sala no encontrada");
-            }
-        }
     }
 }

@@ -1,11 +1,4 @@
-﻿using Aplication.HandlerError;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aplication.ErrorHandler
+﻿namespace Application.ErrorHandler
 {
     public class ElementNotFoundException : Exception
     {

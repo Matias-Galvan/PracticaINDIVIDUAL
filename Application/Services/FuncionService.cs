@@ -1,16 +1,15 @@
-﻿using Aplication.ErrorHandler;
-using Aplication.HandlerError;
+﻿using Application.ErrorHandler;
 using Application.Interfaces.Funciones;
 using Domain.Entities;
 
-namespace Aplication.UseCase.Services
+namespace Application.Services
 {
-    public class FuncionService 
+    public class FuncionService
     {
         private readonly IFuncionCommand _funcionCommand;
         private readonly IFuncionQuery _funcionQuery;
         private readonly IErrorHandler _errorHandler;
-        
+
         public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler)
         {
             _funcionCommand = funcionCommand;

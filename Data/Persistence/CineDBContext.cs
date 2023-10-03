@@ -1,9 +1,9 @@
-﻿using Data.Configurations;
-using Domain.Entities;
+﻿using Domain.Entities;
+using Infraestructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Data.Persistence
+namespace Infraestructure.Persistence
 {
     public class CineDBContext : DbContext
     {

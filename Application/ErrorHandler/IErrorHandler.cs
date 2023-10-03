@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplication.HandlerError
+namespace Application.ErrorHandler
 {
     public interface IErrorHandler
     {

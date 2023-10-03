@@ -1,14 +1,9 @@
-﻿using Aplication.UseCase.Services;
-using Application.Services;
-using Data.Persistence;
-using PracticaINDIVIDUAL.Controller;
+﻿using Application.Services;
 
-using (CineDBContext context = new CineDBContext())
+
 {
-    var _context = context;
-    var serviceFuncion = new FuncionService(context);
     Menu menu = new();
-    UserConsole userConsole = new();
+   // UserConsole userConsole = new();
     int opcionBusqueda = 0;
     int opcionBusquedaFuncion = 0;
     int opcionCargaFuncion = 0;
@@ -32,21 +27,21 @@ using (CineDBContext context = new CineDBContext())
                         while (continuarMenuFuncion)
                         {
                             Menu.MenuBusquedaFuncion();
-                            if (Int32.TryParse(Console.ReadLine(), out opcionBusquedaFuncion))
+                            if (int.TryParse(Console.ReadLine(), out opcionBusquedaFuncion))
                             {
                                 switch (opcionBusquedaFuncion)
                                 {
                                     case 1:
                                         //Busqueda funcion por dia
-                                        UserConsole.BuscarFuncionPelicula(_context);
+                                        //UserConsole.BuscarFuncionPelicula();
                                         break;
                                     case 2:
                                         //Busqueda funcion por pelicula
-                                        UserConsole.BuscarFuncionDia(_context);
+                                        //UserConsole.BuscarFuncionDia();
                                         break;
                                     case 3:
                                         //Busqueda funcion por peli y dia
-                                        UserConsole.BuscarFuncionDiaPelicula(context);
+                                        //UserConsole.BuscarFuncionDiaPelicula();
                                         break;
                                     case 4:
                                         //Salir
@@ -64,12 +59,12 @@ using (CineDBContext context = new CineDBContext())
                         while (continuarMenuCarga)
                         {
                             Menu.MenuCargaFuncion();
-                            if (Int32.TryParse(Console.ReadLine(), out opcionCargaFuncion))
+                            if (int.TryParse(Console.ReadLine(), out opcionCargaFuncion))
                             {
                                 switch (opcionCargaFuncion)
                                 {
                                     case 1:
-                                        UserConsole.CrearModelo(context);
+                                        //UserConsole.CrearModelo();
                                         Console.WriteLine("Presione una tecla para continuar...");
                                         Console.ReadKey();
                                         break;

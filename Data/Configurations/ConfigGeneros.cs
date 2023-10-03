@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Configurations
+namespace Infraestructure.Configurations
 {
     public class ConfigGeneros
     {
-        public ConfigGeneros(EntityTypeBuilder<Genero> entityTypeBuilder) { 
+        public ConfigGeneros(EntityTypeBuilder<Genero> entityTypeBuilder)
+        {
             entityTypeBuilder.HasMany(g => g.Peliculas).WithOne(p => p.Genero).HasForeignKey(p => p.GeneroId);
         }
     }
