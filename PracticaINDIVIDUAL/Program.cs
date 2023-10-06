@@ -3,7 +3,7 @@
 
 {
     Menu menu = new();
-   // UserConsole userConsole = new();
+    // UserConsole userConsole = new();
     int opcionBusqueda = 0;
     int opcionBusquedaFuncion = 0;
     int opcionCargaFuncion = 0;
@@ -19,9 +19,9 @@
             Menu.MenuPrincipal();
             if (int.TryParse(Console.ReadLine(), out opcionBusqueda))
             {
-                switch(opcionBusqueda) 
-                {                  
-                        case 1:
+                switch (opcionBusqueda)
+                {
+                    case 1:
                         //Busqueda de funciones
                         continuarMenuFuncion = true;
                         while (continuarMenuFuncion)
@@ -50,10 +50,10 @@
                                     default: throw new Exception();
                                 }
                             }
-                             
+
                         }
                         break;
-                        case 2:
+                    case 2:
                         //Carga de pelis
                         continuarMenuCarga = true;
                         while (continuarMenuCarga)
@@ -69,18 +69,18 @@
                                         Console.ReadKey();
                                         break;
                                     case 2:
-                                        continuarMenuCarga=false;
+                                        continuarMenuCarga = false;
                                         break;
                                 }
                             }
 
                         }
                         break;
-                        case 3:
+                    case 3:
                         //Salir
                         continuarMenuPrincipal = false;
                         break;
-                        default:
+                    default:
                         Console.WriteLine("Opción inválida");
                         break;
                 }

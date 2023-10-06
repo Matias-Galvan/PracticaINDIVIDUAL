@@ -7,9 +7,9 @@ namespace Infraestructure.Configurations
     {
         public ConfigGeneros(EntityTypeBuilder<Genero> entityTypeBuilder)
         {
-           entityTypeBuilder.HasKey(x => x.GeneroId);
-           entityTypeBuilder.Property(x => x.GeneroId).ValueGeneratedOnAdd();
-           entityTypeBuilder.Property(x => x.Nombre).IsRequired().HasMaxLength(50);
+            entityTypeBuilder.HasKey(x => x.GeneroId);
+            entityTypeBuilder.Property(x => x.GeneroId).ValueGeneratedOnAdd();
+            entityTypeBuilder.Property(x => x.Nombre).IsRequired().HasMaxLength(50);
         }
     }
 }

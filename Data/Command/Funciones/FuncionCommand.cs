@@ -3,7 +3,7 @@ using Domain.Entities;
 using Infraestructure.Persistence;
 namespace Infraestructure.Command.Funciones
 {
-    public class FuncionCommand: IFuncionCommand
+    public class FuncionCommand : IFuncionCommand
     {
         private readonly CineDBContext _context;
         public FuncionCommand(CineDBContext context)
