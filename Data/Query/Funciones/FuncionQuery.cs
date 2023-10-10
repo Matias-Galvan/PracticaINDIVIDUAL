@@ -1,0 +1,39 @@
+﻿using Application.Interfaces.Funciones;
+using Domain.Entities;
+using Infraestructure.Persistence;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infraestructure.Query.Funciones
+{
+    public class FuncionQuery : IFuncionQuery
+    {
+        private readonly CineDBContext _dbContext;
+        public FuncionQuery(CineDBContext context)
+        {
+            _dbContext = context;
+        }
+        public List<Funcion> GetAllFunciones()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Funcion> GetFuncionDia(DateTime dia)
+        {
+            return _dbContext.Funciones.Where(x => x.Fecha == dia).ToList();
+        }
+
+        public List<Funcion> GetFuncionPelicula(int PeliculaNombre)
+        {
+            return _dbContext.Funciones.Where(x => x.PeliculaId == PeliculaNombre).ToList();
+        }
+
+        public List<Funcion> GetFuncionPeliculaYDia(int PeliculaNombre, DateTime fecha)
+        {
+            return _dbContext.Funciones.Where(x => x.PeliculaId == PeliculaNombre && x.Fecha == fecha).ToList();
+        }
+    }
+}
