@@ -25,6 +25,7 @@ namespace PracticaINDIVIDUAL.Funciones
                         Console.WriteLine("Presione una tecla para continuar...");
                         Console.ReadKey();
                         return PeliculaId;
+                        
                     }
                     else
                     {

@@ -29,7 +29,6 @@
     <Folder Include="Command\Tickets\" />
     <Folder Include="Command\Peliculas\" />
     <Folder Include="Query\Generos\" />
-    <Folder Include="Query\Salas\" />
     <Folder Include="Query\Tickets\" />
   </ItemGroup>
 

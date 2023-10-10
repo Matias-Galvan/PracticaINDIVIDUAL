@@ -51,27 +51,6 @@
 
         }
 
-        public static void ResumenFuncion()
-        {
-            Console.WriteLine("La función fue creada correctamente");
-            Console.WriteLine($"Resumen de función " +
-                $"Título: " +
-                $"Sala: " +
-                $"Fecha: " +
-                $"Hora: ");
-        }
-
-        //public static void ListaPeliculas()
-        //{
-        //    Console.WriteLine("*********************************************************");
-        //    Console.WriteLine("*              Películas disponibles:                   *");
-        //    Console.WriteLine("*********************************************************");
-        //    foreach (var pelicula in listaPeliculas)
-        //    {
-        //        Console.WriteLine($"Código: {pelicula.PeliculaId}, Título: {pelicula.Titulo}");
-        //    }
-        //}
-
 
     }
 }

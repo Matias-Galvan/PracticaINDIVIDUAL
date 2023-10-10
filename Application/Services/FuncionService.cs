@@ -4,11 +4,17 @@ using Domain.Entities;
 
 namespace Application.Services
 {
-    public class FuncionService
+    public class FuncionService: IFuncionService
     {
         private readonly IFuncionCommand _FuncionCommand;
         private readonly IFuncionQuery _FuncionQuery;
         private readonly IErrorHandler _ErrorHandler;
+
+        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery)
+        {
+            _FuncionCommand = funcionCommand;
+            _FuncionQuery = funcionQuery;
+        }
 
         public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler)
         {

@@ -5,7 +5,7 @@ namespace Application.Interfaces.Peliculas
     public interface IPeliculaService
     {
         void CrearPelicula(Pelicula pelicula);
-        List<Pelicula> GetAllPelicula();
+        List<Pelicula> GetAllPeliculas();
         Pelicula GetPelicula(int id);
 
     }

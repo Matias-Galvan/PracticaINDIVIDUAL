@@ -1,23 +1,18 @@
-﻿using Application.ErrorHandler;
-using Application.Interfaces.Peliculas;
+﻿using Application.Interfaces.Peliculas;
 using Domain.Entities;
 
 namespace Application.Services
 {
-    public class PeliculaService
+    public class PeliculaService: IPeliculaService
     {
-        private readonly IPeliculaCommand _PeliculaCommand;
         private readonly IPeliculaQuery _PeliculaQuery;
-        private readonly IErrorHandler _ErrorHandler;
 
-        public PeliculaService(IPeliculaCommand peliculaCommand, IPeliculaQuery peliculaQuery, IErrorHandler errorHandler)
+        public PeliculaService(IPeliculaQuery peliculaQuery)
         {
-            _PeliculaCommand = peliculaCommand;
             _PeliculaQuery = peliculaQuery;
-            _ErrorHandler = errorHandler;
         }
 
-        public void crearPelicula(Pelicula pelicula)
+        public void CrearPelicula(Pelicula pelicula)
         {
             throw new NotImplementedException();
         }
@@ -25,6 +20,11 @@ namespace Application.Services
         public List<Pelicula> GetAllPeliculas()
         {
             return _PeliculaQuery.GetAllPeliculas();
+        }
+
+        public Pelicula GetPelicula(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
