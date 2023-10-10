@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Data.Migrations
+namespace Infraestructure.Migrations
 {
     /// <inheritdoc />
     public partial class Cine : Migration
@@ -47,16 +48,16 @@ namespace Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titulo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Sinopsis = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Poster = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Trailer = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    GeneroId = table.Column<int>(type: "int", nullable: false)
+                    Poster = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Trailer = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Genero = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Peliculas", x => x.PeliculaId);
                     table.ForeignKey(
-                        name: "FK_Peliculas_Generos_GeneroId",
-                        column: x => x.GeneroId,
+                        name: "FK_Peliculas_Generos_Genero",
+                        column: x => x.Genero,
                         principalTable: "Generos",
                         principalColumn: "GeneroId",
                         onDelete: ReferentialAction.Cascade);
@@ -66,11 +67,12 @@ namespace Data.Migrations
                 name: "Funciones",
                 columns: table => new
                 {
-                    FuncionId = table.Column<int>(type: "int", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Horario = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FuncionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PeliculaId = table.Column<int>(type: "int", nullable: false),
                     SalaId = table.Column<int>(type: "int", nullable: false),
-                    PeliculaId = table.Column<int>(type: "int", nullable: false)
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Horario = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,8 +84,8 @@ namespace Data.Migrations
                         principalColumn: "PeliculaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Funciones_Salas_FuncionId",
-                        column: x => x.FuncionId,
+                        name: "FK_Funciones_Salas_SalaId",
+                        column: x => x.SalaId,
                         principalTable: "Salas",
                         principalColumn: "SalaId",
                         onDelete: ReferentialAction.Cascade);
@@ -99,7 +101,7 @@ namespace Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.PrimaryKey("PK_Tickets", x => new { x.TicketId, x.FuncionId });
                     table.ForeignKey(
                         name: "FK_Tickets_Funciones_FuncionId",
                         column: x => x.FuncionId,
@@ -137,22 +139,22 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Peliculas",
-                columns: new[] { "PeliculaId", "GeneroId", "Poster", "Sinopsis", "Titulo", "Trailer" },
+                columns: new[] { "PeliculaId", "Genero", "Poster", "Sinopsis", "Titulo", "Trailer" },
                 values: new object[,]
                 {
                     { 1, 1, "https://http2.mlstatic.com/D_NQ_NP_843904-MLA40633054768_022020-O.webp", "En un mundo post-apocalíptico, Max se une a Furiosa para escapar de un tirano y su ejército en una frenética persecución por el desierto.", "Mad Max: Fury Road", "https://www.youtube.com/watch?v=UxPhr1fElg0" },
-                    { 2, 2, "https://m.media-amazon.com/images/M/MV5BNDIzMTk4NDYtMjg5OS00ZGI0LWJhZDYtMzdmZGY1YWU5ZGNkXkEyXkFqcGdeQXVyMTI5NzUyMTIz._V1_.jpg", "Un grupo de inadaptados intergalácticos se unen para salvar la galaxia de una amenaza alienígena.", "Guardians of the Galaxy", "https://www.youtube.com/watch?v=qdIuXCfUKM8" },
-                    { 3, 5, "https://m.media-amazon.com/images/M/MV5BZGVjYjEzNmItMzc0My00Y2UyLWFlZjEtNzY5YTE4YTg2OGJlXkEyXkFqcGdeQXVyMjc5NDYwNTU@._V1_.jpg", "Este documental examina cómo las redes sociales impactan en la sociedad y la vida de las personas", "The Social Dilemma", "https://www.youtube.com/watch?v=uaaC57tcci0" },
-                    { 4, 6, "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg", "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.", "Forrest Gump", "https://www.youtube.com/watch?v=XHhAG-YLdk8" },
+                    { 2, 2, "https://goo.su/w10Dq", "Un grupo de inadaptados intergalácticos se unen para salvar la galaxia de una amenaza alienígena.", "Guardians of the Galaxy", "https://www.youtube.com/watch?v=qdIuXCfUKM8" },
+                    { 3, 5, "https://goo.su/xcjUzn", "Este documental examina cómo las redes sociales impactan en la sociedad y la vida de las personas", "The Social Dilemma", "https://www.youtube.com/watch?v=uaaC57tcci0" },
+                    { 4, 6, "https://goo.su/jOvu9", "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.", "Forrest Gump", "https://www.youtube.com/watch?v=XHhAG-YLdk8" },
                     { 5, 7, "https://m.media-amazon.com/images/I/71x1RHSaEhL.jpg", "Un joven mago descubre su verdadera identidad y se aventura en un mundo de magia y misterio.", "Harry Potter and the Sorcerer's Stone", "https://www.youtube.com/watch?v=VyHV0BRtdxo" },
-                    { 6, 6, "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg", "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.", "Forrest Gump", "https://www.youtube.com/watch?v=XHhAG-YLdk8" },
+                    { 6, 6, "https://goo.su/jOvu9", "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.", "Forrest Gump", "https://www.youtube.com/watch?v=XHhAG-YLdk8" },
                     { 7, 8, "https://flxt.tmsimg.com/assets/p12386480_p_v10_aj.jpg", "Un pianista y una actriz luchan por alcanzar sus sueños en la competitiva industria del entretenimiento de Los Ángeles.", "La La Land", "https://youtu.be/0pdqf4P9MB8" },
                     { 8, 9, "https://image.tmdb.org/t/p/original/8U0mV8diqCo5y43jPxPHs4S2oXY.jpg", "Dos detectives persiguen a un asesino en serie que comete sus crímenes basados en los siete pecados capitales.", "Seven (Los siete pecados capitales)", "https://youtu.be/q9BOtSBq-00" },
                     { 9, 3, "https://i.pinimg.com/originals/51/ba/64/51ba64b2e61f820e0e86bdd2f4c6e92c.jpg", " Un grupo de científicos se enfrenta a dinosaurios prehistóricos que escapan en un parque temático.", "Jurassic Park", "https://youtu.be/dLDkNge_AhE" },
-                    { 10, 10, "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg", "Un matrimonio de investigadores de lo paranormal ayuda a una familia aterrorizada por una presencia maligna en su casa.", "El Conjuro", "https://youtu.be/chAT_cFcQk0" },
+                    { 10, 10, "https://goo.su/rMlx", "Un matrimonio de investigadores de lo paranormal ayuda a una familia aterrorizada por una presencia maligna en su casa.", "El Conjuro", "https://youtu.be/chAT_cFcQk0" },
                     { 11, 4, "https://areajugones.sport.es/wp-content/uploads/2015/12/Deadpool-Poster1.jpg", "Un antihéroe con habilidades regenerativas se embarca en una misión de venganza contra el hombre que arruinó su vida.", "Deadpool", "https://youtu.be/0JnRdfiUMa8" },
-                    { 12, 1, "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg", "Un ladrón de sueños es contratado para implantar una idea en la mente de alguien durante un sueño profundo.", "Inception", "https://youtu.be/YoHD9XEInc0" },
-                    { 13, 6, "https://c8.alamy.com/compes/2jh2myr/robbins-poster-la-redencion-de-shawshank-1994-2jh2myr.jpg", "La historia de amistad y redención de dos presos en una prisión de máxima seguridad.", "The Shawshank Redemption", "https://youtu.be/NmzuHjWmXOc" },
+                    { 12, 1, "https://goo.su/0Sx3zlk", "Un ladrón de sueños es contratado para implantar una idea en la mente de alguien durante un sueño profundo.", "Inception", "https://youtu.be/YoHD9XEInc0" },
+                    { 13, 6, "https://goo.su/qZvU0L", "La historia de amistad y redención de dos presos en una prisión de máxima seguridad.", "The Shawshank Redemption", "https://youtu.be/NmzuHjWmXOc" },
                     { 14, 7, "https://i.pinimg.com/originals/f1/43/69/f14369fb56e47283f02038b920654056.jpg", "Un grupo de aventureros se embarca en una búsqueda épica para destruir un poderoso anillo y salvar la Tierra Media.", "The Lord of the Rings: The Fellowship of the Ring", "https://youtu.be/V75dMMIW2B4" },
                     { 15, 9, "https://i.pinimg.com/originals/cc/47/a5/cc47a507854dfe4ea145ebb4c9ae51c4.jpg", "Batman se enfrenta al Joker, un villano psicótico que amenaza la ciudad de Gotham.", "The Dark Knight", "https://youtu.be/EXeTwQWrcwY" },
                     { 16, 3, "https://m.media-amazon.com/images/I/71yTgkLsVSL._AC_UF1000,1000_QL80_.jpg", "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.", "Interstellar", "https://youtu.be/UoSSbmD9vqc" },
@@ -168,9 +170,14 @@ namespace Data.Migrations
                 column: "PeliculaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Peliculas_GeneroId",
+                name: "IX_Funciones_SalaId",
+                table: "Funciones",
+                column: "SalaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Peliculas_Genero",
                 table: "Peliculas",
-                column: "GeneroId");
+                column: "Genero");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_FuncionId",

@@ -1,10 +1,5 @@
 ﻿using Application.ErrorHandler;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticaINDIVIDUAL.Funciones
 {
@@ -26,7 +21,7 @@ namespace PracticaINDIVIDUAL.Funciones
                 {
                     if (peliculas.Any(peli => peli.PeliculaId == PeliculaId))
                     {
-                        Console.WriteLine("Película seleccionada correctamente");                        
+                        Console.WriteLine("Película seleccionada correctamente");
                         Console.WriteLine("Presione una tecla para continuar...");
                         Console.ReadKey();
                         return PeliculaId;

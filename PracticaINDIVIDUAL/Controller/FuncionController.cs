@@ -1,14 +1,7 @@
-﻿using Application.ErrorHandler;
-using Application.Interfaces.Funciones;
+﻿using Application.Interfaces.Funciones;
 using Application.Interfaces.Peliculas;
 using Application.Interfaces.Salas;
-using Domain.Entities;
 using PracticaINDIVIDUAL.Funciones;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticaINDIVIDUAL.Controller
 {
@@ -49,10 +42,10 @@ namespace PracticaINDIVIDUAL.Controller
             Console.WriteLine("*********************************************************");
             foreach (var funcion in funciones)
             {
-               Console.WriteLine($"Película: {peliculas[PeliculaId].Titulo}");
-               Console.WriteLine($"Código: {funcion.FuncionId}, Sala: {salas[funcion.SalaId].Nombre}, Fecha: {funcion.Fecha:yyyy/MM/dd} , Hora: {funcion.Horario:HH:mm:ss}");
+                Console.WriteLine($"Película: {peliculas[PeliculaId].Titulo}");
+                Console.WriteLine($"Código: {funcion.FuncionId}, Sala: {salas[funcion.SalaId].Nombre}, Fecha: {funcion.Fecha:yyyy/MM/dd} , Hora: {funcion.Horario:HH:mm:ss}");
             }
-            
+
         }
         public void BuscarFuncionDia()
         {

@@ -1,10 +1,5 @@
 ﻿using Application.ErrorHandler;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticaINDIVIDUAL.Funciones
 {
@@ -36,7 +31,7 @@ namespace PracticaINDIVIDUAL.Funciones
                         throw new ElementNotFoundException("Sala no encontrada, intente nuevamente");
                     }
                 }
-            }       
+            }
         }
     }
 }

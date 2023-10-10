@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PracticaINDIVIDUAL.Funciones
+﻿namespace PracticaINDIVIDUAL.Funciones
 {
     public class FechaFuncion
     {
@@ -22,6 +16,6 @@ namespace PracticaINDIVIDUAL.Funciones
                     Console.WriteLine("Fecha inválida, intente nuevamente");
                 }
             }
-        }   
+        }
     }
 }

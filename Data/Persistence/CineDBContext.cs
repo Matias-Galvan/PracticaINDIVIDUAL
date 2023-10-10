@@ -50,7 +50,7 @@ namespace Infraestructure.Persistence
                     Titulo = "Guardians of the Galaxy",
                     Sinopsis = "Un grupo de inadaptados intergalácticos se unen para salvar la galaxia de una amenaza alienígena.",
                     Genero = 2,
-                    Poster = "https://m.media-amazon.com/images/M/MV5BNDIzMTk4NDYtMjg5OS00ZGI0LWJhZDYtMzdmZGY1YWU5ZGNkXkEyXkFqcGdeQXVyMTI5NzUyMTIz._V1_.jpg",
+                    Poster = "https://goo.su/w10Dq",
                     Trailer = "https://www.youtube.com/watch?v=qdIuXCfUKM8"
 
                 });
@@ -60,7 +60,7 @@ namespace Infraestructure.Persistence
                     Titulo = "The Social Dilemma",
                     Sinopsis = "Este documental examina cómo las redes sociales impactan en la sociedad y la vida de las personas",
                     Genero = 5,
-                    Poster = "https://m.media-amazon.com/images/M/MV5BZGVjYjEzNmItMzc0My00Y2UyLWFlZjEtNzY5YTE4YTg2OGJlXkEyXkFqcGdeQXVyMjc5NDYwNTU@._V1_.jpg",
+                    Poster = "https://goo.su/xcjUzn",
                     Trailer = "https://www.youtube.com/watch?v=uaaC57tcci0"
 
                 });
@@ -70,7 +70,7 @@ namespace Infraestructure.Persistence
                     Titulo = "Forrest Gump",
                     Sinopsis = "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.",
                     Genero = 6,
-                    Poster = "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg",
+                    Poster = "https://goo.su/jOvu9",
                     Trailer = "https://www.youtube.com/watch?v=XHhAG-YLdk8"
 
                 });
@@ -90,7 +90,7 @@ namespace Infraestructure.Persistence
                     Titulo = "Forrest Gump",
                     Sinopsis = "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.",
                     Genero = 6,
-                    Poster = "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg",
+                    Poster = "https://goo.su/jOvu9",
                     Trailer = "https://www.youtube.com/watch?v=XHhAG-YLdk8"
 
                 });
@@ -130,7 +130,7 @@ namespace Infraestructure.Persistence
                     Titulo = "El Conjuro",
                     Sinopsis = "Un matrimonio de investigadores de lo paranormal ayuda a una familia aterrorizada por una presencia maligna en su casa.",
                     Genero = 10,
-                    Poster = "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg",
+                    Poster = "https://goo.su/rMlx",
                     Trailer = "https://youtu.be/chAT_cFcQk0"
 
                 });
@@ -150,7 +150,7 @@ namespace Infraestructure.Persistence
                     Titulo = "Inception",
                     Sinopsis = "Un ladrón de sueños es contratado para implantar una idea en la mente de alguien durante un sueño profundo.",
                     Genero = 1,
-                    Poster = "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg",
+                    Poster = "https://goo.su/0Sx3zlk",
                     Trailer = "https://youtu.be/YoHD9XEInc0"
 
                 });
@@ -160,7 +160,7 @@ namespace Infraestructure.Persistence
                     Titulo = "The Shawshank Redemption",
                     Sinopsis = "La historia de amistad y redención de dos presos en una prisión de máxima seguridad.",
                     Genero = 6,
-                    Poster = "https://c8.alamy.com/compes/2jh2myr/robbins-poster-la-redencion-de-shawshank-1994-2jh2myr.jpg",
+                    Poster = "https://goo.su/qZvU0L",
                     Trailer = "https://youtu.be/NmzuHjWmXOc"
 
                 });

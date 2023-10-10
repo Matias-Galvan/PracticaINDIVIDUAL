@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Data.Migrations
+namespace Infraestructure.Migrations
 {
     [DbContext(typeof(CineDBContext))]
     partial class CineDBContextModelSnapshot : ModelSnapshot
@@ -28,11 +28,13 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FuncionId"));
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Horario")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("Horario")
+                        .HasColumnType("time");
 
                     b.Property<int>("PeliculaId")
                         .HasColumnType("int");
@@ -43,6 +45,8 @@ namespace Data.Migrations
                     b.HasKey("FuncionId");
 
                     b.HasIndex("PeliculaId");
+
+                    b.HasIndex("SalaId");
 
                     b.ToTable("Funciones", (string)null);
                 });
@@ -125,13 +129,13 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PeliculaId"));
 
-                    b.Property<int>("GeneroId")
+                    b.Property<int>("Genero")
                         .HasColumnType("int");
 
                     b.Property<string>("Poster")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Sinopsis")
                         .IsRequired()
@@ -145,12 +149,12 @@ namespace Data.Migrations
 
                     b.Property<string>("Trailer")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("PeliculaId");
 
-                    b.HasIndex("GeneroId");
+                    b.HasIndex("Genero");
 
                     b.ToTable("Peliculas", (string)null);
 
@@ -158,7 +162,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 1,
-                            GeneroId = 1,
+                            Genero = 1,
                             Poster = "https://http2.mlstatic.com/D_NQ_NP_843904-MLA40633054768_022020-O.webp",
                             Sinopsis = "En un mundo post-apocalíptico, Max se une a Furiosa para escapar de un tirano y su ejército en una frenética persecución por el desierto.",
                             Titulo = "Mad Max: Fury Road",
@@ -167,8 +171,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 2,
-                            GeneroId = 2,
-                            Poster = "https://m.media-amazon.com/images/M/MV5BNDIzMTk4NDYtMjg5OS00ZGI0LWJhZDYtMzdmZGY1YWU5ZGNkXkEyXkFqcGdeQXVyMTI5NzUyMTIz._V1_.jpg",
+                            Genero = 2,
+                            Poster = "https://goo.su/w10Dq",
                             Sinopsis = "Un grupo de inadaptados intergalácticos se unen para salvar la galaxia de una amenaza alienígena.",
                             Titulo = "Guardians of the Galaxy",
                             Trailer = "https://www.youtube.com/watch?v=qdIuXCfUKM8"
@@ -176,8 +180,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 3,
-                            GeneroId = 5,
-                            Poster = "https://m.media-amazon.com/images/M/MV5BZGVjYjEzNmItMzc0My00Y2UyLWFlZjEtNzY5YTE4YTg2OGJlXkEyXkFqcGdeQXVyMjc5NDYwNTU@._V1_.jpg",
+                            Genero = 5,
+                            Poster = "https://goo.su/xcjUzn",
                             Sinopsis = "Este documental examina cómo las redes sociales impactan en la sociedad y la vida de las personas",
                             Titulo = "The Social Dilemma",
                             Trailer = "https://www.youtube.com/watch?v=uaaC57tcci0"
@@ -185,8 +189,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 4,
-                            GeneroId = 6,
-                            Poster = "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg",
+                            Genero = 6,
+                            Poster = "https://goo.su/jOvu9",
                             Sinopsis = "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.",
                             Titulo = "Forrest Gump",
                             Trailer = "https://www.youtube.com/watch?v=XHhAG-YLdk8"
@@ -194,7 +198,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 5,
-                            GeneroId = 7,
+                            Genero = 7,
                             Poster = "https://m.media-amazon.com/images/I/71x1RHSaEhL.jpg",
                             Sinopsis = "Un joven mago descubre su verdadera identidad y se aventura en un mundo de magia y misterio.",
                             Titulo = "Harry Potter and the Sorcerer's Stone",
@@ -203,8 +207,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 6,
-                            GeneroId = 6,
-                            Poster = "https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg",
+                            Genero = 6,
+                            Poster = "https://goo.su/jOvu9",
                             Sinopsis = "La vida de Forrest Gump, un hombre con discapacidad intelectual, que vive una vida extraordinaria.",
                             Titulo = "Forrest Gump",
                             Trailer = "https://www.youtube.com/watch?v=XHhAG-YLdk8"
@@ -212,7 +216,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 7,
-                            GeneroId = 8,
+                            Genero = 8,
                             Poster = "https://flxt.tmsimg.com/assets/p12386480_p_v10_aj.jpg",
                             Sinopsis = "Un pianista y una actriz luchan por alcanzar sus sueños en la competitiva industria del entretenimiento de Los Ángeles.",
                             Titulo = "La La Land",
@@ -221,7 +225,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 8,
-                            GeneroId = 9,
+                            Genero = 9,
                             Poster = "https://image.tmdb.org/t/p/original/8U0mV8diqCo5y43jPxPHs4S2oXY.jpg",
                             Sinopsis = "Dos detectives persiguen a un asesino en serie que comete sus crímenes basados en los siete pecados capitales.",
                             Titulo = "Seven (Los siete pecados capitales)",
@@ -230,7 +234,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 9,
-                            GeneroId = 3,
+                            Genero = 3,
                             Poster = "https://i.pinimg.com/originals/51/ba/64/51ba64b2e61f820e0e86bdd2f4c6e92c.jpg",
                             Sinopsis = " Un grupo de científicos se enfrenta a dinosaurios prehistóricos que escapan en un parque temático.",
                             Titulo = "Jurassic Park",
@@ -239,8 +243,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 10,
-                            GeneroId = 10,
-                            Poster = "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg",
+                            Genero = 10,
+                            Poster = "https://goo.su/rMlx",
                             Sinopsis = "Un matrimonio de investigadores de lo paranormal ayuda a una familia aterrorizada por una presencia maligna en su casa.",
                             Titulo = "El Conjuro",
                             Trailer = "https://youtu.be/chAT_cFcQk0"
@@ -248,7 +252,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 11,
-                            GeneroId = 4,
+                            Genero = 4,
                             Poster = "https://areajugones.sport.es/wp-content/uploads/2015/12/Deadpool-Poster1.jpg",
                             Sinopsis = "Un antihéroe con habilidades regenerativas se embarca en una misión de venganza contra el hombre que arruinó su vida.",
                             Titulo = "Deadpool",
@@ -257,8 +261,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 12,
-                            GeneroId = 1,
-                            Poster = "https://tumbaabierta.com/wp-content/uploads/2013/04/tumbaabierta_the_CONJURING_cartel_internacional.jpg",
+                            Genero = 1,
+                            Poster = "https://goo.su/0Sx3zlk",
                             Sinopsis = "Un ladrón de sueños es contratado para implantar una idea en la mente de alguien durante un sueño profundo.",
                             Titulo = "Inception",
                             Trailer = "https://youtu.be/YoHD9XEInc0"
@@ -266,8 +270,8 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 13,
-                            GeneroId = 6,
-                            Poster = "https://c8.alamy.com/compes/2jh2myr/robbins-poster-la-redencion-de-shawshank-1994-2jh2myr.jpg",
+                            Genero = 6,
+                            Poster = "https://goo.su/qZvU0L",
                             Sinopsis = "La historia de amistad y redención de dos presos en una prisión de máxima seguridad.",
                             Titulo = "The Shawshank Redemption",
                             Trailer = "https://youtu.be/NmzuHjWmXOc"
@@ -275,7 +279,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 14,
-                            GeneroId = 7,
+                            Genero = 7,
                             Poster = "https://i.pinimg.com/originals/f1/43/69/f14369fb56e47283f02038b920654056.jpg",
                             Sinopsis = "Un grupo de aventureros se embarca en una búsqueda épica para destruir un poderoso anillo y salvar la Tierra Media.",
                             Titulo = "The Lord of the Rings: The Fellowship of the Ring",
@@ -284,7 +288,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 15,
-                            GeneroId = 9,
+                            Genero = 9,
                             Poster = "https://i.pinimg.com/originals/cc/47/a5/cc47a507854dfe4ea145ebb4c9ae51c4.jpg",
                             Sinopsis = "Batman se enfrenta al Joker, un villano psicótico que amenaza la ciudad de Gotham.",
                             Titulo = "The Dark Knight",
@@ -293,7 +297,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 16,
-                            GeneroId = 3,
+                            Genero = 3,
                             Poster = "https://m.media-amazon.com/images/I/71yTgkLsVSL._AC_UF1000,1000_QL80_.jpg",
                             Sinopsis = "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
                             Titulo = "Interstellar",
@@ -302,7 +306,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 17,
-                            GeneroId = 2,
+                            Genero = 2,
                             Poster = "https://i.pinimg.com/originals/33/a2/3e/33a23efac95a568791d39c7f861ba571.jpg",
                             Sinopsis = "Las extravagantes aventuras de un conserje y su protegido en un elegante hotel europeo.",
                             Titulo = "The Grand Budapest Hotel",
@@ -311,7 +315,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 18,
-                            GeneroId = 10,
+                            Genero = 10,
                             Poster = "https://i.pinimg.com/1200x/46/b6/7a/46b67ac7d75449489b8062fd9aabb580.jpg",
                             Sinopsis = "Un secretario se adentra en un motel regentado por un misterioso propietario con oscuros secretos.",
                             Titulo = "Psycho",
@@ -320,7 +324,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 19,
-                            GeneroId = 7,
+                            Genero = 7,
                             Poster = "https://i.pinimg.com/originals/d1/71/70/d17170965d7cb8e186976c87e0b2b1de.jpg",
                             Sinopsis = "Una niña se adentra en un mundo mágico y busca la forma de salvar a sus padres convertidos en cerdos.",
                             Titulo = "Spirited Away",
@@ -329,7 +333,7 @@ namespace Data.Migrations
                         new
                         {
                             PeliculaId = 20,
-                            GeneroId = 9,
+                            Genero = 9,
                             Poster = "https://i.pinimg.com/736x/b5/3d/5a/b53d5ab34f982f3f144f2f903d23dba7.jpg",
                             Sinopsis = "Varios personajes se entrelazan en una historia de crimen, violencia y humor negro en Los Ángeles.",
                             Titulo = "Pulp Fiction",
@@ -392,7 +396,7 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("TicketId");
+                    b.HasKey("TicketId", "FuncionId");
 
                     b.HasIndex("FuncionId");
 
@@ -401,43 +405,43 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Funcion", b =>
                 {
-                    b.HasOne("Domain.Entities.Sala", "Sala")
-                        .WithMany("Funciones")
-                        .HasForeignKey("FuncionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Pelicula", "Pelicula")
+                    b.HasOne("Domain.Entities.Pelicula", "Peliculas")
                         .WithMany("Funciones")
                         .HasForeignKey("PeliculaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pelicula");
+                    b.HasOne("Domain.Entities.Sala", "Salas")
+                        .WithMany("Funciones")
+                        .HasForeignKey("SalaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Sala");
+                    b.Navigation("Peliculas");
+
+                    b.Navigation("Salas");
                 });
 
             modelBuilder.Entity("Domain.Entities.Pelicula", b =>
                 {
-                    b.HasOne("Domain.Entities.Genero", "Genero")
+                    b.HasOne("Domain.Entities.Genero", "Generos")
                         .WithMany("Peliculas")
-                        .HasForeignKey("GeneroId")
+                        .HasForeignKey("Genero")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Genero");
+                    b.Navigation("Generos");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
                 {
-                    b.HasOne("Domain.Entities.Funcion", "Funcion")
+                    b.HasOne("Domain.Entities.Funcion", "Funciones")
                         .WithMany("Tickets")
                         .HasForeignKey("FuncionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Funcion");
+                    b.Navigation("Funciones");
                 });
 
             modelBuilder.Entity("Domain.Entities.Funcion", b =>

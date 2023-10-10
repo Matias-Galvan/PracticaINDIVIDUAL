@@ -1,7 +1,6 @@
 ﻿using Application.ErrorHandler;
 using Application.Interfaces.Peliculas;
 using Domain.Entities;
-using System.Dynamic;
 
 namespace Application.Services
 {
