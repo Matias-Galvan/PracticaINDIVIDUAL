@@ -92,6 +92,7 @@ using PracticaINDIVIDUAL.Controller;
                     case 3:
                         //Salir
                         ContinuarMenuPrincipal = false;
+                        Console.WriteLine("Saliendo...");
                         break;
                     default:
                         Console.WriteLine("Opción inválida");
