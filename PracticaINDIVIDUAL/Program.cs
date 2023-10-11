@@ -60,6 +60,12 @@ using PracticaINDIVIDUAL.Controller;
                                         break;
                                 }
                             }
+                            else
+                            {
+                                ContinuarMenuFuncion = false;
+                                Console.WriteLine("Ingresó una opción incorrecta, presione una tecla para volver al menú principal.");
+                                Console.ReadKey();
+                            }
 
                         }
                         break;
@@ -86,6 +92,12 @@ using PracticaINDIVIDUAL.Controller;
                                         break;
                                 }
                             }
+                            else
+                            {
+                                ContinuarMenuFuncion = false;
+                                Console.WriteLine("Ingresó una opción incorrecta, vuelva a intentarlo.");
+                                Console.ReadKey();
+                            }
 
                         }
                         break;
@@ -98,6 +110,13 @@ using PracticaINDIVIDUAL.Controller;
                         Console.WriteLine("Opción inválida");
                         break;
                 }
+            }
+            else
+            {
+                ContinuarMenuFuncion = false;
+                Console.WriteLine("Ingresó una opción incorrecta, intente nuevamente.");
+                Console.WriteLine("Presione una tecla para continuar");
+                Console.ReadKey();
             }
         }
         catch (Exception ex)

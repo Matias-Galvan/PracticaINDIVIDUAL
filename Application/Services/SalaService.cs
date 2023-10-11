@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Application.Services
 {
-    public class SalaService: ISalaService
+    public class SalaService : ISalaService
     {
         private readonly ISalaQuery _SalaQuery;
         public SalaService(ISalaQuery SalaQuery)

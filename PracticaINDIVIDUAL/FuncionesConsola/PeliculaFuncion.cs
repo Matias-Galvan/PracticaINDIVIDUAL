@@ -5,6 +5,7 @@ namespace PracticaINDIVIDUAL.Funciones
 {
     public class PeliculaFuncion
     {
+
         public static int ObtenerPeliculaId(List<Pelicula> peliculas)
         {
             Console.WriteLine("*********************************************************");
@@ -25,12 +26,16 @@ namespace PracticaINDIVIDUAL.Funciones
                         Console.WriteLine("Presione una tecla para continuar...");
                         Console.ReadKey();
                         return PeliculaId;
-                        
+
                     }
                     else
                     {
                         throw new ElementNotFoundException("Película no encontrada, intente nuevamente");
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Código inválido intente nuevamente..");
                 }
             }
         }

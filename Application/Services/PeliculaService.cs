@@ -3,7 +3,7 @@ using Domain.Entities;
 
 namespace Application.Services
 {
-    public class PeliculaService: IPeliculaService
+    public class PeliculaService : IPeliculaService
     {
         private readonly IPeliculaQuery _PeliculaQuery;
 
