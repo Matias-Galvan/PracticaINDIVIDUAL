@@ -29,6 +29,18 @@
     {
         public ParseFailedException(string message) : base(message) { }
     }
+    public class ElementAlreadyExistException : Exception
+    {
+        public ElementAlreadyExistException(string message) : base(message) { }
+    }
+    public class BadRequestException : Exception
+    {
+        public BadRequestException(string message) : base(message) { }
+    }
+    public class InvalidDataException : Exception
+    {
+        public InvalidDataException(string message) : base(message) { }
+    }
 
 }
 

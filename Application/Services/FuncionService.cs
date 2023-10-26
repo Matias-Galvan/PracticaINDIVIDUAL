@@ -1,5 +1,10 @@
-﻿using Application.ErrorHandler;
+﻿using Application.DTO;
+using Application.ErrorHandler;
+using Application.Filters;
 using Application.Interfaces.Funciones;
+using Application.Interfaces.Generos;
+using Application.Interfaces.Peliculas;
+using Application.Interfaces.Salas;
 using Domain.Entities;
 
 namespace Application.Services
@@ -9,6 +14,9 @@ namespace Application.Services
         private readonly IFuncionCommand _FuncionCommand;
         private readonly IFuncionQuery _FuncionQuery;
         private readonly IErrorHandler _ErrorHandler;
+        private readonly IPeliculaQuery _PeliculaQuery;
+        private readonly ISalaQuery _SalaQuery;
+        private readonly IGeneroQuery _GeneroQuery;
 
         public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery)
         {
@@ -22,6 +30,22 @@ namespace Application.Services
             _FuncionQuery = funcionQuery;
             _ErrorHandler = errorHandler;
         }
+
+        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery)
+        {
+            _FuncionCommand = funcionCommand;
+            _FuncionQuery = funcionQuery;
+            _ErrorHandler = errorHandler;
+            _PeliculaQuery = peliculaQuery;
+            _SalaQuery = salaQuery;
+            _GeneroQuery = generoQuery;
+        }
+
+        public Task<FuncionDTOResponse> actualizarFuncion(int funcionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CrearFuncion(int peliculaId, int salaId, DateTime fecha, TimeSpan hora)
         {
             Funcion funcion = new()
@@ -32,6 +56,41 @@ namespace Application.Services
                 Horario = hora
             };
             _FuncionCommand.CrearFuncion(funcion);
+        }
+
+        public async Task<FuncionDTOResponse> crearFuncion(Funcion request)
+        {
+            var funciones = _FuncionQuery.GetAllFunciones() ?? throw new ElementNotFoundException("No hay funciones disponibles en cartelera");
+            var funcion = new Funcion();
+            funcion.Fecha = request.Fecha;
+            var peliculaId = request.PeliculaId;
+            var pelicula =  _PeliculaQuery.GetPeliculaById(peliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
+            funcion.SalaId = request.SalaId;
+            var sala = _SalaQuery.GetSala(funcion.SalaId) ?? throw new ElementNotFoundException("Sala no encontrada");
+            funcion.Tickets = new List<Ticket>(sala.Capacidad);
+            funcion.Horario = request.Horario;
+            var horarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
+            var horarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
+            var genero = _GeneroQuery.GetById(pelicula.Result.genero.GeneroId) ?? throw new ElementNotFoundException("Género no encontrado");
+            if (funciones.Any(f => f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd") && f.Horario == funcion.Horario && f.SalaId == funcion.SalaId))
+            {
+                throw new ElementAlreadyExistException("Ya existe una función para ese día y horario en esa sala");
+            }
+            if (funciones.Any(f => f.Horario <= horarioProximo && f.Horario >= horarioAnterior && f.SalaId == funcion.SalaId && f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd")))
+            {
+                throw new ElementAlreadyExistException("No se puede crear una función para ese día y horario en esa sala, hay superposición horaria. Intente nuevamente");
+            }
+            return _FuncionCommand.crearFuncion(funcion);
+        }
+
+        public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Funcion> GetAllFunciones()
@@ -52,6 +111,21 @@ namespace Application.Services
         public List<Funcion> GetFuncionPeliculaYDia(int PeliculaNombre, DateTime fecha)
         {
             return _FuncionQuery.GetFuncionPeliculaYDia(PeliculaNombre, fecha) ?? throw new ElementNotFoundException("No hay funciones para la película y día seleccionados"); ;
+        }
+
+        public Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
