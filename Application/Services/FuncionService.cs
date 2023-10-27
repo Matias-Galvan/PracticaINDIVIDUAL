@@ -80,7 +80,29 @@ namespace Application.Services
             {
                 throw new ElementAlreadyExistException("No se puede crear una función para ese día y horario en esa sala, hay superposición horaria. Intente nuevamente");
             }
-            return _FuncionCommand.crearFuncion(funcion);
+            var response = await _FuncionCommand.crearFuncion(funcion);
+            response.FuncionId = funcion.FuncionId;
+            response.Pelicula = new PeliculaDTOResponse
+            {
+                PeliculaId = pelicula.Result.PeliculaId,
+                Titulo = pelicula.Result.Titulo,
+                Poster = pelicula.Result.Poster,
+                Genero = new GeneroDTOResponse
+                {
+                    GeneroId = genero.Result.GeneroId,
+                    Nombre = genero.Result.Nombre
+                },
+            };
+            response.Sala = new SalaDTOResponse
+            {
+                SalaId = sala.SalaId,
+                Nombre = sala.Nombre,
+                Capacidad = sala.Capacidad
+            };
+            response.Fecha = funcion.Fecha;
+            response.Horario = funcion.Horario.ToString();
+            return response;
+            
         }
 
         public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)

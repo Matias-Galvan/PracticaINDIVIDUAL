@@ -29,29 +29,11 @@ namespace Infraestructure.Command.Funciones
         {
             _context.Funciones.Add(funcion);
             _context.SaveChangesAsync();
-            return new FuncionDTOResponse
+            return Task.FromResult(new FuncionDTOResponse
             {
-                FuncionId = funcion.FuncionId,
-                Pelicula = new PeliculaDTOResponse
-                {
-                    PeliculaId = funcion.PeliculaId,
-                    Titulo = funcion.Peliculas.Titulo,
-                    Poster = funcion.Peliculas.Poster,
-                    Genero = new GeneroDTOResponse
-                    {
-                        GeneroId = funcion.Peliculas.Genero,
-                        Nombre = funcion.Peliculas.Generos.Nombre
-                    },
-                },
-                Sala = new SalaDTOResponse
-                {
-                    SalaId = funcion.SalaId,
-                    Nombre = funcion.Salas.Nombre,
-                    Capacidad = funcion.Salas.
-                },
-                Fecha = funcion.Fecha,
-                Horario = funcion.Horario.ToString()
-            };
+                
+            });
+            
         }
 
         public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
