@@ -9,6 +9,7 @@ using Infraestructure.Command.Peliculas;
 using Infraestructure.Persistence;
 using Infraestructure.Query.Funciones;
 using Infraestructure.Query.Peliculas;
+using Infraestructure.Query.Salas;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IPeliculaQuery, PeliculaQuery>();
 builder.Services.AddScoped<IFuncionService, FuncionService>();
 builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPeliculaService, PeliculaService>();
+builder.Services.AddScoped<ISalaQuery, SalaQuery>();
 builder.Services.AddScoped<ISalaService, SalaService>();
 
 

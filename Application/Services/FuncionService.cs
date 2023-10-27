@@ -18,19 +18,6 @@ namespace Application.Services
         private readonly ISalaQuery _SalaQuery;
         private readonly IGeneroQuery _GeneroQuery;
 
-        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery)
-        {
-            _FuncionCommand = funcionCommand;
-            _FuncionQuery = funcionQuery;
-        }
-
-        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler)
-        {
-            _FuncionCommand = funcionCommand;
-            _FuncionQuery = funcionQuery;
-            _ErrorHandler = errorHandler;
-        }
-
         public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery)
         {
             _FuncionCommand = funcionCommand;

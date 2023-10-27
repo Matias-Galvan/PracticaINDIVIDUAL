@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.Funciones;
+﻿using Application.DTO;
+using Application.Filters;
+using Application.Interfaces.Funciones;
 using Domain.Entities;
 using Infraestructure.Persistence;
 
@@ -29,6 +31,21 @@ namespace Infraestructure.Query.Funciones
         public List<Funcion> GetFuncionPeliculaYDia(int PeliculaNombre, DateTime fecha)
         {
             return _dbContext.Funciones.Where(x => x.PeliculaId == PeliculaNombre && x.Fecha == fecha).ToList();
+        }
+
+        public Task<List<FuncionDTOResponse>> listarFunciones(FuncionFilters filters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<FuncionDTOResponse> obtenerFuncionPorId(int funcionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
