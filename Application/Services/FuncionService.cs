@@ -13,16 +13,14 @@ namespace Application.Services
     {
         private readonly IFuncionCommand _FuncionCommand;
         private readonly IFuncionQuery _FuncionQuery;
-        private readonly IErrorHandler _ErrorHandler;
         private readonly IPeliculaQuery _PeliculaQuery;
         private readonly ISalaQuery _SalaQuery;
         private readonly IGeneroQuery _GeneroQuery;
 
-        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IErrorHandler errorHandler, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery)
+        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery)
         {
             _FuncionCommand = funcionCommand;
             _FuncionQuery = funcionQuery;
-            _ErrorHandler = errorHandler;
             _PeliculaQuery = peliculaQuery;
             _SalaQuery = salaQuery;
             _GeneroQuery = generoQuery;

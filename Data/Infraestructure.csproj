@@ -19,6 +19,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
@@ -30,7 +32,6 @@
     <Folder Include="Command\Generos\" />
     <Folder Include="Command\Salas\" />
     <Folder Include="Command\Tickets\" />
-    <Folder Include="Query\Generos\" />
     <Folder Include="Query\Tickets\" />
   </ItemGroup>
 
