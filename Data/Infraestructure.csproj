@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LinqKit" Version="1.2.4" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="7.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +30,6 @@
     <Folder Include="Command\Generos\" />
     <Folder Include="Command\Salas\" />
     <Folder Include="Command\Tickets\" />
-    <Folder Include="Command\Peliculas\" />
     <Folder Include="Query\Generos\" />
     <Folder Include="Query\Tickets\" />
   </ItemGroup>

@@ -1,6 +1,4 @@
-﻿using Aplication.ErrorHandler;
-using Aplication.Interfaces;
-using Application.DTO;
+﻿using Application.DTO;
 using Application.ErrorHandler;
 using Application.Interfaces.Peliculas;
 using Microsoft.AspNetCore.Mvc;

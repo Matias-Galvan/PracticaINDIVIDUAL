@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Peliculas;
+﻿using Application.DTO;
+using Application.Interfaces.Peliculas;
 using Domain.Entities;
 
 namespace Application.Services
@@ -12,6 +13,11 @@ namespace Application.Services
             _PeliculaQuery = peliculaQuery;
         }
 
+        public Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CrearPelicula(Pelicula pelicula)
         {
             throw new NotImplementedException();
@@ -23,6 +29,16 @@ namespace Application.Services
         }
 
         public Pelicula GetPelicula(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<PeliculaDTOResponse>> GetPeliculas()
         {
             throw new NotImplementedException();
         }

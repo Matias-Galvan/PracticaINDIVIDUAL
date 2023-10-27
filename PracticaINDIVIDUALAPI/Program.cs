@@ -1,22 +1,16 @@
-using Aplication.Interfaces;
-using Aplication.UseCase.Services;
-using Application.Interfaces.Command;
 using Application.Interfaces.Funciones;
 using Application.Interfaces.Generos;
 using Application.Interfaces.Peliculas;
-using Application.Interfaces.Queries;
 using Application.Interfaces.Salas;
 using Application.Services;
 using Infraestructure;
 using Infraestructure.Command.Funciones;
+using Infraestructure.Command.Peliculas;
 using Infraestructure.Persistence;
 using Infraestructure.Query.Funciones;
 using Infraestructure.Query.Peliculas;
 using Microsoft.EntityFrameworkCore;
-using PracticaINDIVIDUAL.API.Commands.FuncionCMD;
-using PracticaINDIVIDUAL.API.Commands.Pelicula;
-using PracticaINDIVIDUAL.API.Queries.Funcion;
-using PracticaINDIVIDUAL.API.Queries.Pelicula;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

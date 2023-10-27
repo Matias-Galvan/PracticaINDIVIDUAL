@@ -80,7 +80,7 @@ namespace Application.Services
             {
                 throw new ElementAlreadyExistException("No se puede crear una función para ese día y horario en esa sala, hay superposición horaria. Intente nuevamente");
             }
-            var response = await _FuncionCommand.crearFuncion(funcion);
+            var response = await _FuncionCommand.CrearFnc(funcion);
             response.FuncionId = funcion.FuncionId;
             response.Pelicula = new PeliculaDTOResponse
             {
