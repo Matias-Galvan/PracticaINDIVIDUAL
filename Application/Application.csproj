@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Tickets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="LinqKit" Version="1.2.4" />
   </ItemGroup>
 

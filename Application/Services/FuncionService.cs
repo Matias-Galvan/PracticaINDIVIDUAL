@@ -5,6 +5,7 @@ using Application.Interfaces.Funciones;
 using Application.Interfaces.Generos;
 using Application.Interfaces.Peliculas;
 using Application.Interfaces.Salas;
+using Application.Interfaces.Tickets;
 using Domain.Entities;
 using LinqKit;
 
@@ -17,14 +18,18 @@ namespace Application.Services
         private readonly IPeliculaQuery _PeliculaQuery;
         private readonly ISalaQuery _SalaQuery;
         private readonly IGeneroQuery _GeneroQuery;
+        private readonly ITicketQuery _TicketQuery;
+        private readonly ITicketCommand _TicketCommand;
 
-        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery)
+        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery, ITicketQuery ticketQuery, ITicketCommand ticketCommand)
         {
             _FuncionCommand = funcionCommand;
             _FuncionQuery = funcionQuery;
             _PeliculaQuery = peliculaQuery;
             _SalaQuery = salaQuery;
             _GeneroQuery = generoQuery;
+            _TicketQuery = ticketQuery;
+            _TicketCommand = ticketCommand;
         }
 
         public Task<FuncionDTOResponse> ActualizarFuncion(int funcionId)
@@ -101,7 +106,66 @@ namespace Application.Services
 
         public Task<TicketDTOResponseTickets> CrearTicketFuncion(int id, TicketDTO request)
         {
-            throw new NotImplementedException();
+            List<TicketDTOResponseIDTicket> tickets = new();
+            List<TicketDTOResponseTickets> TicketsComprados = new();
+            var funcion = _FuncionQuery.ObtenerFuncionPorId(id) ?? throw new ElementNotFoundException("Función no encontrada");
+            var sala = _SalaQuery.GetSala(funcion.Result.Sala.id) ?? throw new ElementNotFoundException("Sala no encontrada");
+            var pelicula = _PeliculaQuery.GetPeliculaById(funcion.Result.Pelicula.PeliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
+            var genero = _GeneroQuery.GetGenero(pelicula.Result.genero.id) ?? throw new ElementNotFoundException("Género no encontrado");
+            var TicketsVendidos = _TicketQuery.GetAll().Result.Where(t => t.FuncionId == id).ToList();
+            var TicketsDisponibles = sala.Capacidad - TicketsVendidos.Count;
+            if(request.Cantidad > TicketsDisponibles)
+            {
+                throw new InvalidOperationException("No hay suficientes tickets disponibles");
+            }
+            for (int i = 0; i < request.Cantidad; i++)
+            {
+                if(TicketsVendidos.Count == 0)
+                {
+                    throw new ElementNotFoundException("No hay tickets disponibles para la función seleccionada");
+                }
+                var ticket = new Ticket
+                {
+                    TicketId = new Guid(),
+                    FuncionId = id,
+                    Usuario = request.Usuario,
+                };
+                tickets.Add(new TicketDTOResponseIDTicket { ticketId = ticket.TicketId});
+                var response = _TicketCommand.CrearTicket(ticket);
+                TicketsComprados.Add(new TicketDTOResponseTickets
+                {
+                    Funcion = new FuncionDTOResponse
+                    {
+                        FuncionId = funcion.Result.FuncionId,
+                        Pelicula = new PeliculaDTOResponse
+                        {
+                            PeliculaId = pelicula.Result.PeliculaId,
+                            Titulo = pelicula.Result.Titulo,
+                            Poster = pelicula.Result.Poster,
+                            Genero = new GeneroDTOResponse
+                            {
+                                id = genero.GeneroId,
+                                Nombre = genero.Nombre
+                            },
+                        },
+                        Sala = new SalaDTOResponse
+                        {
+                            id = sala.SalaId,
+                            Nombre = sala.Nombre,
+                            Capacidad = sala.Capacidad
+                        },
+                        Fecha = funcion.Result.Fecha,
+                        Horario = funcion.Result.Horario.ToString(),
+                    },
+                    Usuario = ticket.Usuario,
+                });
+            }
+            TicketsComprados.Add(new TicketDTOResponseTickets
+            {
+                Tickets = tickets,
+            });
+            return Task.FromResult(TicketsComprados.Last());
+
         }
 
         public Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId)

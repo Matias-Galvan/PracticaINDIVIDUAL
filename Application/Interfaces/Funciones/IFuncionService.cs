@@ -18,5 +18,6 @@ namespace Application.Interfaces.Funciones
         Task<FuncionDTOResponse> ObtenerFuncionPorId(int funcionId);
         Task<TicketsDTOResponse> ObtenerTicketsFuncionPorId(int id);
         Task<TicketDTOResponseTickets> CrearTicketFuncion(int id, TicketDTO request);
+        Task<TicketDTOResponseTickets> CrearTicketFuncion(Ticket ticket);
     }
 }

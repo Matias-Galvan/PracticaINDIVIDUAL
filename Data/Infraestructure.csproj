@@ -31,8 +31,6 @@
   <ItemGroup>
     <Folder Include="Command\Generos\" />
     <Folder Include="Command\Salas\" />
-    <Folder Include="Command\Tickets\" />
-    <Folder Include="Query\Tickets\" />
   </ItemGroup>
 
 </Project>
