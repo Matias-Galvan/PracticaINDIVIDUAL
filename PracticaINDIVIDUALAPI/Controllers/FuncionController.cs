@@ -68,7 +68,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _funcionService.ObtenerFuncionPorId(id);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 200};
             }
             catch (ElementNotFoundException e)
             {
@@ -162,8 +162,8 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.eliminarFuncion(id);
-                return new JsonResult(result);
+                var result = await _funcionService.EliminarFuncion(id);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {
@@ -175,6 +175,13 @@ namespace PracticaINDIVIDUAL.API.Controllers
             catch (InvalidOperationException e)
             {
                 return Conflict(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (System.IO.InvalidDataException e)
+            {
+                return BadRequest(new ErrorMessageHttp
                 {
                     message = e.Message,
                 });
@@ -198,7 +205,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.obtenerTicketsFuncionPorId(id);
+                var result = await _funcionService.ObtenerTicketsFuncionPorId(id);
                 return new JsonResult(result);
             }
             catch (ElementNotFoundException e)
@@ -229,7 +236,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.crearTicketFuncion(id, request);
+                var result = await _funcionService.CrearTicketFuncion(id, request);
                 return new JsonResult(result);
             }
             catch (ElementNotFoundException e)

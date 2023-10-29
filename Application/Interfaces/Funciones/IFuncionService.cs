@@ -12,11 +12,11 @@ namespace Application.Interfaces.Funciones
         List<Funcion> GetFuncionDia(DateTime dia);
         List<Funcion> GetFuncionPeliculaYDia(int PeliculaNombre, DateTime fecha);
         Task<FuncionDTOResponse> CrearFuncion(Funcion funcion);
-        Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
-        Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId);
+        Task<FuncionDTOResponse> ActualizarFuncion(int funcionId);
+        Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId);
         Task<List<FuncionDTOResponse>> ListarFunciones(FuncionFilters filters);
         Task<FuncionDTOResponse> ObtenerFuncionPorId(int funcionId);
-        Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id);
-        Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request);
+        Task<TicketsDTOResponse> ObtenerTicketsFuncionPorId(int id);
+        Task<TicketDTOResponseTickets> CrearTicketFuncion(int id, TicketDTO request);
     }
 }

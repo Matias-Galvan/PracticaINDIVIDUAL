@@ -41,9 +41,14 @@ namespace Infraestructure.Command.Funciones
             throw new NotImplementedException();
         }
 
-        public Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId)
+        public Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId)
         {
-            throw new NotImplementedException();
+           _context.Funciones.Remove(_context.Funciones.Find(funcionId));
+           _context.SaveChanges();
+            return Task.FromResult(new FuncionDTOResponseDetail
+            {
+                
+              });
         }
     }
 }

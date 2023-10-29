@@ -27,7 +27,7 @@ namespace Application.Services
             _GeneroQuery = generoQuery;
         }
 
-        public Task<FuncionDTOResponse> actualizarFuncion(int funcionId)
+        public Task<FuncionDTOResponse> ActualizarFuncion(int funcionId)
         {
             throw new NotImplementedException();
         }
@@ -56,21 +56,21 @@ namespace Application.Services
                 throw new InvalidTimeFormatException("Formato de hora inválido");
             }
             funcion.Fecha = request.Fecha;
-            var peliculaId = request.PeliculaId;
-            funcion.PeliculaId = peliculaId;
-            var pelicula =  _PeliculaQuery.GetPeliculaById(peliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
+            var PeliculaId = request.PeliculaId;
+            funcion.PeliculaId = PeliculaId;
+            var pelicula =  _PeliculaQuery.GetPeliculaById(PeliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
             funcion.SalaId = request.SalaId;
             var sala = _SalaQuery.GetSala(funcion.SalaId) ?? throw new ElementNotFoundException("Sala no encontrada");
             funcion.Tickets = new List<Ticket>(sala.Capacidad);
             funcion.Horario = request.Horario;
-            var horarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
-            var horarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
+            var HorarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
+            var HorarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
             var genero = _GeneroQuery.GetGenero(pelicula.Result.genero.id) ?? throw new ElementNotFoundException("Género no encontrado");
             if (funciones.Any(f => f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd") && f.Horario == funcion.Horario && f.SalaId == funcion.SalaId))
             {
                 throw new ElementAlreadyExistException("Ya existe una función para ese día y horario en esa sala");
             }
-            if (funciones.Any(f => f.Horario <= horarioProximo && f.Horario >= horarioAnterior && f.SalaId == funcion.SalaId && f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd")))
+            if (funciones.Any(f => f.Horario <= HorarioProximo && f.Horario >= HorarioAnterior && f.SalaId == funcion.SalaId && f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd")))
             {
                 throw new ElementAlreadyExistException("No se puede crear una función para ese día y horario en esa sala, hay superposición horaria. Intente nuevamente");
             }
@@ -99,14 +99,25 @@ namespace Application.Services
             
         }
 
-        public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
+        public Task<TicketDTOResponseTickets> CrearTicketFuncion(int id, TicketDTO request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<FuncionDTOResponseDetail> eliminarFuncion(int funcionId)
+        public Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId)
         {
-            throw new NotImplementedException();
+            var funciones = _FuncionQuery.GetAllFunciones() ?? throw new ElementNotFoundException("No hay funciones disponibles en cartelera");
+            var funcion = funciones.FirstOrDefault(f => f.FuncionId == funcionId) ?? throw new ElementNotFoundException("Función no encontrada");
+            var tickets = funcion.Tickets;
+            if (tickets != null)
+            {
+                throw new ElementAlreadyExistException("No se puede eliminar la función porque hay tickets vendidos");
+            }
+            var response = _FuncionCommand.EliminarFuncion(funcionId);
+            response.Result.FuncionId = funcion.FuncionId;
+            response.Result.Fecha = funcion.Fecha;
+            response.Result.Horario = funcion.Horario.ToString();
+            return response;
         }
 
         public List<Funcion> GetAllFunciones()
@@ -141,13 +152,13 @@ namespace Application.Services
                 }
                 var genero = _GeneroQuery.GetGenero((int)filters.Genero);
                 var peliculas = _PeliculaQuery.GetAllPeliculas();
-                var peliculasFiltradas = peliculas.Where(p => p.Genero == filters.Genero).ToList();
-                if (!peliculasFiltradas.Any(p => p.Genero == filters.Genero))
+                var PeliculasFiltradas = peliculas.Where(p => p.Genero == filters.Genero).ToList();
+                if (!PeliculasFiltradas.Any(p => p.Genero == filters.Genero))
                 {
                     throw new ElementNotFoundException("No hay funciones para el género ingresado");
                 }
-                var peliculasIds = peliculasFiltradas.Select(p => p.PeliculaId).ToList();
-                funciones = funciones.Where(x => peliculasIds.Contains(x.PeliculaId)).ToList();
+                var PeliculasIds = PeliculasFiltradas.Select(p => p.PeliculaId).ToList();
+                funciones = funciones.Where(x => PeliculasIds.Contains(x.PeliculaId)).ToList();
             }
             if (!string.IsNullOrEmpty(filters.Titulo))
             {
@@ -197,7 +208,7 @@ namespace Application.Services
             return funcion;
         }
 
-        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        public Task<TicketsDTOResponse> ObtenerTicketsFuncionPorId(int id)
         {
             throw new NotImplementedException();
         }
