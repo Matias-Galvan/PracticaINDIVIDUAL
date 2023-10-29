@@ -129,60 +129,6 @@ namespace Application.Services
             return _FuncionQuery.GetFuncionPeliculaYDia(PeliculaNombre, fecha) ?? throw new ElementNotFoundException("No hay funciones para la película y día seleccionados"); ;
         }
 
-        //public Task<List<FuncionDTOResponse>> ListarFunciones(FuncionFilters filters)
-        //{
-        //    var predicate = PredicateBuilder.New<Funcion>(true);
-        //    if (filters.Genero != null)
-        //    {
-        //        var generos = _GeneroQuery.GetGeneros();
-        //        if (!generos.Any(p => p.GeneroId == filters.Genero))
-        //        {
-        //            throw new ElementNotFoundException("No hay funciones para el género ingresado");
-        //        }
-        //        var genero = _GeneroQuery.GetGenero((int)filters.Genero);
-        //        predicate = predicate.And(x => x.Peliculas.Genero == filters.Genero);
-        //    }else if (!string.IsNullOrEmpty(filters.Titulo))
-        //    {
-        //        var peliculas = _PeliculaQuery.GetAllPeliculas();
-        //        if (!peliculas.Any(p => p.Titulo.Contains(filters.Titulo)))
-        //        {
-        //            throw new ElementNotFoundException("No hay funciones para el título ingresado");
-        //        }
-        //        predicate = predicate.And(x => x.Peliculas.Titulo == filters.Titulo);
-        //    }else if (!string.IsNullOrEmpty(filters.Fecha))
-        //    {
-        //        var funciones = _FuncionQuery.GetAllFunciones();
-        //        if (!funciones.Any(f => f.Fecha.ToString("yyyy-MM-dd") == filters.Fecha))
-        //        {
-        //            throw new ElementNotFoundException("No hay funciones para la fecha ingresada");
-        //        }
-        //        predicate = predicate.And(x => x.Fecha.ToString("yyyy-MM-dd") == filters.Fecha);
-        //    }
-        //    var funcionesPredicate = _FuncionQuery.GetAllFunciones().AsQueryable().Where(predicate);
-        //    return Task.FromResult(funcionesPredicate.Select(x => new FuncionDTOResponse
-        //    {
-        //        FuncionId = x.FuncionId,
-        //        Pelicula = new PeliculaDTOResponse
-        //        {
-        //            PeliculaId = x.PeliculaId,
-        //            Titulo = _PeliculaQuery.GetPeliculaById(x.PeliculaId).Result.Titulo,
-        //            Poster = _PeliculaQuery.GetPeliculaById(x.PeliculaId).Result.Poster,
-        //            Genero = new GeneroDTOResponse
-        //            {
-        //                id = _GeneroQuery.GetById(x.Peliculas.Genero).Result.id,
-        //                Nombre = _GeneroQuery.GetById(x.Peliculas.Genero).Result.Nombre
-        //            }
-        //        },
-        //        Sala = new SalaDTOResponse
-        //        {
-        //            id = x.SalaId,
-        //            Nombre = _SalaQuery.GetSala(x.SalaId).Nombre,
-        //            Capacidad = _SalaQuery.GetSala(x.SalaId).Capacidad
-        //        },
-        //        Fecha = new DateTime(x.Fecha.Year, x.Fecha.Month, x.Fecha.Day).Date,
-        //        Horario = x.Horario.ToString(),
-        //    }).ToList());
-        //}
         public Task<List<FuncionDTOResponse>> ListarFunciones(FuncionFilters filters)
         {
             var funciones = _FuncionQuery.GetAllFunciones();
