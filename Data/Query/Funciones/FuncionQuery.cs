@@ -15,7 +15,7 @@ namespace Infraestructure.Query.Funciones
         }
         public List<Funcion> GetAllFunciones()
         {
-            throw new NotImplementedException();
+            return _dbContext.Funciones.ToList();
         }
 
         public List<Funcion> GetFuncionDia(DateTime dia)

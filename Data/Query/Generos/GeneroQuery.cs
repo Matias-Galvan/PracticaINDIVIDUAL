@@ -1,5 +1,6 @@
 ﻿using Application.DTO;
 using Application.Interfaces.Generos;
+using Domain.Entities;
 using Infraestructure.Persistence;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,21 @@ namespace Infraestructure.Query.Generos
 
         public Task<GeneroDTOResponse> GetById(int id)
         {
-            throw new NotImplementedException();
+            var genero = _dbContext.Generos.Where(g => g.GeneroId == id).FirstOrDefault();
+
+            return new Task<GeneroDTOResponse>(() =>
+            {
+                return new GeneroDTOResponse
+                {
+                    GeneroId = genero.GeneroId,
+                    Nombre = genero.Nombre
+                };
+            });
         }
+        public Genero GetGenero(int id)
+        {
+            return _dbContext.Generos.Where(g => g.GeneroId == id).FirstOrDefault();
+        }
+
     }
 }

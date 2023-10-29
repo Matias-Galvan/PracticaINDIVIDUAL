@@ -47,8 +47,16 @@ namespace Application.Services
         {
             var funciones = _FuncionQuery.GetAllFunciones() ?? throw new ElementNotFoundException("No hay funciones disponibles en cartelera");
             var funcion = new Funcion();
+            if(DateTime.TryParse(request.Fecha.ToString(), out DateTime fecha) == false)
+            {
+                throw new InvalidDateFormatException("Formato de fecha inválido");
+            }else if(TimeSpan.TryParse(request.Horario.ToString(), out TimeSpan hora) == false)
+            {
+                throw new InvalidTimeFormatException("Formato de hora inválido");
+            }
             funcion.Fecha = request.Fecha;
             var peliculaId = request.PeliculaId;
+            funcion.PeliculaId = peliculaId;
             var pelicula =  _PeliculaQuery.GetPeliculaById(peliculaId) ?? throw new ElementNotFoundException("Película no encontrada");
             funcion.SalaId = request.SalaId;
             var sala = _SalaQuery.GetSala(funcion.SalaId) ?? throw new ElementNotFoundException("Sala no encontrada");
@@ -56,7 +64,7 @@ namespace Application.Services
             funcion.Horario = request.Horario;
             var horarioProximo = request.Horario.Add(new TimeSpan(2, 30, 0));
             var horarioAnterior = request.Horario.Add(new TimeSpan(-2, 30, 0));
-            var genero = _GeneroQuery.GetById(pelicula.Result.genero.GeneroId) ?? throw new ElementNotFoundException("Género no encontrado");
+            var genero = _GeneroQuery.GetGenero(pelicula.Result.genero.GeneroId) ?? throw new ElementNotFoundException("Género no encontrado");
             if (funciones.Any(f => f.Fecha.ToString("yyyy-MM-dd") == funcion.Fecha.ToString("yyyy-MM-dd") && f.Horario == funcion.Horario && f.SalaId == funcion.SalaId))
             {
                 throw new ElementAlreadyExistException("Ya existe una función para ese día y horario en esa sala");
@@ -74,8 +82,8 @@ namespace Application.Services
                 Poster = pelicula.Result.Poster,
                 Genero = new GeneroDTOResponse
                 {
-                    GeneroId = genero.Result.GeneroId,
-                    Nombre = genero.Result.Nombre
+                    GeneroId = genero.GeneroId,
+                    Nombre = genero.Nombre
                 },
             };
             response.Sala = new SalaDTOResponse

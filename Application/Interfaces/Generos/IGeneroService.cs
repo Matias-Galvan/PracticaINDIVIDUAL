@@ -8,5 +8,6 @@ namespace Application.Interfaces.Generos
         List<Genero> getGeneros();
         Task<List<GeneroDTOResponse>> GetAll();
         Task<GeneroDTOResponse> GetById(int id);
+        Genero GetGenero(int id);
     }
 }

@@ -98,15 +98,29 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             var funcion = new Funcion
             {
+                PeliculaId = request.Pelicula,
+                SalaId = request.Sala,
                 Fecha = request.Fecha,
-                Horario = TimeSpan.Parse(request.Horario),
-                PeliculaId = request.PeliculaId,
-                SalaId = request.SalaId
+                Horario = TimeSpan.Parse(request.Horario)
             };
             try
             {
                 var result = await _funcionService.crearFuncion(funcion);
-                return new JsonResult(result);
+                return new JsonResult(result) {StatusCode = 201};
+            }
+            catch (InvalidDateFormatException e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
+            }
+            catch (InvalidTimeFormatException e)
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = e.Message,
+                });
             }
             catch (ElementNotFoundException e)
             {
@@ -122,6 +136,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
                     message = e.Message,
                 });
             }
+            
             //var result = await _funcionService.crearFuncion(funcion);
 
             //return new JsonResult(result);

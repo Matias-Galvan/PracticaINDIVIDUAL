@@ -12,12 +12,10 @@ namespace Application.DTO
 {
     public class FuncionDTO
     {
+        public int Pelicula { get; set;}
+        public int Sala { get; set; }
         public DateTime Fecha { get; set; }
-        public string Horario { get; set; }
-        public int SalaId { get; set; }
-
-        public int PeliculaId { get; set; }
+        public string? Horario { get; set; }
 
     }
 }
-

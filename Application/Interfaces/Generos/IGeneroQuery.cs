@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Application.Interfaces.Generos
     {
         Task<List<GeneroDTOResponse>> GetAll();
         Task<GeneroDTOResponse> GetById(int id);
+        Genero GetGenero(int id);
     }
 }

@@ -28,7 +28,7 @@ namespace Infraestructure.Command.Funciones
         public Task<FuncionDTOResponse> CrearFnc(Funcion funcion)
         {
             _context.Funciones.Add(funcion);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return Task.FromResult(new FuncionDTOResponse
             {
                 

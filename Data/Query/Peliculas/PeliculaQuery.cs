@@ -19,7 +19,29 @@ namespace Infraestructure.Query.Peliculas
 
         public Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId)
         {
-            throw new NotImplementedException();
+            var pelicula = _dbContext.Peliculas.Where(x => x.PeliculaId == peliculaId).FirstOrDefault();
+            var genero = _dbContext.Generos.Where(x => x.GeneroId == pelicula.Genero).FirstOrDefault();
+            var funciones = _dbContext.Funciones.Where(x => x.PeliculaId == peliculaId).ToList();
+            return Task.FromResult(new PeliculaDTOResponseDetail
+            {
+                PeliculaId = pelicula.PeliculaId,
+                Titulo = pelicula.Titulo,
+                Poster = pelicula.Poster,
+                Trailer = pelicula.Trailer,
+                Sinopsis = pelicula.Sinopsis,
+                genero = new GeneroDTOResponse
+                {
+                    GeneroId = genero.GeneroId,
+                    Nombre = genero.Nombre
+                },
+                funciones = funciones.Select(x => new FuncionDTOResponseDetail
+                {
+                    FuncionId = x.FuncionId,
+                    Fecha = x.Fecha,
+                    Horario = x.Horario.ToString(),
+                }).ToList()
+            });
+            
         }
 
         public Task<List<PeliculaDTOResponse>> GetPeliculas()

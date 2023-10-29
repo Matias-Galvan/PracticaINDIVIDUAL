@@ -21,6 +21,11 @@ namespace Application.Services
 
         public Task<GeneroDTOResponse> GetById(int id)
         {
+            return _generoQuery.GetById(id);
+        }
+
+        public Genero GetGenero(int id)
+        {
             throw new NotImplementedException();
         }
 
