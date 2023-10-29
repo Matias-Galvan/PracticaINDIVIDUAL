@@ -29,9 +29,10 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public List<Genero> getGeneros()
+        public List<Genero> GetGeneros()
         {
             throw new NotImplementedException();
         }
+
     }
 }

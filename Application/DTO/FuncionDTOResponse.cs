@@ -9,11 +9,10 @@ namespace Application.DTO
     public class FuncionDTOResponse
     {
         public int FuncionId { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Horario { get; set; }
-
         public PeliculaDTOResponse Pelicula { get; set; }
         public SalaDTOResponse Sala { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Horario { get; set; }
     }
     public class PeliculaDTOResponse
     {
@@ -24,13 +23,13 @@ namespace Application.DTO
     }
     public class SalaDTOResponse
     {
-        public int SalaId { get; set; }
+        public int id { get; set; }
         public string Nombre { get; set; }
         public int Capacidad { get; set; }
     }
     public class GeneroDTOResponse
     {
-        public int GeneroId { get; set; }
+        public int id { get; set; }
         public string Nombre { get; set; }
     }
 }

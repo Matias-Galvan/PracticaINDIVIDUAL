@@ -31,7 +31,7 @@ namespace Infraestructure.Query.Peliculas
                 Sinopsis = pelicula.Sinopsis,
                 genero = new GeneroDTOResponse
                 {
-                    GeneroId = genero.GeneroId,
+                    id = genero.GeneroId,
                     Nombre = genero.Nombre
                 },
                 funciones = funciones.Select(x => new FuncionDTOResponseDetail

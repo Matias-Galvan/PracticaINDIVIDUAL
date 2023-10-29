@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.ErrorHandler;
 using Application.Interfaces.Generos;
 using Domain.Entities;
 using Infraestructure.Persistence;
@@ -24,7 +25,7 @@ namespace Infraestructure.Query.Generos
         {
             return _dbContext.Generos.Select(g => new GeneroDTOResponse
             {
-                GeneroId = g.GeneroId,
+                id = g.GeneroId,
                 Nombre = g.Nombre
             }).ToListAsync();
         }
@@ -33,18 +34,20 @@ namespace Infraestructure.Query.Generos
         {
             var genero = _dbContext.Generos.Where(g => g.GeneroId == id).FirstOrDefault();
 
-            return new Task<GeneroDTOResponse>(() =>
+            return Task.FromResult(new GeneroDTOResponse
             {
-                return new GeneroDTOResponse
-                {
-                    GeneroId = genero.GeneroId,
-                    Nombre = genero.Nombre
-                };
+                id = genero.GeneroId,
+                Nombre = genero.Nombre
             });
         }
         public Genero GetGenero(int id)
         {
-            return _dbContext.Generos.Where(g => g.GeneroId == id).FirstOrDefault();
+            var genero = _dbContext.Generos.Where(g => g.GeneroId == id).FirstOrDefault();
+            return genero;
+        }
+        public List<Genero> GetGeneros()
+        {
+            return _dbContext.Generos.ToList();
         }
 
     }

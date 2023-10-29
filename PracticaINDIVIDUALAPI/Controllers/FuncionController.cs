@@ -26,7 +26,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
-        public async Task<IActionResult> GetAll(string? titulo, string? fecha, int? generoId)
+        public async Task<IActionResult> GetAll(string? fecha, string? titulo, int? generoId)
         {
             var filtros = new FuncionFilters
             {
@@ -36,8 +36,8 @@ namespace PracticaINDIVIDUAL.API.Controllers
             };
             try
             {
-                var result = await _funcionService.listarFunciones(filtros);
-                return new JsonResult(result);
+                var result = await _funcionService.ListarFunciones(filtros);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {
@@ -67,7 +67,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.obtenerFuncionPorId(id);
+                var result = await _funcionService.ObtenerFuncionPorId(id);
                 return new JsonResult(result);
             }
             catch (ElementNotFoundException e)
@@ -94,18 +94,29 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
-        public async Task<IActionResult> crearFuncion(FuncionDTO request)
+        public async Task<IActionResult> CrearFuncion(FuncionDTO request)
         {
             var funcion = new Funcion
             {
                 PeliculaId = request.Pelicula,
                 SalaId = request.Sala,
                 Fecha = request.Fecha,
-                Horario = TimeSpan.Parse(request.Horario)
+                
             };
+            if (TimeSpan.TryParse(request.Horario, out var horario))
+            {
+                funcion.Horario = horario;
+            }
+            else
+            {
+                return BadRequest(new ErrorMessageHttp
+                {
+                    message = "El formato de la hora es incorrecto",
+                });
+            }
             try
             {
-                var result = await _funcionService.crearFuncion(funcion);
+                var result = await _funcionService.CrearFuncion(funcion);
                 return new JsonResult(result) {StatusCode = 201};
             }
             catch (InvalidDateFormatException e)
@@ -137,9 +148,6 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 });
             }
             
-            //var result = await _funcionService.crearFuncion(funcion);
-
-            //return new JsonResult(result);
         }
 
 
@@ -150,7 +158,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
-        public async Task<IActionResult> eliminarFuncion(int id)
+        public async Task<IActionResult> EliminarFuncion(int id)
         {
             try
             {
