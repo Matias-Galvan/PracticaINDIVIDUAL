@@ -16,7 +16,7 @@ namespace Application.Services
         public Task<List<GeneroDTOResponse>> GetAll()
         {
             return _generoQuery.GetAll();
-            
+
         }
 
         public Task<GeneroDTOResponse> GetById(int id)

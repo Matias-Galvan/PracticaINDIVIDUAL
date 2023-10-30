@@ -1,12 +1,6 @@
 ﻿using Application.Interfaces.Tickets;
 using Domain.Entities;
 using Infraestructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infraestructure.Query.Tickets
 {
@@ -19,9 +13,19 @@ namespace Infraestructure.Query.Tickets
             _dbContext = dbContext;
         }
 
-        public Task<List<Ticket>> GetAll()
+        public List<Ticket> GetAll()
         {
-            return _dbContext.Tickets.ToListAsync();
+            return _dbContext.Tickets.ToList();
+        }
+
+        public List<Ticket> GetByFuncion(int funcionId)
+        {
+            return _dbContext.Tickets.Where(t => t.FuncionId == funcionId).ToList();
+        }
+
+        public Pelicula GetPelicula(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

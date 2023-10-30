@@ -5,7 +5,7 @@ namespace Application.Interfaces.Peliculas
 {
     public interface IPeliculaCommand
     {
-        void crearPelicula(Pelicula pelicula);
-        Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request);
+        void CrearPelicula(Pelicula pelicula);
+        Task<PeliculaDTOResponseDetail> UpdatePelicula(Pelicula pelicula);
     }
 }

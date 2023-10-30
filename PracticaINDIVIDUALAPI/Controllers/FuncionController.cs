@@ -68,7 +68,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _funcionService.ObtenerFuncionPorId(id);
-                return new JsonResult(result) { StatusCode = 200};
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {
@@ -101,7 +101,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 PeliculaId = request.Pelicula,
                 SalaId = request.Sala,
                 Fecha = request.Fecha,
-                
+
             };
             if (TimeSpan.TryParse(request.Horario, out var horario))
             {
@@ -117,7 +117,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _funcionService.CrearFuncion(funcion);
-                return new JsonResult(result) {StatusCode = 201};
+                return new JsonResult(result) { StatusCode = 201 };
             }
             catch (InvalidDateFormatException e)
             {
@@ -147,7 +147,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
                     message = e.Message,
                 });
             }
-            
+
         }
 
 
@@ -206,7 +206,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _funcionService.ObtenerTicketsFuncionPorId(id);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {
@@ -237,7 +237,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _funcionService.CrearTicketFuncion(id, request);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {

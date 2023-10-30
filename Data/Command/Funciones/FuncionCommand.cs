@@ -31,24 +31,20 @@ namespace Infraestructure.Command.Funciones
             _context.SaveChanges();
             return Task.FromResult(new FuncionDTOResponse
             {
-                
+
             });
-            
+
         }
 
-        public Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId)
         {
-           _context.Funciones.Remove(_context.Funciones.Find(funcionId));
-           _context.SaveChanges();
+            _context.Funciones.Remove(_context.Funciones.Find(funcionId));
+            _context.SaveChanges();
             return Task.FromResult(new FuncionDTOResponseDetail
             {
-                
-              });
+
+            });
         }
     }
 }

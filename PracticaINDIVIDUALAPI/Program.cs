@@ -2,14 +2,17 @@ using Application.Interfaces.Funciones;
 using Application.Interfaces.Generos;
 using Application.Interfaces.Peliculas;
 using Application.Interfaces.Salas;
+using Application.Interfaces.Tickets;
 using Application.Services;
 using Infraestructure.Command.Funciones;
 using Infraestructure.Command.Peliculas;
+using Infraestructure.Command.Tickets;
 using Infraestructure.Persistence;
 using Infraestructure.Query.Funciones;
 using Infraestructure.Query.Generos;
 using Infraestructure.Query.Peliculas;
 using Infraestructure.Query.Salas;
+using Infraestructure.Query.Tickets;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -35,6 +38,8 @@ builder.Services.AddScoped<IGeneroService, GeneroService>();
 builder.Services.AddScoped<IPeliculaService, PeliculaService>();
 builder.Services.AddScoped<ISalaQuery, SalaQuery>();
 builder.Services.AddScoped<ISalaService, SalaService>();
+builder.Services.AddScoped<ITicketCommand, TicketCommand>();
+builder.Services.AddScoped<ITicketQuery, TicketQuery>();
 
 
 

@@ -10,8 +10,8 @@ namespace Application.Interfaces.Peliculas
         Pelicula GetPelicula(int id);
         Task<List<PeliculaDTOResponse>> GetPeliculas();
         Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId);
-        Task<PeliculaDTOResponseDetail> actualizarPelicula(int funcionId, PeliculaDTO request);
-
+        Task<PeliculaDTOResponseDetail> ActualizarPelicula(int funcionId, PeliculaDTO request);
+        Task<PeliculaDTOResponseDetail> UpdatePelicula(Pelicula pelicula);
 
     }
 }

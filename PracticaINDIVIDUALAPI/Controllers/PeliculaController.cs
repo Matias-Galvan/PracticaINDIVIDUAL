@@ -12,11 +12,11 @@ namespace PracticaINDIVIDUAL.API.Controllers
     [ApiController]
     public class PeliculaController : ControllerBase
     {
-        private readonly IPeliculaService _peliculaService;
+        private readonly IPeliculaService _PeliculaService;
 
-        public PeliculaController(IPeliculaService peliculaService)
+        public PeliculaController(IPeliculaService PeliculaService)
         {
-            _peliculaService = peliculaService;
+            _PeliculaService = PeliculaService;
         }
 
         // GET api/<PeliculaController>/5
@@ -28,8 +28,8 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _peliculaService.GetPeliculaById(id);
-                return new JsonResult(result);
+                var result = await _PeliculaService.GetPeliculaById(id);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {
@@ -46,8 +46,6 @@ namespace PracticaINDIVIDUAL.API.Controllers
                     message = e.Message,
                 });
             }
-            //var result = await _peliculaService.GetPeliculaById(id);
-            //return new JsonResult(result);
         }
 
 
@@ -66,11 +64,11 @@ namespace PracticaINDIVIDUAL.API.Controllers
                 Poster = request.Poster,
                 Trailer = request.Trailer,
                 Sinopsis = request.Sinopsis,
-                generoId = request.generoId
+                genero = request.genero
             };
             try
             {
-                var result = await _peliculaService.actualizarPelicula(id, peliculaEditar);
+                var result = await _PeliculaService.ActualizarPelicula(id, peliculaEditar);
                 return new JsonResult(result);
             }
             catch (ElementNotFoundException e)
@@ -95,9 +93,6 @@ namespace PracticaINDIVIDUAL.API.Controllers
                     message = e.Message,
                 });
             }
-
-            //var result = await _peliculaService.actualizarPelicula(id, peliculaEditar);
-            //return new JsonResult(result);
         }
 
     }

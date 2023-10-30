@@ -8,5 +8,6 @@ namespace Application.Interfaces.Peliculas
         List<Pelicula> GetAllPeliculas();
         Task<List<PeliculaDTOResponse>> GetPeliculas();
         Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId);
+        Pelicula GetPelicula(int id);
     }
 }

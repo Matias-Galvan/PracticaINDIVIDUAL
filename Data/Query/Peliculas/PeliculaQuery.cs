@@ -41,12 +41,16 @@ namespace Infraestructure.Query.Peliculas
                     Horario = x.Horario.ToString(),
                 }).ToList()
             });
-            
+
         }
 
         public Task<List<PeliculaDTOResponse>> GetPeliculas()
         {
             throw new NotImplementedException();
+        }
+        public Pelicula GetPelicula(int id)
+        {
+            return _dbContext.Peliculas.Where(x => x.PeliculaId == id).FirstOrDefault();
         }
     }
 }

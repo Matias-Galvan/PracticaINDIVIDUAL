@@ -2,11 +2,6 @@
 using Application.Interfaces.Tickets;
 using Domain.Entities;
 using Infraestructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infraestructure.Command.Tickets
 {
@@ -26,7 +21,7 @@ namespace Infraestructure.Command.Tickets
             {
                 return new TicketDTOResponseTickets
                 {
-                    
+
                 };
             });
         }

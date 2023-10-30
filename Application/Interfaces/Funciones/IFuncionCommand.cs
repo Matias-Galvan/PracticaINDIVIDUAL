@@ -9,6 +9,5 @@ namespace Application.Interfaces.Funciones
         Task<FuncionDTOResponse> CrearFnc(Funcion funcion);
         Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
         Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId);
-        Task<TicketDTOResponseTickets> crearTicketFuncion(int id, TicketDTO request);
     }
 }

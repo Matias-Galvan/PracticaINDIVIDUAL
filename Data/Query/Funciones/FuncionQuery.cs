@@ -68,26 +68,26 @@ namespace Infraestructure.Query.Funciones
             var sala = _dbContext.Salas.Where(x => x.SalaId == funciones.SalaId).FirstOrDefault();
             return Task.FromResult(new FuncionDTOResponse
             {
-               FuncionId = funciones.FuncionId,
-               Pelicula = new PeliculaDTOResponse
-               {
-                   PeliculaId = pelicula.PeliculaId,
-                   Titulo = pelicula.Titulo,
-                   Poster = pelicula.Poster,
-                   Genero = new GeneroDTOResponse
-                   {
-                       id = pelicula.Genero,
-                       Nombre = _dbContext.Generos.Where(x => x.GeneroId == pelicula.Genero).FirstOrDefault().Nombre
-                   }
-               },
-               Sala = new SalaDTOResponse
-               {
-                     id = sala.SalaId,
-                     Nombre = sala.Nombre,
-                     Capacidad = sala.Capacidad
+                FuncionId = funciones.FuncionId,
+                Pelicula = new PeliculaDTOResponse
+                {
+                    PeliculaId = pelicula.PeliculaId,
+                    Titulo = pelicula.Titulo,
+                    Poster = pelicula.Poster,
+                    Genero = new GeneroDTOResponse
+                    {
+                        id = pelicula.Genero,
+                        Nombre = _dbContext.Generos.Where(x => x.GeneroId == pelicula.Genero).FirstOrDefault().Nombre
+                    }
                 },
-               Fecha = new DateTime(funciones.Fecha.Year, funciones.Fecha.Month, funciones.Fecha.Day).Date,
-               Horario = funciones.Horario.ToString()
+                Sala = new SalaDTOResponse
+                {
+                    id = sala.SalaId,
+                    Nombre = sala.Nombre,
+                    Capacidad = sala.Capacidad
+                },
+                Fecha = new DateTime(funciones.Fecha.Year, funciones.Fecha.Month, funciones.Fecha.Day).Date,
+                Horario = funciones.Horario.ToString()
             });
         }
 
