@@ -1,99 +1,122 @@
-﻿
-using Aplication.Interfaces;
-using Aplication.UseCase.Controller;
-using Aplication.UseCase.Services;
-using Data;
-using Domain.Entities;
-using System.Diagnostics;
-
-using (CineDBContext context = new CineDBContext())
+﻿using Application.Services;
+using Infraestructure.Command.Funciones;
+using Infraestructure.Persistence;
+using Infraestructure.Query.Funciones;
+using Infraestructure.Query.Peliculas;
+using Infraestructure.Query.Salas;
+using PracticaINDIVIDUAL.Controller;
 {
-    var _context = context;
-    var serviceFuncion = new FuncionService(context);
-    Menu menu = new Menu();
-    userConsole userConsole = new userConsole();
-    int opcion = 0;
-    int opcionBusqueda = 0;
-    int opcionBusquedaFuncion = 0;
-    int opcionCargaFuncion = 0;
-    bool continuarMenuPrincipal = true;
-    bool continuarMenuFuncion = true;
-    bool continuarMenuCarga = true;
-    bool volverAlMenuPrincipal;
 
 
-    while (continuarMenuPrincipal)
+    bool ContinuarMenuPrincipal = true;
+    bool ContinuarMenuFuncion;
+    bool ContinuarMenuCarga;
+    using var db = new CineDBContext();
+    var FuncionCommandInicial = new FuncionCommand(db);
+    var FuncionQueryInicial = new FuncionQuery(db);
+    var PeliculaQueryInicial = new PeliculaQuery(db);
+    var SalaQueryInicial = new SalaQuery(db);
+    var FuncionServiceInicial = new FuncionService(FuncionCommandInicial, FuncionQueryInicial);
+    var PeliculaServiceInicial = new PeliculaService(PeliculaQueryInicial);
+    var SalaServiceInicial = new SalaService(SalaQueryInicial);
+    FuncionController UserConsole = new(FuncionServiceInicial, PeliculaServiceInicial, SalaServiceInicial);
+    while (ContinuarMenuPrincipal)
     {
         try
         {
-            menu.menuPrincipal();
-            if (Int32.TryParse(Console.ReadLine(), out opcionBusqueda))
+            Menu.MenuPrincipal();
+            if (int.TryParse(Console.ReadLine(), out int OpcionBusqueda))
             {
-                switch(opcionBusqueda) 
-                {                  
-                        case 1:
+                switch (OpcionBusqueda)
+                {
+                    case 1:
                         //Busqueda de funciones
-                        continuarMenuFuncion = true;
-                        while (continuarMenuFuncion)
+                        ContinuarMenuFuncion = true;
+                        while (ContinuarMenuFuncion)
                         {
-                            menu.menuBusquedaFuncion();
-                            if (Int32.TryParse(Console.ReadLine(), out opcionBusquedaFuncion))
+                            Menu.MenuBusquedaFuncion();
+                            if (int.TryParse(Console.ReadLine(), out int OpcionBusquedaFuncion))
                             {
-                                switch (opcionBusquedaFuncion)
+                                switch (OpcionBusquedaFuncion)
                                 {
                                     case 1:
                                         //Busqueda funcion por dia
-                                        userConsole.buscarFuncionPelicula(_context);
+                                        UserConsole.BuscarFuncionPelicula();
                                         break;
                                     case 2:
                                         //Busqueda funcion por pelicula
-                                        userConsole.buscarFuncionDia(_context);
+                                        UserConsole.BuscarFuncionDia();
                                         break;
                                     case 3:
                                         //Busqueda funcion por peli y dia
-                                        userConsole.buscarFuncionDiaPelicula(context);
+                                        UserConsole.BuscarFuncionPeliculaDia();
                                         break;
                                     case 4:
                                         //Salir
-                                        continuarMenuFuncion = false;
+                                        ContinuarMenuFuncion = false;
                                         break;
-                                    default: throw new Exception();
+                                    default:
+                                        Console.WriteLine("Opción inválida");
+                                        break;
                                 }
                             }
-                             
+                            else
+                            {
+                                ContinuarMenuFuncion = false;
+                                Console.WriteLine("Ingresó una opción incorrecta, presione una tecla para volver al menú principal.");
+                                Console.ReadKey();
+                            }
+
                         }
                         break;
-                        case 2:
+                    case 2:
                         //Carga de pelis
-                        continuarMenuCarga = true;
-                        while (continuarMenuCarga)
+                        ContinuarMenuCarga = true;
+                        while (ContinuarMenuCarga)
                         {
-                            menu.menuCargaFuncion();
-                            if (Int32.TryParse(Console.ReadLine(), out opcionCargaFuncion))
+                            Menu.MenuCargaFuncion();
+                            if (int.TryParse(Console.ReadLine(), out int OpcionCargaFuncion))
                             {
-                                switch (opcionCargaFuncion)
+                                switch (OpcionCargaFuncion)
                                 {
                                     case 1:
-                                        userConsole.crearModelo(context);
+                                        UserConsole.CrearFuncion();
                                         Console.WriteLine("Presione una tecla para continuar...");
                                         Console.ReadKey();
                                         break;
                                     case 2:
-                                        continuarMenuCarga=false;
+                                        ContinuarMenuCarga = false;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Opción inválida");
                                         break;
                                 }
+                            }
+                            else
+                            {
+                                ContinuarMenuFuncion = false;
+                                Console.WriteLine("Ingresó una opción incorrecta, vuelva a intentarlo.");
+                                Console.ReadKey();
                             }
 
                         }
                         break;
-                        case 3:
+                    case 3:
                         //Salir
-                        continuarMenuPrincipal = false;
+                        ContinuarMenuPrincipal = false;
+                        Console.WriteLine("Saliendo...");
                         break;
-                        default:
+                    default:
                         Console.WriteLine("Opción inválida");
                         break;
                 }
+            }
+            else
+            {
+                ContinuarMenuFuncion = false;
+                Console.WriteLine("Ingresó una opción incorrecta, intente nuevamente.");
+                Console.WriteLine("Presione una tecla para continuar");
+                Console.ReadKey();
             }
         }
         catch (Exception ex)
