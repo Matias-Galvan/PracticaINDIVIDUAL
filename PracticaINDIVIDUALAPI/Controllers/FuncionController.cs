@@ -13,11 +13,11 @@ namespace PracticaINDIVIDUAL.API.Controllers
     [ApiController]
     public class FuncionController : ControllerBase
     {
-        private readonly IFuncionService _funcionService;
+        private readonly IFuncionService _FuncionService;
 
-        public FuncionController(IFuncionService funcionService)
+        public FuncionController(IFuncionService FuncionService)
         {
-            _funcionService = funcionService;
+            _FuncionService = FuncionService;
         }
 
         //GET: api/<ValuesController> query parameters optionally
@@ -26,17 +26,17 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
-        public async Task<IActionResult> GetAll(string? fecha, string? titulo, int? generoId)
+        public async Task<IActionResult> GetAll(string? fecha, string? titulo, int? GeneroId)
         {
             var filtros = new FuncionFilters
             {
                 Titulo = titulo,
                 Fecha = fecha,
-                Genero = generoId
+                Genero = GeneroId
             };
             try
             {
-                var result = await _funcionService.ListarFunciones(filtros);
+                var result = await _FuncionService.ListarFunciones(filtros);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
@@ -67,7 +67,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.ObtenerFuncionPorId(id);
+                var result = await _FuncionService.ObtenerFuncionPorId(id);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
@@ -116,7 +116,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             }
             try
             {
-                var result = await _funcionService.CrearFuncion(funcion);
+                var result = await _FuncionService.CrearFuncion(funcion);
                 return new JsonResult(result) { StatusCode = 201 };
             }
             catch (InvalidDateFormatException e)
@@ -162,7 +162,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.EliminarFuncion(id);
+                var result = await _FuncionService.EliminarFuncion(id);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
@@ -205,7 +205,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.ObtenerTicketsFuncionPorId(id);
+                var result = await _FuncionService.ObtenerTicketsFuncionPorId(id);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
@@ -236,7 +236,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         {
             try
             {
-                var result = await _funcionService.CrearTicketFuncion(id, request);
+                var result = await _FuncionService.CrearTicketFuncion(id, request);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
