@@ -58,7 +58,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 409)]
         public async Task<IActionResult> UpdatePelicula(int id, PeliculaDTO request)
         {
-            var peliculaEditar = new PeliculaDTO
+            var PeliculaEditar = new PeliculaDTO
             {
                 Titulo = request.Titulo,
                 Poster = request.Poster,
@@ -68,7 +68,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             };
             try
             {
-                var result = await _PeliculaService.ActualizarPelicula(id, peliculaEditar);
+                var result = await _PeliculaService.ActualizarPelicula(id, PeliculaEditar);
                 return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
