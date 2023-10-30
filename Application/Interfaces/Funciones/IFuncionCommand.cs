@@ -7,7 +7,7 @@ namespace Application.Interfaces.Funciones
     {
         void CrearFuncion(Funcion funcion);
         Task<FuncionDTOResponse> CrearFnc(Funcion funcion);
-        Task<FuncionDTOResponse> actualizarFuncion(int funcionId);
+        Task<FuncionDTOResponse> ActualizarFuncion(int funcionId);
         Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId);
     }
 }

@@ -91,7 +91,7 @@ namespace Infraestructure.Query.Funciones
             });
         }
 
-        public Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id)
+        public Task<TicketsDTOResponse> ObtenerTicketsFuncionPorId(int id)
         {
             throw new NotImplementedException();
         }

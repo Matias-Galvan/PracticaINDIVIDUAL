@@ -10,17 +10,17 @@ namespace Application.Services
         private readonly IPeliculaQuery _PeliculaQuery;
         private readonly IPeliculaCommand _PeliculaCommand;
 
-        public PeliculaService(IPeliculaQuery peliculaQuery, IPeliculaCommand peliculaCommand)
+        public PeliculaService(IPeliculaQuery PeliculaQuery, IPeliculaCommand PeliculaCommand)
         {
-            _PeliculaQuery = peliculaQuery;
-            _PeliculaCommand = peliculaCommand;
+            _PeliculaQuery = PeliculaQuery;
+            _PeliculaCommand = PeliculaCommand;
         }
 
-        public Task<PeliculaDTOResponseDetail> ActualizarPelicula(int funcionId, PeliculaDTO request)
+        public Task<PeliculaDTOResponseDetail> ActualizarPelicula(int FuncionId, PeliculaDTO request)
         {
             var peliculas = _PeliculaQuery.GetAllPeliculas();
-            var pelicula = _PeliculaQuery.GetPelicula(funcionId) ?? throw new ElementNotFoundException("Película no encontrada");
-            if (peliculas.Any(x => x.Titulo == request.Titulo && x.PeliculaId != funcionId))
+            var pelicula = _PeliculaQuery.GetPelicula(FuncionId) ?? throw new ElementNotFoundException("Película no encontrada");
+            if (peliculas.Any(x => x.Titulo == request.Titulo && x.PeliculaId != FuncionId))
             {
                 throw new ElementAlreadyExistException("Ya existe una película con ese título");
             }
@@ -30,7 +30,7 @@ namespace Application.Services
             pelicula.Sinopsis = request.Sinopsis;
             pelicula.Genero = request.genero;
             var response = _PeliculaCommand.UpdatePelicula(pelicula);
-            var funciones = _PeliculaQuery.GetPeliculaById(funcionId).Result.funciones;
+            var funciones = _PeliculaQuery.GetPeliculaById(FuncionId).Result.funciones;
 
             return Task.FromResult(new PeliculaDTOResponseDetail
             {

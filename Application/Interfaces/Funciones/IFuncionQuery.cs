@@ -13,6 +13,6 @@ namespace Application.Interfaces.Funciones
         Task<List<FuncionDTOResponse>> ListarFunciones(FuncionFilters filters);
         Task<FuncionDTOResponse> ObtenerFuncionPorId(int funcionId);
         //Task<List<Funcion>> GetFuncionPeliculaYDia(int peliculaNombre, DateTime fecha);
-        Task<TicketsDTOResponse> obtenerTicketsFuncionPorId(int id);
+        Task<TicketsDTOResponse> ObtenerTicketsFuncionPorId(int id);
     }
 }

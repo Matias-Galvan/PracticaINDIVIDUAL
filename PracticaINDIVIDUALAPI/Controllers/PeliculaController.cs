@@ -69,7 +69,7 @@ namespace PracticaINDIVIDUAL.API.Controllers
             try
             {
                 var result = await _PeliculaService.ActualizarPelicula(id, peliculaEditar);
-                return new JsonResult(result);
+                return new JsonResult(result) { StatusCode = 200 };
             }
             catch (ElementNotFoundException e)
             {

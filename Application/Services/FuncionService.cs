@@ -20,15 +20,15 @@ namespace Application.Services
         private readonly ITicketQuery _TicketQuery;
         private readonly ITicketCommand _TicketCommand;
 
-        public FuncionService(IFuncionCommand funcionCommand, IFuncionQuery funcionQuery, IPeliculaQuery peliculaQuery, ISalaQuery salaQuery, IGeneroQuery generoQuery, ITicketQuery ticketQuery, ITicketCommand ticketCommand)
+        public FuncionService(IFuncionCommand FuncionCommand, IFuncionQuery FuncionQuery, IPeliculaQuery PeliculaQuery, ISalaQuery SalaQuery, IGeneroQuery GeneroQuery, ITicketQuery TicketQuery, ITicketCommand TicketCommand)
         {
-            _FuncionCommand = funcionCommand;
-            _FuncionQuery = funcionQuery;
-            _PeliculaQuery = peliculaQuery;
-            _SalaQuery = salaQuery;
-            _GeneroQuery = generoQuery;
-            _TicketQuery = ticketQuery;
-            _TicketCommand = ticketCommand;
+            _FuncionCommand = FuncionCommand;
+            _FuncionQuery = FuncionQuery;
+            _PeliculaQuery = PeliculaQuery;
+            _SalaQuery = SalaQuery;
+            _GeneroQuery = GeneroQuery;
+            _TicketQuery = TicketQuery;
+            _TicketCommand = TicketCommand;
         }
 
         public Task<FuncionDTOResponse> ActualizarFuncion(int funcionId)
@@ -272,11 +272,11 @@ namespace Application.Services
             var funcion = _FuncionQuery.ObtenerFuncionPorId(id) ?? throw new ElementNotFoundException("Función no encontrada");
             var sala = _SalaQuery.GetSala(funcion.Result.Sala.id) ?? throw new ElementNotFoundException("Sala no encontrada");
             var tickets = _TicketQuery.GetByFuncion(id);
-            var ticketsVendidos = tickets.Count;
-            var ticketsDisponibles = sala.Capacidad - ticketsVendidos;
+            var TicketsVendidos = tickets.Count;
+            var TicketsDisponibles = sala.Capacidad - TicketsVendidos;
             return Task.FromResult(new TicketsDTOResponse
             {
-                Cantidad = ticketsDisponibles,
+                Cantidad = TicketsDisponibles,
             });
         }
     }

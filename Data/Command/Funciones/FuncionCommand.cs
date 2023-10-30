@@ -13,7 +13,7 @@ namespace Infraestructure.Command.Funciones
             _context = context;
         }
 
-        public Task<FuncionDTOResponse> actualizarFuncion(int funcionId)
+        public Task<FuncionDTOResponse> ActualizarFuncion(int FuncionId)
         {
             throw new NotImplementedException();
         }
@@ -37,9 +37,9 @@ namespace Infraestructure.Command.Funciones
         }
 
 
-        public Task<FuncionDTOResponseDetail> EliminarFuncion(int funcionId)
+        public Task<FuncionDTOResponseDetail> EliminarFuncion(int FuncionId)
         {
-            _context.Funciones.Remove(_context.Funciones.Find(funcionId));
+            _context.Funciones.Remove(_context.Funciones.Find(FuncionId));
             _context.SaveChanges();
             return Task.FromResult(new FuncionDTOResponseDetail
             {
