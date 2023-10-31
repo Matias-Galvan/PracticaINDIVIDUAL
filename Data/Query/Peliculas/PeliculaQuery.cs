@@ -1,4 +1,5 @@
 ﻿using Application.DTO;
+using Application.ErrorHandler;
 using Application.Interfaces.Peliculas;
 using Domain.Entities;
 using Infraestructure.Persistence;
@@ -19,7 +20,7 @@ namespace Infraestructure.Query.Peliculas
 
         public Task<PeliculaDTOResponseDetail> GetPeliculaById(int peliculaId)
         {
-            var pelicula = _dbContext.Peliculas.Where(x => x.PeliculaId == peliculaId).FirstOrDefault();
+            var pelicula = _dbContext.Peliculas.Where(x => x.PeliculaId == peliculaId).FirstOrDefault() ?? throw new ElementNotFoundException("Película no encontrada");
             var genero = _dbContext.Generos.Where(x => x.GeneroId == pelicula.Genero).FirstOrDefault();
             var funciones = _dbContext.Funciones.Where(x => x.PeliculaId == peliculaId).ToList();
             return Task.FromResult(new PeliculaDTOResponseDetail
