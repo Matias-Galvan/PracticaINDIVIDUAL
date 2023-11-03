@@ -226,7 +226,7 @@ namespace Application.Services
                 {
                     throw new ElementNotFoundException("No hay funciones para el título ingresado");
                 }
-                funciones = funciones.Where(x => x.Peliculas.Titulo == filters.Titulo).ToList();
+                funciones = funciones.Where(x => x.Peliculas.Titulo.Contains(filters.Titulo)).ToList();
             }
             if (!string.IsNullOrEmpty(filters.Fecha))
             {
