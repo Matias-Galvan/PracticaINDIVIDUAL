@@ -26,13 +26,13 @@ namespace PracticaINDIVIDUAL.API.Controllers
         [ProducesResponseType(typeof(ErrorMessageHttp), 400)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 500)]
         [ProducesResponseType(typeof(ErrorMessageHttp), 404)]
-        public async Task<IActionResult> GetAll(string? fecha, string? titulo, int? GeneroId)
+        public async Task<IActionResult> GetAll(string? fecha, string? titulo, int? genero)
         {
             var filtros = new FuncionFilters
             {
                 Titulo = titulo,
                 Fecha = fecha,
-                Genero = GeneroId
+                Genero = genero
             };
             try
             {
