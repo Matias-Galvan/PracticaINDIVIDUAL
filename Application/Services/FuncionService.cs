@@ -168,7 +168,7 @@ namespace Application.Services
             var funciones = _FuncionQuery.GetAllFunciones() ?? throw new ElementNotFoundException("No hay funciones disponibles en cartelera");
             var funcion = funciones.FirstOrDefault(f => f.FuncionId == funcionId) ?? throw new ElementNotFoundException("Función no encontrada");
             List<Ticket> tickets = _TicketQuery.GetByFuncion(funcionId);
-            if (tickets != null)
+            if (tickets.Count !=0)
             {
                 throw new ElementAlreadyExistException("No se puede eliminar la función porque hay tickets vendidos");
             }
@@ -226,7 +226,7 @@ namespace Application.Services
                 {
                     throw new ElementNotFoundException("No hay funciones para el título ingresado");
                 }
-                funciones = funciones.Where(x => x.Peliculas.Titulo == filters.Titulo).ToList();
+                funciones = funciones.Where(x => x.Peliculas.Titulo.Contains(filters.Titulo)).ToList();
             }
             if (!string.IsNullOrEmpty(filters.Fecha))
             {
